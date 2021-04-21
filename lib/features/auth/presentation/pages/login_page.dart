@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:flutter_application_1/core/widgets/brand.dart';
+import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../main.dart';
 
 class LoginPageParent extends StatelessWidget {
   @override
@@ -53,25 +57,10 @@ class LoginPage extends StatelessWidget {
                 }, failure: (message) {
                   content = buildFailureUI(message);
                 });
-
                 return content;
               },
             ),
           ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 140),
-              color: GlobalTheme.kColorLime,
-              height: 100,
-              child: Center(child: Icon(Icons.train_rounded)),
-            ),
-          ),
-          Text(
-            "Comeco",
-            style: TextStyle(fontSize: 29, color: GlobalTheme.kColorLime),
-          ),
-          Text("- Dilevery -",
-              style: TextStyle(fontSize: 14, color: GlobalTheme.kColorLime)),
           SizedBox(
             height: 50,
           ),
@@ -138,22 +127,16 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget buildInitialUI() {
-    return Text("Waiting for user reg");
-  }
-
-  Widget buildLoadingUI() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
+    return brandWidget();
   }
 
   Widget buildFailureUI(String message) {
-    return Text(message, style: TextStyle(color: Colors.red));
+    return Text("Identifiant ou mot de passe est incorrecte", style: TextStyle(color: Colors.red));
   }
 
   Widget navigateToExplorerPage(BuildContext context, User user) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return ExplorerPage(user: user);
+      return AppBottomNavBar(user: user);
     }));
   }
 }

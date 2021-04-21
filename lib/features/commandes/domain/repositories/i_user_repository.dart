@@ -8,11 +8,10 @@ class UserRepository {
   }
 
   Future<User> signInUser(String email, String password) async {
-    print("=====> test");
-      var result = await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return result.user;
-    
+    var result = await firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+
+    return result.user;
   }
 
   Future<void> signOut() async {

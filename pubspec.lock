@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "14.0.0"
+  align_positioned:
+    dependency: "direct main"
+    description:
+      name: align_positioned
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   analyzer:
     dependency: transitive
     description:
@@ -99,6 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.0.4"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   characters:
     dependency: transitive
     description:
@@ -394,6 +408,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.10"
+  matrix4_transform:
+    dependency: transitive
+    description:
+      name: matrix4_transform
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   meta:
     dependency: "direct main"
     description:
@@ -471,6 +492,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.8"
+  sailor:
+    dependency: "direct main"
+    description:
+      name: sailor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.1"
   shelf:
     dependency: transitive
     description:

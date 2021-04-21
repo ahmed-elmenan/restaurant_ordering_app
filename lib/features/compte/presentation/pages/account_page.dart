@@ -7,13 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AccountPageParent extends StatelessWidget {
   User user;
 
-  AccountPageParent({@required this.user});
+  AccountPageParent({this.user});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AccountBloc(),
-      child: AccountPage(),
+      child: AccountPage(user: user),
     );
   }
 }
@@ -41,7 +41,7 @@ class AccountPage extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                child: Text(user.email),
+                child: Text("user.email"),
               ),
               BlocListener<AccountBloc, AccountState>(
                 listener: (context, state) {
