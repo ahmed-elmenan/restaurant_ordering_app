@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/router.dart';
 import 'features/auth/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'features/explorer/presentation/pages/form.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +49,7 @@ class Init extends StatelessWidget {
             print("Loading...");
             content = AppBottomNavBar(user: user);
           }, unauthenticatedState: () {
-            content = LoginPageParent();
+            content = OrderForm();
           });
           return content;
         },

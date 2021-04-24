@@ -19,7 +19,6 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("hhhhhh");
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return AccountPageParent();
         }));

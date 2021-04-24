@@ -107,8 +107,8 @@ class LoginPage extends StatelessWidget {
               child: ElevatedButton(
                 child: Text("Connexion"),
                 onPressed: () async {
-                  loginBloc.add(LoginButtonPressEvent.started(
-                      email: emailController.text,
+                      loginBloc.add(LoginButtonPressEvent.started(
+                      email: emailController.text + "@coemco.com",
                       password: passwordController.text));
                 },
                 style: ElevatedButton.styleFrom(
@@ -131,7 +131,8 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget buildFailureUI(String message) {
-    return Text("Identifiant ou mot de passe est incorrecte", style: TextStyle(color: Colors.red));
+    return Text("Identifiant ou mot de passe est incorrecte",
+        style: TextStyle(color: Colors.red));
   }
 
   Widget navigateToExplorerPage(BuildContext context, User user) {
