@@ -31,27 +31,31 @@ class _OrdersPageState extends State<OrdersPage> {
       create: (context) =>
           _orderBloc..add(OrdersEvent.loadOrders(widget.user.uid)),
       child: Container(
-        color: Colors.greenAccent,
+        padding: EdgeInsets.symmetric(horizontal: 15),
         child: Center(
-            child: Column(
-          children: [
-            Text("Vos dernières commandes"),
-            BlocBuilder<OrdersBloc, OrdersState>(
-              builder: (context, state) {
-                Widget content;
-                state.when(initial: () {
-                  content = Container();
-                }, loadOrdersLoading: () {
-                  content = buildLoadingUI();
-                }, loadOrdersSuccess: (ordersList) {
-                  content = OrdersList(ordersList: ordersList);
-                }, loadOrdersFailed: (message) {
-                  content = FailureWidget(message: message);
-                });
-                return content;
-              },
-            )
-          ],
+            child: Padding(
+          padding: const EdgeInsets.only(top: 60.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("Vos dernières commandes"),
+              BlocBuilder<OrdersBloc, OrdersState>(
+                builder: (context, state) {
+                  Widget content;
+                  state.when(initial: () {
+                    content = Container();
+                  }, loadOrdersLoading: () {
+                    content = buildLoadingUI();
+                  }, loadOrdersSuccess: (ordersList) {
+                    content = OrdersList(ordersList: ordersList);
+                  }, loadOrdersFailed: (message) {
+                    content = FailureWidget(message: message);
+                  });
+                  return content;
+                },
+              )
+            ],
+          ),
         )),
       ),
     );
@@ -69,7 +73,17 @@ class OrdersList extends StatelessWidget {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         itemBuilder: (context, index) {
-          return OrderCard(order: ordersList[index]);
+          return Column(
+            children: [
+              Divider(
+                color: Colors.grey,
+              ),
+              OrderCard(order: ordersList[index]),
+              index + 1 == ordersList.length
+                  ? Divider(color: Colors.grey)
+                  : Container(),
+            ],
+          );
         });
   }
 }
