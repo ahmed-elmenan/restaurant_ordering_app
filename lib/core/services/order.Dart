@@ -22,11 +22,12 @@ class OrderServices {
     await _fireStore
         .collection(collection)
         .where("userId", isEqualTo: id)
+        .orderBy('createdAt', descending: true)
         .get()
         .then((doc) {
       doc.docs.forEach((DocumentSnapshot doc) {
         if (OrderModel.fromSnapshot(doc) != null)
-        this.ordersList.add(OrderModel.fromSnapshot(doc));
+          this.ordersList.add(OrderModel.fromSnapshot(doc));
       });
     });
   }
