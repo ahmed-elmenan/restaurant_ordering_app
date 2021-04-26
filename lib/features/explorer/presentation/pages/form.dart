@@ -21,7 +21,6 @@ class _OrderFormState extends State<OrderForm> {
     return Scaffold(
       body: Container(
         height: size.height,
-        color: Colors.black,
         child: Stack(
           children: [
             Container(
@@ -71,11 +70,11 @@ class _OrderFormState extends State<OrderForm> {
               ),
             ),
             Positioned(
-              bottom: 2,
+              bottom: 1,
               child: Container(
-                padding: EdgeInsets.only(top: 25),
+                padding: EdgeInsets.only(top: 13),
                 width: size.width,
-                height: size.height - 260,
+                height: size.height - 330,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(

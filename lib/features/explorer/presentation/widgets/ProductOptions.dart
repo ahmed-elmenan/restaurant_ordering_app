@@ -28,7 +28,7 @@ class ProductOptionsState extends State<ProductOptions> {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text(widget.title),
-            Text(widget.title == "EXTRA" ? "*requis" : "",
+            Text(widget.title != "EXTRA" ? "*requis" : "",
                 style: TextStyle(color: GlobalTheme.kColorLime)),
           ]),
           SizedBox(height: 10),
