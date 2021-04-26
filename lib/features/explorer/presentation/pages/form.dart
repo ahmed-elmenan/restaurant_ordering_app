@@ -44,7 +44,10 @@ class _OrderFormState extends State<OrderForm> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.arrow_back, color: Colors.white, size: 35),
+                  GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(Icons.arrow_back,
+                          color: Colors.white, size: 35)),
                   GestureDetector(
                     onTap: () {
                       setState(() {

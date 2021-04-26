@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/features/commandes/presentation/pages/commandes_page.dart';
+import 'package:flutter_application_1/features/orders/presentation/pages/orders_page.dart';
 import 'package:flutter_application_1/features/compte/presentation/pages/account_page.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_application_1/features/panier/presentation/pages/panier_page.dart';

@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/product_big_card.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/product_small_card.dart';
 
@@ -15,40 +15,40 @@ class ExplorerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     int productIndex = -2;
-    List<Product> headerProductList = [
-      Product(
+    List<ProductStatic> headerProductList = [
+      ProductStatic(
           name: "test",
           description: "test 1 2 test 3",
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg")
     ];
-    List<Product> promosProductList = [
-      Product(
+    List<ProductStatic> promosProductList = [
+      ProductStatic(
           name: "tacos",
           description: "test 1 2 test 3",
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg"),
-      Product(
+      ProductStatic(
           name: "chawarma",
           description: "test 1 2 test 3",
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg"),
-      Product(
+      ProductStatic(
           name: "panini",
           description: "test 1 2 test 3",
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg"),
-      Product(
+      ProductStatic(
           name: "ciabatas",
           description: "test 1 2 test 3",
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg"),
-      Product(
+      ProductStatic(
           name: "pizza",
           description: "test 1 2 test 3",
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg"),
-      Product(
+      ProductStatic(
           name: "lazania",
           description: "test 1 2 test 3",
           price: "30 dhs",

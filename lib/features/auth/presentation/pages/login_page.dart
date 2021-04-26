@@ -4,7 +4,6 @@ import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/brand.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
-import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../main.dart';
@@ -21,6 +20,7 @@ class LoginPage extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
 
   LoginBloc loginBloc;
+
   @override
   Widget build(BuildContext context) {
     loginBloc = BlocProvider.of<LoginBloc>(context);
@@ -30,13 +30,14 @@ class LoginPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // SizedBox(height: size.height / 4),
           BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
               Widget content;
               state.when(initial: () {
                 print("login button init");
               }, success: (user) {
+                print("pz");
+                
                 navigateToExplorerPage(context, user);
               }, loading: () {
                 print("login button loading");
@@ -107,7 +108,7 @@ class LoginPage extends StatelessWidget {
               child: ElevatedButton(
                 child: Text("Connexion"),
                 onPressed: () async {
-                      loginBloc.add(LoginButtonPressEvent.started(
+                  loginBloc.add(LoginButtonPressEvent.started(
                       email: emailController.text + "@coemco.com",
                       password: passwordController.text));
                 },

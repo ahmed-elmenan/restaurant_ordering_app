@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/widgets/rating_icons.dart';
 import 'package:flutter_application_1/features/compte/presentation/pages/account_page.dart';
+import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 
 class ProductSmallCard extends StatefulWidget {
-  Product promosProduct;
+  ProductStatic promosProduct;
 
   ProductSmallCard({@required this.promosProduct});
   @override
@@ -19,9 +20,7 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return AccountPageParent();
-        }));
+        
       },
       child: Container(
           width: (MediaQuery.of(context).size.width - 230),

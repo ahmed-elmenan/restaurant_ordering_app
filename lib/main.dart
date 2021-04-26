@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/brand.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
-import 'package:flutter_application_1/features/commandes/presentation/pages/commandes_page.dart';
+import 'package:flutter_application_1/features/orders/presentation/pages/orders_page.dart';
 import 'package:flutter_application_1/features/compte/presentation/pages/account_page.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_application_1/features/panier/presentation/pages/panier_page.dart';
@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/router.dart';
 import 'features/auth/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'features/explorer/presentation/pages/form.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +48,8 @@ class Init extends StatelessWidget {
             print("Loading...");
             content = AppBottomNavBar(user: user);
           }, unauthenticatedState: () {
-            content = OrderForm();
+            content = LoginPageParent();
+            // content = OrderForm();
           });
           return content;
         },
@@ -83,7 +83,7 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
     User firebaseAuthUser = widget.user;
     final List<Widget> _children = [
       ExplorerPage(user: firebaseAuthUser),
-      OrdersPage(),
+      OrdersPage(user: firebaseAuthUser),
       PanierPage(),
       AccountPageParent(user: firebaseAuthUser)
     ];
