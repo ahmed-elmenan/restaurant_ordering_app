@@ -4,6 +4,7 @@ import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/brand.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
+import 'package:flutter_application_1/features/auth/presentation/pages/forgotten_password_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../main.dart';
@@ -16,7 +17,7 @@ class LoginPageParent extends StatelessWidget {
 }
 
 class LoginPage extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   LoginBloc loginBloc;
@@ -35,9 +36,7 @@ class LoginPage extends StatelessWidget {
               Widget content;
               state.when(initial: () {
                 print("login button init");
-              }, success: (user) {
-                print("pz");
-                
+              }, success: (user, userModel) {
                 navigateToExplorerPage(context, user);
               }, loading: () {
                 print("login button loading");
@@ -53,7 +52,7 @@ class LoginPage extends StatelessWidget {
                   content = buildInitialUI();
                 }, loading: () {
                   content = buildLoadingUI();
-                }, success: (user) {
+                }, success: (user, userModel) {
                   content = Container();
                 }, failure: (message) {
                   content = buildFailureUI(message);
@@ -69,7 +68,7 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Form(
               child: TextField(
-                controller: emailController,
+                controller: usernameController,
                 decoration: InputDecoration(
                     hintText: "Identifiant de partenariat",
                     filled: true,
@@ -109,7 +108,7 @@ class LoginPage extends StatelessWidget {
                 child: Text("Connexion"),
                 onPressed: () async {
                   loginBloc.add(LoginButtonPressEvent.started(
-                      email: emailController.text + "@coemco.com",
+                      username: usernameController.text,
                       password: passwordController.text));
                 },
                 style: ElevatedButton.styleFrom(
@@ -121,6 +120,11 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ForgottenPasswordPage())),
+            child: Text("mot de pass oublié"),
           )
         ],
       ),
@@ -132,8 +136,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget buildFailureUI(String message) {
-    return Text("Identifiant ou mot de passe est incorrecte",
-        style: TextStyle(color: Colors.red));
+    return Text(message, style: TextStyle(color: Colors.red));
   }
 
   Widget navigateToExplorerPage(BuildContext context, User user) {

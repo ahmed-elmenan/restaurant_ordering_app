@@ -44,11 +44,13 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     if (event is _LoadOrders) {
       try {
         yield _LoadOrdersLoading();
-        List<OrderModel> ordersList =
-            await orderRepository.getUserOrders(event.userId);
+        List<OrderModel> ordersList;
 
+        ordersList = await orderRepository.getUserOrders(event.userId);
+        print("HOOOW");
         yield _LoadOrdersSuccess(ordersList);
       } catch (e) {
+        print(e);
         yield _LoadOrdersFailed(e.toString());
       }
     }

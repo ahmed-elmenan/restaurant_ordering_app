@@ -14,9 +14,9 @@ class _$LoginButtonPressEventTearOff {
   const _$LoginButtonPressEventTearOff();
 
 // ignore: unused_element
-  _Started started({String email, String password}) {
+  _Started started({String username, String password}) {
     return _Started(
-      email: email,
+      username: username,
       password: password,
     );
   }
@@ -28,16 +28,16 @@ const $LoginButtonPressEvent = _$LoginButtonPressEventTearOff();
 
 /// @nodoc
 mixin _$LoginButtonPressEvent {
-  String get email;
+  String get username;
   String get password;
 
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult started(String email, String password),
+    @required TResult started(String username, String password),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult started(String email, String password),
+    TResult started(String username, String password),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -59,7 +59,7 @@ abstract class $LoginButtonPressEventCopyWith<$Res> {
   factory $LoginButtonPressEventCopyWith(LoginButtonPressEvent value,
           $Res Function(LoginButtonPressEvent) then) =
       _$LoginButtonPressEventCopyWithImpl<$Res>;
-  $Res call({String email, String password});
+  $Res call({String username, String password});
 }
 
 /// @nodoc
@@ -73,11 +73,11 @@ class _$LoginButtonPressEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object email = freezed,
+    Object username = freezed,
     Object password = freezed,
   }) {
     return _then(_value.copyWith(
-      email: email == freezed ? _value.email : email as String,
+      username: username == freezed ? _value.username : username as String,
       password: password == freezed ? _value.password : password as String,
     ));
   }
@@ -89,7 +89,7 @@ abstract class _$StartedCopyWith<$Res>
   factory _$StartedCopyWith(_Started value, $Res Function(_Started) then) =
       __$StartedCopyWithImpl<$Res>;
   @override
-  $Res call({String email, String password});
+  $Res call({String username, String password});
 }
 
 /// @nodoc
@@ -104,11 +104,11 @@ class __$StartedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object email = freezed,
+    Object username = freezed,
     Object password = freezed,
   }) {
     return _then(_Started(
-      email: email == freezed ? _value.email : email as String,
+      username: username == freezed ? _value.username : username as String,
       password: password == freezed ? _value.password : password as String,
     ));
   }
@@ -116,24 +116,25 @@ class __$StartedCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_Started implements _Started {
-  const _$_Started({this.email, this.password});
+  const _$_Started({this.username, this.password});
 
   @override
-  final String email;
+  final String username;
   @override
   final String password;
 
   @override
   String toString() {
-    return 'LoginButtonPressEvent.started(email: $email, password: $password)';
+    return 'LoginButtonPressEvent.started(username: $username, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Started &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.username, username) ||
+                const DeepCollectionEquality()
+                    .equals(other.username, username)) &&
             (identical(other.password, password) ||
                 const DeepCollectionEquality()
                     .equals(other.password, password)));
@@ -142,7 +143,7 @@ class _$_Started implements _Started {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(username) ^
       const DeepCollectionEquality().hash(password);
 
   @JsonKey(ignore: true)
@@ -153,21 +154,21 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult started(String email, String password),
+    @required TResult started(String username, String password),
   }) {
     assert(started != null);
-    return started(email, password);
+    return started(username, password);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult started(String email, String password),
+    TResult started(String username, String password),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (started != null) {
-      return started(email, password);
+      return started(username, password);
     }
     return orElse();
   }
@@ -196,10 +197,10 @@ class _$_Started implements _Started {
 }
 
 abstract class _Started implements LoginButtonPressEvent {
-  const factory _Started({String email, String password}) = _$_Started;
+  const factory _Started({String username, String password}) = _$_Started;
 
   @override
-  String get email;
+  String get username;
   @override
   String get password;
   @override
@@ -222,9 +223,10 @@ class _$LoginStateTearOff {
   }
 
 // ignore: unused_element
-  _Success success(User user) {
+  _Success success(User user, UserModel userModel) {
     return _Success(
       user,
+      userModel,
     );
   }
 
@@ -246,14 +248,14 @@ mixin _$LoginState {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult loading(),
-    @required TResult success(User user),
+    @required TResult success(User user, UserModel userModel),
     @required TResult failure(String message),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult loading(),
-    TResult success(User user),
+    TResult success(User user, UserModel userModel),
     TResult failure(String message),
     @required TResult orElse(),
   });
@@ -328,7 +330,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult loading(),
-    @required TResult success(User user),
+    @required TResult success(User user, UserModel userModel),
     @required TResult failure(String message),
   }) {
     assert(initial != null);
@@ -343,7 +345,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult loading(),
-    TResult success(User user),
+    TResult success(User user, UserModel userModel),
     TResult failure(String message),
     @required TResult orElse(),
   }) {
@@ -428,7 +430,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult loading(),
-    @required TResult success(User user),
+    @required TResult success(User user, UserModel userModel),
     @required TResult failure(String message),
   }) {
     assert(initial != null);
@@ -443,7 +445,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult loading(),
-    TResult success(User user),
+    TResult success(User user, UserModel userModel),
     TResult failure(String message),
     @required TResult orElse(),
   }) {
@@ -494,7 +496,7 @@ abstract class _Loading implements LoginState {
 abstract class _$SuccessCopyWith<$Res> {
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) then) =
       __$SuccessCopyWithImpl<$Res>;
-  $Res call({User user});
+  $Res call({User user, UserModel userModel});
 }
 
 /// @nodoc
@@ -509,23 +511,29 @@ class __$SuccessCopyWithImpl<$Res> extends _$LoginStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object user = freezed,
+    Object userModel = freezed,
   }) {
     return _then(_Success(
       user == freezed ? _value.user : user as User,
+      userModel == freezed ? _value.userModel : userModel as UserModel,
     ));
   }
 }
 
 /// @nodoc
 class _$_Success implements _Success {
-  const _$_Success(this.user) : assert(user != null);
+  const _$_Success(this.user, this.userModel)
+      : assert(user != null),
+        assert(userModel != null);
 
   @override
   final User user;
+  @override
+  final UserModel userModel;
 
   @override
   String toString() {
-    return 'LoginState.success(user: $user)';
+    return 'LoginState.success(user: $user, userModel: $userModel)';
   }
 
   @override
@@ -533,12 +541,17 @@ class _$_Success implements _Success {
     return identical(this, other) ||
         (other is _Success &&
             (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)));
+                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.userModel, userModel) ||
+                const DeepCollectionEquality()
+                    .equals(other.userModel, userModel)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(userModel);
 
   @JsonKey(ignore: true)
   @override
@@ -550,14 +563,14 @@ class _$_Success implements _Success {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult loading(),
-    @required TResult success(User user),
+    @required TResult success(User user, UserModel userModel),
     @required TResult failure(String message),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(success != null);
     assert(failure != null);
-    return success(user);
+    return success(user, userModel);
   }
 
   @override
@@ -565,13 +578,13 @@ class _$_Success implements _Success {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult loading(),
-    TResult success(User user),
+    TResult success(User user, UserModel userModel),
     TResult failure(String message),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (success != null) {
-      return success(user);
+      return success(user, userModel);
     }
     return orElse();
   }
@@ -609,9 +622,10 @@ class _$_Success implements _Success {
 }
 
 abstract class _Success implements LoginState {
-  const factory _Success(User user) = _$_Success;
+  const factory _Success(User user, UserModel userModel) = _$_Success;
 
   User get user;
+  UserModel get userModel;
   @JsonKey(ignore: true)
   _$SuccessCopyWith<_Success> get copyWith;
 }
@@ -676,7 +690,7 @@ class _$_Failure implements _Failure {
   TResult when<TResult extends Object>({
     @required TResult initial(),
     @required TResult loading(),
-    @required TResult success(User user),
+    @required TResult success(User user, UserModel userModel),
     @required TResult failure(String message),
   }) {
     assert(initial != null);
@@ -691,7 +705,7 @@ class _$_Failure implements _Failure {
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
     TResult loading(),
-    TResult success(User user),
+    TResult success(User user, UserModel userModel),
     TResult failure(String message),
     @required TResult orElse(),
   }) {

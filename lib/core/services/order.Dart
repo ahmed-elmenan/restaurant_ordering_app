@@ -5,16 +5,17 @@ class OrderServices {
   String collection = "orders";
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   List<OrderModel> ordersList;
+  OrderModel order;
 
   OrderServices() {
     this.ordersList = [];
   }
 
   void createOrder(Map<String, dynamic> values) {
-    _fireStore.collection(collection).doc(values["id"]).set(values);
+    _fireStore.collection(collection).doc().set(values);
   }
 
-  void updateUSerData(Map<String, dynamic> values) {
+  void updateOrderData(Map<String, dynamic> values) {
     _fireStore.collection(collection).doc(values["id"]).update(values);
   }
 
@@ -25,9 +26,22 @@ class OrderServices {
         .orderBy('createdAt', descending: true)
         .get()
         .then((doc) {
+      if (this.ordersList != null) this.ordersList.clear();
       doc.docs.forEach((DocumentSnapshot doc) {
         if (OrderModel.fromSnapshot(doc) != null)
           this.ordersList.add(OrderModel.fromSnapshot(doc));
+      });
+    });
+  }
+
+  Future<OrderModel> getOrderDetailById(String orderId) async {
+    await _fireStore
+        .collection(collection)
+        .where("id", isEqualTo: orderId)
+        .get()
+        .then((doc) {
+      doc.docs.forEach((DocumentSnapshot doc) {
+        this.order = OrderModel.fromSnapshot(doc);
       });
     });
   }

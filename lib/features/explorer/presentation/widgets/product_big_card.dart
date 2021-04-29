@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/widgets/rating_icons.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
@@ -6,8 +7,9 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProductBigCard extends StatefulWidget {
   ProductStatic product;
+  User user;
 
-  ProductBigCard({@required this.product});
+  ProductBigCard({@required this.product, @required this.user});
   @override
   _ProductBigCardState createState() => _ProductBigCardState();
 }
@@ -21,7 +23,7 @@ class _ProductBigCardState extends State<ProductBigCard> {
       onTap: () {
         pushNewScreen(
           context,
-          screen: OrderForm(),
+          screen: OrderForm(user: widget.user),
           withNavBar: true, // OPTIONAL VALUE. True by default.
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );

@@ -101,7 +101,7 @@ class ExplorerPage extends StatelessWidget {
                 child: CarouselSlider(
                   items: headerProductList.map((e) {
                     return Builder(builder: (BuildContext context) {
-                      return ProductBigCard(product: e);
+                      return ProductBigCard(product: e, user: this.user,);
                     });
                   }).toList(),
                   options: CarouselOptions(

@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/core/models/user.dart';
+import 'package:flutter_application_1/core/services/user.dart';
 import 'package:flutter_application_1/features/auth/domain/repositories/i_user_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
@@ -13,9 +15,11 @@ part 'login_bloc.freezed.dart';
 
 class LoginBloc extends Bloc<LoginButtonPressEvent, LoginState> {
   UserRepository userRepository;
+  UserServices userServices;
 
   LoginBloc() : super(_Initial()) {
     userRepository = UserRepository();
+    userServices = UserServices();
   }
 
   Logger logger;
@@ -43,21 +47,14 @@ class LoginBloc extends Bloc<LoginButtonPressEvent, LoginState> {
     if (event is _Started) {
       try {
         yield _Loading();
-        var user = await userRepository.signInUser(event.email, event.password);
-        
-        OrderServices orderServices = OrderServices();
+        UserModel userModel =
+            await userServices.getUserByUsername(event.username);
+        User user =
+            await userRepository.signInUser(userModel.email, event.password);
 
-
-        // orderServices.createOrder({
-        //   'userId' : user.uid,
-        //   'id' : user.uid,
-        //   'description': 'khowa33'
-        // });
-
-        // print(orderServices.ordersList[0].description);
-        // print(orderServices.ordersList[1].description);
-        yield _Success(user);
+        yield _Success(user, userModel);
       } catch (e) {
+        print(e);
         yield _Failure(e.toString());
       }
     }

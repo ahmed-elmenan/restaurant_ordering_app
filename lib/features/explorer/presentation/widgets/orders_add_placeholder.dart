@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/order.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/order_count.dart';
 
 class OrderAddPlaceHolder extends StatelessWidget {
+  OrderModel order;
   double total = 75.00;
 
+  OrderAddPlaceHolder({@required this.order});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +29,7 @@ class OrderAddPlaceHolder extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           ),
-          OrderCount(),
+          OrderCount(order),
           Container(
             width: 60,
             height: 40,
@@ -37,8 +40,11 @@ class OrderAddPlaceHolder extends StatelessWidget {
               ),
               border: Border.all(color: Colors.white, width: 2),
             ),
-            child: Icon(Icons.shopping_bag_outlined,
-                color: GlobalTheme.kExtraColor, size: 25),
+            child: InkWell(
+              onTap: () {},
+              child: Icon(Icons.shopping_bag_outlined,
+                  color: GlobalTheme.kExtraColor, size: 25),
+            ),
           )
         ],
       ),

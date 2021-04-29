@@ -15,12 +15,12 @@ class OrderCard extends StatelessWidget {
           child: Image.asset(
             "assets/images/plat4.jpg",
           )),
-      title: Text(order.description),
+      title: Text(order.name),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(order.amount.toString()),
-          Text(order.amount.toString()),
+          Text(order.orderCode),
+          Text(order.totalPrice.toString()),
         ],
       ),
       onTap: () {

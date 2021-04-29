@@ -86,7 +86,7 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
     User firebaseAuthUser = widget.user;
     List<Widget> _buildScreens() {
       return [
-        ExplorerPage(user: firebaseAuthUser),
+        ExplorerPage(user: widget.user),
         OrdersPage(user: firebaseAuthUser),
         PanierPage(),
         AccountPageParent(user: firebaseAuthUser)

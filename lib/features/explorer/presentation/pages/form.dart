@@ -1,10 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/constants.dart';
+import 'package:flutter_application_1/core/constants/products_prices.dart';
+import 'package:flutter_application_1/core/models/order.dart';
+import 'package:flutter_application_1/core/utils/calculate_total.dart';
 import 'package:flutter_application_1/core/widgets/dark_layout.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/ProductOptions.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/orders_add_placeholder.dart';
+import 'package:flutter_application_1/features/orders/data/repositories/order_repository.dart';
+import 'package:uuid/uuid.dart';
 
 class OrderForm extends StatefulWidget {
+  User user;
+
+  OrderForm({@required this.user});
+
   @override
   _OrderFormState createState() => _OrderFormState();
 }
@@ -13,6 +23,16 @@ class _OrderFormState extends State<OrderForm> {
   bool isFavorite = false;
   Icon favoriteIcon =
       Icon(Icons.favorite_border, color: Colors.white, size: 35);
+  OrderModel order = OrderModel();
+
+  @override
+  void initState() {
+    var uuid = Uuid();
+    order.orderCode = uuid.v4().split('-')[0];
+    order.id = widget.user.uid;
+    order.userId = widget.user.uid;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,17 +125,46 @@ class _OrderFormState extends State<OrderForm> {
                       ),
                     ),
                     ProductOptions(
-                        options: entreeChaude, title: "ENTREE CHAUDE"),
+                        options: entreeChaude,
+                        title: "ENTREE CHAUDE",
+                        order: this.order),
                     ProductOptions(
-                        options: boissonFroide, title: "BOISSON FROIDE"),
+                        options: boissonFroide,
+                        title: "BOISSON FROIDE",
+                        order: this.order),
                     ProductOptions(
-                        options: boissonChaude, title: "BOISSON CHAUDE"),
-                    ProductOptions(options: sale, title: "SALE"),
-                    ProductOptions(options: platGarni, title: "PLAT GARNI"),
+                        options: boissonChaude,
+                        title: "BOISSON CHAUDE",
+                        order: this.order),
                     ProductOptions(
-                        options: viennoiserie, title: "VIENNOISERIE"),
-                    ProductOptions(options: completeFormExtra, title: "EXTRA"),
-                    OrderAddPlaceHolder()
+                        options: sale, title: "SALE", order: this.order),
+                    ProductOptions(
+                        options: platGarni,
+                        title: "PLAT GARNI",
+                        order: this.order),
+                    ProductOptions(
+                        options: viennoiserie,
+                        title: "VIENNOISERIE",
+                        order: this.order),
+                    ProductOptions(
+                        options: completeFormExtra,
+                        title: "EXTRA",
+                        order: this.order),
+                    GestureDetector(
+                        onTap: () async {
+                          OrderRepository orderRep = OrderRepository();
+                          order.totalPrice =
+                              calculate_total(order, COMPLETE_FORM_PRICE);
+                          await orderRep.addOrder(order);
+                          // order.orderForm["EXTRA"].forEach((item) {
+                          //   print("xx extra = $item xx");
+                          // });
+
+                          // print("DONEEEE = " +
+
+                          //         .toString());
+                        },
+                        child: OrderAddPlaceHolder(order: order))
                   ],
                 ),
               ),
@@ -126,3 +175,20 @@ class _OrderFormState extends State<OrderForm> {
     );
   }
 }
+
+//  onTap: () {
+//                           print(
+//                               ">>>>>>>>>>>>>>>>><<<<<<<<<<<<<>>>> ${order.orderForm["ENTREE CHAUDE"]}");
+//                           print(
+//                               ">>>>>>>>>>>>>>>>><<<<<<<<<<<<<>>>> ${order.orderForm["BOISSON FROIDE"]}");
+//                           print(
+//                               ">>>>>>>>>>>>>>>>><<<<<<<<<<<<<>>>> ${order.orderForm["BOISSON CHAUDE"]}");
+//                           print(
+//                               ">>>>>>>>>>>>>>>>><<<<<<<<<<<<<>>>> ${order.orderForm["SALE"]}");
+//                           print(
+//                               ">>>>>>>>>>>>>>>>><<<<<<<<<<<<<>>>> ${order.orderForm["VIENNOISERIE"]}");
+
+//                           order.orderForm["EXTRA"].forEach((item) {
+//                             print("xx extra = $item xx");
+//                           });
+//                         },

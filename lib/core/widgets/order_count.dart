@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/order.dart';
 
 class OrderCount extends StatefulWidget {
+  OrderModel order;
+
+  OrderCount(this.order);
   @override
   _OrderCountState createState() => _OrderCountState();
 }
 
 class _OrderCountState extends State<OrderCount> {
-  int _orderCount;
   TextStyle textStyle =
       TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16);
 
   @override
   void initState() {
     super.initState();
-    _orderCount = 1;
+    widget.order.amount = 1;
   }
 
   increaseOrderCount() {
     setState(() {
-      _orderCount++;
+      widget.order.amount++;
+      
     });
   }
 
   decreaseOrderCount() {
     setState(() {
-      if (_orderCount > 1) _orderCount--;
+      if (widget.order.amount > 1) widget.order.amount--;
     });
   }
 
@@ -48,7 +52,7 @@ class _OrderCountState extends State<OrderCount> {
                 decreaseOrderCount();
               },
               child: Text("-", style: textStyle)),
-          Text(_orderCount.toString(), style: textStyle),
+          Text(widget.order.amount.toString(), style: textStyle),
           InkWell(
               onTap: () {
                 increaseOrderCount();

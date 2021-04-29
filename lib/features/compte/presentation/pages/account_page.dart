@@ -41,7 +41,7 @@ class AccountPage extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                child: Text("user.email"),
+                child: Text("${user.uid}"),
               ),
               BlocListener<AccountBloc, AccountState>(
                 listener: (context, state) {
