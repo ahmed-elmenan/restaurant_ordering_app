@@ -47,33 +47,32 @@ class _OrdersPageState extends State<OrdersPage> {
           backgroundColor: GlobalTheme.kColorLime,
         ),
         onRefresh: _onRefresh,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Center(
-              child: Padding(
-            padding: const EdgeInsets.only(top: 60.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Vos dernières commandes"),
-                BlocBuilder<OrdersBloc, OrdersState>(
-                  builder: (context, state) {
-                    Widget content;
-                    state.when(initial: () {
-                      content = Container();
-                    }, loadOrdersLoading: () {
-                      content = buildLoadingUI();
-                    }, loadOrdersSuccess: (ordersList) {
-                      content = OrdersList(ordersList: ordersList);
-                    }, loadOrdersFailed: (message) {
-                      content = FailureWidget(message: message);
-                    });
-                    return content;
-                  },
-                )
-              ],
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 70),
+              child: Center(
+                  child: Text(
+                "Vos dernières commandes",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              )),
             ),
-          )),
+            BlocBuilder<OrdersBloc, OrdersState>(
+              builder: (context, state) {
+                Widget content;
+                state.when(initial: () {
+                  content = Container();
+                }, loadOrdersLoading: () {
+                  content = buildLoadingUI();
+                }, loadOrdersSuccess: (ordersList) {
+                  content = OrdersList(ordersList: ordersList);
+                }, loadOrdersFailed: (message) {
+                  content = FailureWidget(message: message);
+                });
+                return content;
+              },
+            )
+          ],
         ),
       ),
     );

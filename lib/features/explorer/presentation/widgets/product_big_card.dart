@@ -23,7 +23,7 @@ class _ProductBigCardState extends State<ProductBigCard> {
       onTap: () {
         pushNewScreen(
           context,
-          screen: OrderForm(user: widget.user),
+          screen: OrderForm(user: widget.user, product: widget.product),
           withNavBar: true, // OPTIONAL VALUE. True by default.
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );

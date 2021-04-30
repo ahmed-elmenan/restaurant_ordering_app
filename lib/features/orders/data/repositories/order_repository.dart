@@ -44,7 +44,7 @@ class OrderRepository {
         "orderForm": order.orderForm,
         "status": "pending",
         "orderCode": order.orderCode,
-        "name": "name",
+        "name": order.name,
         "totalPrice": order.totalPrice,
         "amount": order.amount,
         "createdAt": DateTime.now(),

@@ -5,15 +5,19 @@ import 'package:flutter_application_1/core/constants/products_prices.dart';
 import 'package:flutter_application_1/core/models/order.dart';
 import 'package:flutter_application_1/core/utils/calculate_total.dart';
 import 'package:flutter_application_1/core/widgets/dark_layout.dart';
+import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
+import 'package:flutter_application_1/features/explorer/presentation/bloc/add_order_bloc.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/ProductOptions.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/orders_add_placeholder.dart';
 import 'package:flutter_application_1/features/orders/data/repositories/order_repository.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderForm extends StatefulWidget {
+  ProductStatic product;
   User user;
 
-  OrderForm({@required this.user});
+  OrderForm({@required this.user, @required this.product});
 
   @override
   _OrderFormState createState() => _OrderFormState();
@@ -31,6 +35,7 @@ class _OrderFormState extends State<OrderForm> {
     order.orderCode = uuid.v4().split('-')[0];
     order.id = widget.user.uid;
     order.userId = widget.user.uid;
+    order.name = widget.product.name;
     super.initState();
   }
 
@@ -152,10 +157,9 @@ class _OrderFormState extends State<OrderForm> {
                         order: this.order),
                     GestureDetector(
                         onTap: () async {
-                          OrderRepository orderRep = OrderRepository();
-                          order.totalPrice =
-                              calculate_total(order, COMPLETE_FORM_PRICE);
-                          await orderRep.addOrder(order);
+                          // OrderRepository orderRep = OrderRepository();
+
+                          // await orderRep.addOrder(order);
                           // order.orderForm["EXTRA"].forEach((item) {
                           //   print("xx extra = $item xx");
                           // });
@@ -164,7 +168,9 @@ class _OrderFormState extends State<OrderForm> {
 
                           //         .toString());
                         },
-                        child: OrderAddPlaceHolder(order: order))
+                        child: OrderAddPlaceHolder(
+                          order: order,
+                        ))
                   ],
                 ),
               ),

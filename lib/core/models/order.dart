@@ -16,7 +16,7 @@ class OrderModel {
   String id;
   String _productId;
   String userId;
-  String _name;
+  String name;
   int amount;
   bool _delivered;
   String _status;
@@ -28,7 +28,7 @@ class OrderModel {
   // String get id => id;
   String get productId => _productId;
   // String get userId => userId;
-  String get name => _name;
+  // String get name => name;
   // int get amount => amount;
   bool get delivered => _delivered;
   String get status => _status;
@@ -43,7 +43,7 @@ class OrderModel {
     id = snapshot.data()[ID];
     _productId = snapshot.data()[PRODUCT_ID];
     userId = snapshot.data()[USER_ID];
-    _name = snapshot.data()[NAME];
+    name = snapshot.data()[NAME];
     amount = snapshot.data()[AMOUNT];
     _status = snapshot.data()[STATUS];
     _delivered = snapshot.data()[DELIVERED];

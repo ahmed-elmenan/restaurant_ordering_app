@@ -29,39 +29,42 @@ class AccountPage extends StatelessWidget {
     accountBloc = BlocProvider.of<AccountBloc>(context);
     return Scaffold(
       body: Container(
-        child: InkWell(
-          onTap: () {
-            accountBloc.add(LogOutButtonPressedEvent());
-          },
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                child: Text("Log Out"),
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text("${user.uid}"),
-              ),
-              BlocListener<AccountBloc, AccountState>(
-                listener: (context, state) {
-                  if (state is LogOutSuccess) {
-                    return navigateToSignInPage(context);
-                  }
-                },
-                child: BlocBuilder<AccountBloc, AccountState>(
-                    builder: (context, state) {
-                  if (state is LogOutInitial) {
-                    return Container();
-                  } else if (state is LogOutSuccess) {
-                    return Container();
-                  }
-                  return Container();
-                }),
-              )
-            ],
-          ),
-        ),
+        child: Center(child: Text(user.email)),
+        // child: InkWell(
+        //   onTap: () {
+        //     // accountBloc.add(LogOutButtonPressedEvent());
+        //   },
+        //   child: Center(
+        //     child: Column(
+        //       children: [
+        //         Container(
+        //           width: double.infinity,
+        //           child: Text("Log Out"),
+        //         ),
+        //         Container(
+        //           alignment: Alignment.center,
+        //           child: Text("${user.uid}"),
+        //         ),
+        //         BlocListener<AccountBloc, AccountState>(
+        //           listener: (context, state) {
+        //             if (state is LogOutSuccess) {
+        //               return navigateToSignInPage(context);
+        //             }
+        //           },
+        //           child: BlocBuilder<AccountBloc, AccountState>(
+        //               builder: (context, state) {
+        //             if (state is LogOutInitial) {
+        //               return Container();
+        //             } else if (state is LogOutSuccess) {
+        //               return Container();
+        //             }
+        //             return Container();
+        //           }),
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }

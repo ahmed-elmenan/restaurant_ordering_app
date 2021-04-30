@@ -26,7 +26,7 @@ class OrderCard extends StatelessWidget {
       onTap: () {
         pushNewScreen(
           context,
-          screen: OrderDetail(orderId: order.id),
+          screen: OrderDetail(order: order),
           withNavBar: true, // OPTIONAL VALUE. True by default.
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );

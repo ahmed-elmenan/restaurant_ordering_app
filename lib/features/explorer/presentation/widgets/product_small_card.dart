@@ -1,13 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/widgets/rating_icons.dart';
-import 'package:flutter_application_1/features/compte/presentation/pages/account_page.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
+import 'package:flutter_application_1/features/explorer/presentation/pages/form.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProductSmallCard extends StatefulWidget {
   ProductStatic promosProduct;
+  User user;
 
-  ProductSmallCard({@required this.promosProduct});
+  ProductSmallCard({@required this.promosProduct, @required this.user});
   @override
   _ProductSmallCardState createState() => _ProductSmallCardState();
 }
@@ -20,7 +22,12 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
+        pushNewScreen(
+          context,
+          screen: OrderForm(user: widget.user, product: widget.promosProduct),
+          withNavBar: true, // OPTIONAL VALUE. True by default.
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
       },
       child: Container(
           width: (MediaQuery.of(context).size.width - 230),

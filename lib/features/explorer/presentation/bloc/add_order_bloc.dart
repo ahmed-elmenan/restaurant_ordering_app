@@ -44,7 +44,8 @@ class AddOrderBloc extends Bloc<AddOrderEvent, AddOrderState> {
     if (event is _AddOrderButtonPressed) {
       try {
         yield _AddOrderLoading();
-
+        await orderRepository.addOrder(event.order);
+        yield _AddOrderSuccess();
       } catch (e) {
         yield _AddOrderFailed(e);
       }

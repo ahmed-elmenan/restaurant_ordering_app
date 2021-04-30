@@ -17,7 +17,7 @@ class ExplorerPage extends StatelessWidget {
     int productIndex = -2;
     List<ProductStatic> headerProductList = [
       ProductStatic(
-          name: "test",
+          name: "panini",
           description: "test 1 2 test 3",
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg")
@@ -77,7 +77,8 @@ class ExplorerPage extends StatelessWidget {
                       children: [
                         Icon(Icons.settings, color: Colors.white),
                         Text("Coemco Food",
-                            style: GlobalTheme.headerStyle(Colors.white)),
+                            style: GlobalTheme.headerStyle(Colors.white)
+                                .copyWith(fontSize: 24)),
                         Icon(Icons.search, color: Colors.white),
                       ]),
                   SizedBox(height: 40),
@@ -101,7 +102,10 @@ class ExplorerPage extends StatelessWidget {
                 child: CarouselSlider(
                   items: headerProductList.map((e) {
                     return Builder(builder: (BuildContext context) {
-                      return ProductBigCard(product: e, user: this.user,);
+                      return ProductBigCard(
+                        product: e,
+                        user: this.user,
+                      );
                     });
                   }).toList(),
                   options: CarouselOptions(
@@ -134,9 +138,11 @@ class ExplorerPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ProductSmallCard(
+                              user: this.user,
                               promosProduct: promosProductList[productIndex]),
                           if (productIndex + 1 < promosProductList.length)
                             ProductSmallCard(
+                                user: this.user,
                                 promosProduct:
                                     promosProductList[productIndex + 1]),
                         ],
