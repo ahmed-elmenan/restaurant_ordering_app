@@ -3,15 +3,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
-import 'package:flutter_application_1/core/widgets/brand.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter_application_1/features/orders/presentation/pages/orders_page.dart';
 import 'package:flutter_application_1/features/compte/presentation/pages/account_page.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_application_1/features/panier/presentation/pages/panier_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
+import 'package:splashscreen/splashscreen.dart';
 import 'core/router.dart';
 import 'features/auth/presentation/blocs/auth_bloc/auth_bloc.dart';
 
@@ -27,7 +27,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'roboto_regular'),
-      home: Init(),
+      home: new SplashScreen(
+          seconds: 3,
+          navigateAfterSeconds: new Init(),
+          image: Image.asset(
+            "assets/images/coemco_logo.png",
+          ),
+          backgroundColor: GlobalTheme.kColorLime,
+          styleTextUnderTheLoader: new TextStyle(),
+          photoSize: 90.0,
+          useLoader: false),
       onGenerateRoute: Routes.sailor.generator(),
       navigatorKey: Routes.sailor.navigatorKey,
     );
@@ -61,15 +70,6 @@ class Init extends StatelessWidget {
   }
 }
 
-class SplashScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: brandWidget(),
-    );
-  }
-}
-
 class AppBottomNavBar extends StatefulWidget {
   final User user;
 
@@ -79,6 +79,7 @@ class AppBottomNavBar extends StatefulWidget {
 }
 
 class _AppBottomNavBarState extends State<AppBottomNavBar> {
+  int _currentIndex = 0;
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
@@ -104,6 +105,11 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
         backgroundColor: GlobalTheme.kColorLime,
         handleAndroidBackButtonPress: true,
         resizeToAvoidBottomInset: true,
+        onItemSelected: (value) {
+          setState(() {
+            _currentIndex = value;
+          });
+        },
         stateManagement: true,
         hideNavigationBarWhenKeyboardShows: true,
         popAllScreensOnTapOfSelectedTab: true,
@@ -129,28 +135,55 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
+        icon: SvgPicture.asset("assets/images/home.svg",
+            height: 50,
+            fit: BoxFit.fitHeight,
+            color: _currentIndex == 0
+                ? Colors.white
+                : GlobalTheme.kBottomNavBarIconBorderColor),
         iconSize: 35,
         title: "Explorer",
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: GlobalTheme.kBottomNavBarIconBorderColor,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.bookmark_fill),
+        // icon: Icon(CupertinoIcons.bookmark_fill),
+        icon: SvgPicture.asset(
+          "assets/images/orders.svg",
+          height: 50,
+          fit: BoxFit.fitHeight,
+          color: _currentIndex == 1
+              ? Colors.white
+              : GlobalTheme.kBottomNavBarIconBorderColor,
+        ),
         iconSize: 35,
         title: ("Commandes"),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: GlobalTheme.kBottomNavBarIconBorderColor,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.bag_fill),
+        icon: SvgPicture.asset(
+          "assets/images/paniers.svg",
+          height: 50,
+          fit: BoxFit.fitHeight,
+          color: _currentIndex == 2
+              ? Colors.white
+              : GlobalTheme.kBottomNavBarIconBorderColor,
+        ),
         iconSize: 35,
         title: ("Panier"),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: GlobalTheme.kBottomNavBarIconBorderColor,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.person_fill),
+        icon: SvgPicture.asset(
+          "assets/images/avatar_account.svg",
+          height: 50,
+          fit: BoxFit.fitHeight,
+          color: _currentIndex == 3
+              ? Colors.white
+              : GlobalTheme.kBottomNavBarIconBorderColor,
+        ),
         iconSize: 35,
         title: ("Compte"),
         activeColorPrimary: CupertinoColors.white,

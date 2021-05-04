@@ -4,7 +4,6 @@ import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/brand.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
-import 'package:flutter_application_1/features/auth/presentation/pages/forgotten_password_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../main.dart';
@@ -16,11 +15,19 @@ class LoginPageParent extends StatelessWidget {
   }
 }
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
 
   LoginBloc loginBloc;
+
+  MainAxisAlignment alignment = MainAxisAlignment.center;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,6 @@ class LoginPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
@@ -121,11 +127,11 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ForgottenPasswordPage())),
-            child: Text("mot de pass oublié"),
-          )
+          // GestureDetector(
+          //   onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          //       builder: (context) => ForgottenPasswordPage())),
+          //   child: Text("mot de pass oublié"),
+          // )
         ],
       ),
     );
