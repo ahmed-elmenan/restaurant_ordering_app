@@ -14,24 +14,19 @@ Widget brandWidget() {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Hero(
-                        tag: 'header',
-                        child: SvgPicture.asset(
-                          "assets/images/back_arrow.svg",
-                          color: Color(0xFF4F545D),
-                          height: 30,
-                        ),
+                      child: SvgPicture.asset(
+                        "assets/images/back_arrow.svg",
+                        color: Color(0xFF4F545D),
+                        height: 20,
+                        width: 10,
                       )),
                 )),
           )
         : Padding(
-            padding: const EdgeInsets.only(top: 200.0),
+            padding: const EdgeInsets.only(top: 150.0),
             child: Center(
-              child: Hero(
-                tag: 'header',
-                child: SvgPicture.asset("assets/images/coemco_logo.svg",
-                    height: 150, color: GlobalTheme.kColorLime),
-              ),
+              child: SvgPicture.asset("assets/images/coemco_logo.svg",
+                  height: 150, color: GlobalTheme.kColorLime),
             ),
           );
   });

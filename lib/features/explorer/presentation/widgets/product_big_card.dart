@@ -29,7 +29,7 @@ class _ProductBigCardState extends State<ProductBigCard> {
         );
       },
       child: Container(
-        width: MediaQuery.of(context).size.width - 100,
+        width: MediaQuery.of(context).size.width - 107,
         child: Stack(children: [
           Container(
             decoration: BoxDecoration(
@@ -37,17 +37,17 @@ class _ProductBigCardState extends State<ProductBigCard> {
                 image: AssetImage(widget.product.imageLink),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(14),
             ),
           ),
           Container(
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(14),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -58,21 +58,20 @@ class _ProductBigCardState extends State<ProductBigCard> {
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20)),
+                        fontSize: 18)),
+                SizedBox(height: 4),
                 Text("Lorem Ipsum dolor sit amet",
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
+                    style: TextStyle(color: Colors.white, fontSize: 12)),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    RatingIcons(size: 20.0),
-                    Text("176 MAD",
+                    RatingIcons(size: 18.0),
+                    Text("176,00 MAD",
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        )),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10)),
                   ],
                 ),
               ],

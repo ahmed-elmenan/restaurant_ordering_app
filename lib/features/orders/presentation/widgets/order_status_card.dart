@@ -7,9 +7,10 @@ class OrderDileveryStatus extends StatefulWidget {
   String status;
   String orderCode;
   DateTime orderDate;
-  OrderDileveryStatus({@required this.status,
-  @required this.orderDate
-  });
+  OrderDileveryStatus(
+      {@required this.status,
+      @required this.orderDate,
+      @required this.orderCode});
 
   @override
   _OrderDileveryStatusState createState() => _OrderDileveryStatusState();
@@ -18,22 +19,37 @@ class OrderDileveryStatus extends StatefulWidget {
 class _OrderDileveryStatusState extends State<OrderDileveryStatus> {
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: SvgPicture.asset(
-          "assets/images/progression.svg",
-          height: 50,
-          fit: BoxFit.fitHeight,
-          color: GlobalTheme.kColorLime,
-        ),
-      title: Text(widget.status),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      color: Colors.white10,
+      height: 71,
+      child: Row(
         children: [
-          Text("12"),
-          Text(convertDateTimeDisplay(widget.orderDate.toString())),
+          SvgPicture.asset(
+            "assets/images/progression.svg",
+            height: 40,
+            color: GlobalTheme.kColorLime,
+          ),
+          SizedBox(width: 14),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget.status,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              SizedBox(height: 5),
+              Text(
+                "Code de la commande: ${widget.orderCode}",
+                style: TextStyle(color: GlobalTheme.kSecondaryText),
+              ),
+              SizedBox(height: 5),
+              Text(
+                convertDateTimeDisplay(widget.orderDate.toString()),
+                style: TextStyle(color: GlobalTheme.kSecondaryText),
+              ),
+            ],
+          ),
         ],
       ),
-      isThreeLine: true,
     );
   }
 }

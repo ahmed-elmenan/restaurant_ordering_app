@@ -27,19 +27,23 @@ class ProductOptionsState extends State<ProductOptions> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: EdgeInsets.all(13),
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           ),
-          border: Border.all(color: Colors.grey)),
+          border: Border.all(color: Color(0xFFEDEDED), width: 1)),
       child: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(widget.title),
+            Text(widget.title,
+                style: TextStyle(fontSize: 17, color: GlobalTheme.ktitleColor)),
             Text(widget.title != "EXTRA" ? "*requis" : "",
-                style: TextStyle(color: GlobalTheme.kColorLime)),
+                style: TextStyle(
+                    color: GlobalTheme.kColorLime,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500)),
           ]),
           SizedBox(height: 10),
           ListView.builder(
@@ -134,15 +138,16 @@ class _ListItemState extends State<ListItem>
                     color: this.widget.title == "EXTRA"
                         ? GlobalTheme.kExtraColor
                         : GlobalTheme.kColorLime,
-                    width: isExtra() ? 6 : 3,
+                    width: isExtra() ? 6 : 2,
                   )),
-              height: 20,
-              width: 20,
+              height: 19,
+              width: 19,
             ),
           ),
           SizedBox(width: 10),
           Text(widget.item.name,
-              style: TextStyle(fontSize: 20, color: Colors.grey)),
+              style:
+                  TextStyle(fontSize: 17, color: GlobalTheme.kSecondaryText)),
           SizedBox(width: 10),
           Text(
               this.widget.title == "EXTRA"

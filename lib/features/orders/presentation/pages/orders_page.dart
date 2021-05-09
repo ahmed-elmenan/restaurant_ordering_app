@@ -54,7 +54,10 @@ class _OrdersPageState extends State<OrdersPage> {
               child: Center(
                   child: Text(
                 "Vos dernières commandes",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(
+                    color: GlobalTheme.ktitleColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18),
               )),
             ),
             BlocBuilder<OrdersBloc, OrdersState>(
@@ -63,7 +66,10 @@ class _OrdersPageState extends State<OrdersPage> {
                 state.when(initial: () {
                   content = Container();
                 }, loadOrdersLoading: () {
-                  content = buildLoadingUI();
+                  content = Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: buildLoadingUI(),
+                  );
                 }, loadOrdersSuccess: (ordersList) {
                   content = OrdersList(ordersList: ordersList);
                 }, loadOrdersFailed: (message) {
@@ -94,12 +100,18 @@ class OrdersList extends StatelessWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  Divider(
-                    color: Colors.grey,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Divider(
+                      color: GlobalTheme.kDeviderColor,
+                    ),
                   ),
                   OrderCard(order: ordersList[index]),
                   index + 1 == ordersList.length
-                      ? Divider(color: Colors.grey)
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Divider(color: GlobalTheme.kDeviderColor),
+                        )
                       : Container(),
                 ],
               );

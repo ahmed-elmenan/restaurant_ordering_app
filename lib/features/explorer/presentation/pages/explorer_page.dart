@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
+import 'package:flutter_application_1/features/explorer/presentation/pages/ramadan_plats.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/product_big_card.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/product_small_card.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ExplorerPage extends StatelessWidget {
   final User user;
@@ -16,6 +19,21 @@ class ExplorerPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     int productIndex = -2;
     List<ProductStatic> headerProductList = [
+      ProductStatic(
+          name: "panini",
+          description: "test 1 2 test 3",
+          price: "30 dhs",
+          imageLink: "assets/images/bastilla.jpg"),
+      ProductStatic(
+          name: "panini",
+          description: "test 1 2 test 3",
+          price: "30 dhs",
+          imageLink: "assets/images/bastilla.jpg"),
+      ProductStatic(
+          name: "panini",
+          description: "test 1 2 test 3",
+          price: "30 dhs",
+          imageLink: "assets/images/bastilla.jpg"),
       ProductStatic(
           name: "panini",
           description: "test 1 2 test 3",
@@ -54,41 +72,81 @@ class ExplorerPage extends StatelessWidget {
           price: "30 dhs",
           imageLink: "assets/images/bastilla.jpg"),
     ];
-    return SafeArea(
-      child: ListView(
+    return Scaffold(
+      // Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: [
+
+      //     ]),
+
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: GlobalTheme.kColorLime,
+          shadowColor: Colors.transparent,
+          title: Container(
+            padding: EdgeInsets.only(top: 40, right: 16, left: 16),
+            height: 90,
+            // color: Colors.red,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SvgPicture.asset(
+                  "assets/images/filter.svg",
+                  height: 16.09,
+                  color: Colors.white,
+                ),
+                Text("Coemco Food",
+                    style: GlobalTheme.headerStyle(Colors.white)),
+                SvgPicture.asset(
+                  "assets/images/search.svg",
+                  color: Colors.white,
+                  height: 16.09,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      body: ListView(
         children: <Widget>[
           Stack(children: [
             Container(
               width: double.infinity,
-              height: size.height / 2 - 30,
+              height: size.height / 2 - 120,
             ),
             Container(
               width: double.infinity,
-              height: size.height / 3 - 55,
+              height: size.height / 3 - 150,
               color: GlobalTheme.kColorLime,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 28.0),
               child: Column(
                 children: [
-                  SizedBox(height: 40),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(Icons.settings, color: Colors.white),
-                        Text("Coemco Food",
-                            style: GlobalTheme.headerStyle(Colors.white)
-                                .copyWith(fontSize: 24)),
-                        Icon(Icons.search, color: Colors.white),
-                      ]),
-                  SizedBox(height: 40),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Plats du Ramadan",
                           style: GlobalTheme.headerStyle(Colors.white)),
-                      Text("Affichier tous (25)",
-                          style: TextStyle(color: Colors.white, fontSize: 16)),
+                      GestureDetector(
+                        onTap: () {
+                          pushNewScreen(
+                            context,
+                            screen: RamadanPlatsPage(
+                                user: this.user,
+                                headerProductList: headerProductList),
+                            withNavBar:
+                                true, // OPTIONAL VALUE. True by default.
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          );
+                        },
+                        child: Text("Affichier tous (25)",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14)),
+                      ),
                     ],
                   )
                 ],
@@ -117,13 +175,13 @@ class ExplorerPage extends StatelessWidget {
           ]),
           SizedBox(height: 3),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
-            child: Text("Les promotions du mois",
-                style: GlobalTheme.headerStyle(Colors.grey[800])),
+            padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 5),
+            child: Text("Promos of the month",
+                style: GlobalTheme.headerStyle(GlobalTheme.ktitleColor)),
           ),
           SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: ListView.builder(
                 itemCount: promosProductList.length % 2 == 0
                     ? promosProductList.length ~/ 2

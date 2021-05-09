@@ -35,6 +35,37 @@ class OrderRepository {
     }
   }
 
+  Future<List<OrderModel>> getAllOrder() async {
+    try {
+      
+      await _orderServices.getOrders();
+      return _orderServices.ordersList;
+    } catch (e) {
+      return null;
+    }
+  }
+
+ Future<List<OrderModel>> updateOrderState(OrderModel order) async {
+    try {
+      await _orderServices.updateOrderData({
+        "userId": order.id,
+        "id": order.id,
+        "orderForm": order.orderForm,
+        "status": order.status,
+        "orderCode": order.orderCode,
+        "name": order.name,
+        "totalPrice": order.totalPrice,
+        "amount": order.amount,
+        "createdAt": order.createdAt,
+        "delivered": false
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+
+
   Future<bool> addOrder(OrderModel order) async {
     var uuid = Uuid();
     try {
@@ -42,7 +73,7 @@ class OrderRepository {
         "userId": order.id,
         "id": order.id,
         "orderForm": order.orderForm,
-        "status": "pending",
+        "status": "En attente",
         "orderCode": order.orderCode,
         "name": order.name,
         "totalPrice": order.totalPrice,

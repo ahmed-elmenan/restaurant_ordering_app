@@ -1,17 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/constants.dart';
-import 'package:flutter_application_1/core/constants/products_prices.dart';
 import 'package:flutter_application_1/core/models/order.dart';
-import 'package:flutter_application_1/core/utils/calculate_total.dart';
+import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/dark_layout.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
-import 'package:flutter_application_1/features/explorer/presentation/bloc/add_order_bloc.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/ProductOptions.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/orders_add_placeholder.dart';
-import 'package:flutter_application_1/features/orders/data/repositories/order_repository.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderForm extends StatefulWidget {
   ProductStatic product;
@@ -26,7 +23,7 @@ class OrderForm extends StatefulWidget {
 class _OrderFormState extends State<OrderForm> {
   bool isFavorite = false;
   Icon favoriteIcon =
-      Icon(Icons.favorite_border, color: Colors.white, size: 35);
+      Icon(Icons.favorite_border, color: Colors.white, size: 30);
   OrderModel order = OrderModel();
 
   @override
@@ -49,15 +46,11 @@ class _OrderFormState extends State<OrderForm> {
         child: Stack(
           children: [
             Container(
-              height: size.height / 3,
+              height: size.height / 3 + 50,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/past.jpg"),
                   fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
                 ),
               ),
             ),
@@ -70,8 +63,12 @@ class _OrderFormState extends State<OrderForm> {
                 children: [
                   GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back,
-                          color: Colors.white, size: 35)),
+                      child: SvgPicture.asset(
+                        "assets/images/back_arrow.svg",
+                        color: Colors.white,
+                        height: 20,
+                        width: 10,
+                      )),
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -79,12 +76,12 @@ class _OrderFormState extends State<OrderForm> {
                           favoriteIcon = Icon(
                             Icons.favorite,
                             color: Colors.red,
-                            size: 35,
+                            size: 30,
                           );
                           isFavorite = true;
                         } else {
                           favoriteIcon = Icon(Icons.favorite_border,
-                              color: Colors.white, size: 35);
+                              color: Colors.white, size: 30);
                           isFavorite = false;
                         }
                       });
@@ -95,11 +92,11 @@ class _OrderFormState extends State<OrderForm> {
               ),
             ),
             Positioned(
-              bottom: 1,
+              bottom: 0.1,
               child: Container(
-                padding: EdgeInsets.only(top: 13),
+                padding: EdgeInsets.only(top: 8),
                 width: size.width,
-                height: size.height - 330,
+                height: size.height - 340,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -113,25 +110,26 @@ class _OrderFormState extends State<OrderForm> {
                       "Formule Complète",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           fontSize: 20,
-                          color: Colors.grey[800]),
+                          color: GlobalTheme.ktitleColor),
                     ),
                     SizedBox(height: 25),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 63),
                       child: Text(
                         "Soupe + Boisson chaude + Boisson Froide + Extra + Viennoiserie + Beldi + Salé + Plat garni",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 20,
+                          color: GlobalTheme.kSecondaryText,
+                          fontSize: 17,
                         ),
                       ),
                     ),
+                    SizedBox(height: 10),
                     ProductOptions(
                         options: entreeChaude,
-                        title: "ENTREE CHAUDE",
+                        title: "ENTRÉE CHAUDE",
                         order: this.order),
                     ProductOptions(
                         options: boissonFroide,

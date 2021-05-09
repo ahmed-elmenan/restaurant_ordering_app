@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/rating_icons.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/form.dart';
@@ -16,7 +17,7 @@ class ProductSmallCard extends StatefulWidget {
 
 class _ProductSmallCardState extends State<ProductSmallCard> {
   bool isFavorite = false;
-  Icon favoriteIcon = Icon(Icons.favorite_border, color: Colors.grey);
+  Icon favoriteIcon = Icon(Icons.favorite_border, color: Colors.grey, size: 16);
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +31,16 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
         );
       },
       child: Container(
-          width: (MediaQuery.of(context).size.width - 230),
-          height: 200,
+          width: (MediaQuery.of(context).size.width - 240),
+          height: 181,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(14),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withOpacity(0.1),
                 spreadRadius: 2,
-                blurRadius: 10,
+                blurRadius: 8,
                 offset: Offset(0, 3), // changes position of shadow
               ),
             ],
@@ -60,32 +61,37 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
                   ),
                 ),
               ),
+              SizedBox(height: 5),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   children: [
-                    SizedBox(height: 5),
                     Align(
                         alignment: Alignment.topLeft,
-                        child: Text(widget.promosProduct.name)),
+                        child: Text(widget.promosProduct.name,
+                            style: TextStyle(fontSize: 12))),
                     RatingIcons(size: 12.0),
+                    SizedBox(height: 7),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "176,00 MAD",
-                          style: TextStyle(color: Colors.grey[600]),
+                          style: TextStyle(
+                              color: GlobalTheme.kSecondaryText,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600),
                         ),
                         GestureDetector(
                           onTap: () {
                             setState(() {
                               if (isFavorite == false) {
-                                favoriteIcon =
-                                    Icon(Icons.favorite, color: Colors.red);
+                                favoriteIcon = Icon(Icons.favorite,
+                                    color: Colors.red, size: 16);
                                 isFavorite = true;
                               } else {
                                 favoriteIcon = Icon(Icons.favorite_border,
-                                    color: Colors.grey);
+                                    color: Colors.grey, size: 16);
                                 isFavorite = false;
                               }
                             });

@@ -7,7 +7,7 @@ class UserModel {
   static const EMAIL = "email";
   static const MOBILE_NUMBER = "mobileNumber";
   static const LIKED_FOOD = "likedFood";
-  static const STRIPE_ID = "stripeId";
+  static const STATUS = "status";
 
   String _companyName;
   String _partenariatUserName;
@@ -15,14 +15,13 @@ class UserModel {
   String _mobileNumber;
   List _likedFood;
   String _id;
-  String _stripeId;
+  String status;
 
   String get id => _id;
   String get companyName => _companyName;
   String get partenariatUserName => _partenariatUserName;
   String get email => _email;
   String get mobileNumber => _mobileNumber;
-  String get stripeId => _stripeId;
   List get likedFood => _likedFood;
 
   UserModel.fromSnapshot(DocumentSnapshot snapshot) {
@@ -31,7 +30,7 @@ class UserModel {
     _email = snapshot.data()[EMAIL];
     _mobileNumber = snapshot.data()[MOBILE_NUMBER];
     _id = snapshot.data()[ID];
-    _stripeId = snapshot.data()[STRIPE_ID];
+    status = snapshot.data()[STATUS];
     _likedFood = snapshot.data()[LIKED_FOOD] ?? [];
   }
 }

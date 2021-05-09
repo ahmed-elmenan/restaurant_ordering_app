@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/order.dart';
-import 'package:flutter_application_1/core/widgets/failure.dart';
+import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/header_with_back_arrow.dart';
-import 'package:flutter_application_1/core/widgets/loading.dart';
-import 'package:flutter_application_1/features/orders/presentation/bloc/order_detail_bloc.dart';
+import 'package:flutter_application_1/features/orders/presentation/widgets/Dilevery_adress.dart';
 import 'package:flutter_application_1/features/orders/presentation/widgets/order_status_card.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderDetail extends StatefulWidget {
   OrderModel order;
@@ -20,30 +18,35 @@ class _OrderDetailState extends State<OrderDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(top: 60.0),
+        padding: const EdgeInsets.only(top: 57.0),
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: ListView(children: [
-            HeaderWithBackArrow(title: "Details de votre commandes"),
-            SizedBox(height: 15),
-            Divider(color: Colors.grey),
+            HeaderWithBackArrow(title: "Détails de votre commandes"),
+            SizedBox(height: 16),
+            Divider(color: GlobalTheme.kDeviderColor),
             OrderDileveryStatus(
               status: widget.order.delivered == false
                   ? "Commande en progression"
                   : "Commande livrée",
               orderDate: widget.order.createdAt,
+              orderCode: widget.order.orderCode,
             ),
-            Divider(color: Colors.grey),
+            SizedBox(height: 15),
+            Divider(color: GlobalTheme.kDeviderColor),
             SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("${widget.order.amount.toString()} x ${widget.order.name}",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Text("${widget.order.totalPrice.toString()} MAD",
-                    style: TextStyle(fontSize: 16, color: Colors.grey)),
+                Text("${widget.order.amount.toString()}x ${widget.order.name}",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: GlobalTheme.ktitleColor)),
+                Text("${widget.order.totalPrice.toStringAsFixed(2)} MAD",
+                    style: TextStyle(
+                        fontSize: 14, color: GlobalTheme.kSecondaryText)),
               ],
             ),
             SizedBox(height: 3),
@@ -56,8 +59,14 @@ class _OrderDetailState extends State<OrderDetail> {
                   if (key == "EXTRA")
                     return SizedBox();
                   else {
-                    return Text("${widget.order.orderForm[key]}",
-                        style: TextStyle(fontSize: 16, color: Colors.grey));
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Text("${widget.order.orderForm[key]}",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: GlobalTheme.kSecondaryText,
+                              fontWeight: FontWeight.w500)),
+                    );
                   }
                 }),
             ListView.builder(
@@ -66,36 +75,63 @@ class _OrderDetailState extends State<OrderDetail> {
                 itemCount: widget.order.orderForm["EXTRA"].length,
                 itemBuilder: (context, int index) {
                   String item = widget.order.orderForm["EXTRA"][index]["name"];
-                  return Text("$item",
-                      style: TextStyle(fontSize: 16, color: Colors.grey));
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Text("$item",
+                        style: TextStyle(
+                            fontSize: 12, color: GlobalTheme.kSecondaryText)),
+                  );
                 }),
             SizedBox(height: 15),
-            Divider(color: Colors.grey),
+            Divider(color: GlobalTheme.kDeviderColor),
             SizedBox(height: 15),
-            SizedBox(height: 3),
-            Text("Détails", style: TextStyle(fontSize: 18)),
+            Text("Détails",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: GlobalTheme.ktitleColor,
+                    fontWeight: FontWeight.w500)),
             SizedBox(height: 10),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Text("Sous-total",
-                  style: TextStyle(fontSize: 16, color: Colors.grey)),
-              Text("${widget.order.totalPrice.toString()} MAD",
-                  style: TextStyle(fontSize: 16, color: Colors.grey)),
+                  style: TextStyle(
+                      fontSize: 14, color: GlobalTheme.kSecondaryText)),
+              Text("${widget.order.totalPrice.toStringAsFixed(2)} MAD",
+                  style: TextStyle(
+                      fontSize: 14, color: GlobalTheme.kSecondaryText)),
             ]),
-            SizedBox(height: 10),
+            SizedBox(height: 12),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Text("Livraison",
-                  style: TextStyle(fontSize: 16, color: Colors.grey)),
-              Text("${dileveryPrice.toString()} MAD",
-                  style: TextStyle(fontSize: 16, color: Colors.grey)),
+                  style: TextStyle(
+                      fontSize: 14, color: GlobalTheme.kSecondaryText)),
+              Text("${dileveryPrice.toStringAsFixed(2)} MAD",
+                  style: TextStyle(
+                      fontSize: 14, color: GlobalTheme.kSecondaryText)),
             ]),
-            SizedBox(height: 10),
+            SizedBox(height: 12),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text("Total", style: TextStyle(fontSize: 16)),
+              Text("Total",
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: GlobalTheme.ktitleColor,
+                      fontWeight: FontWeight.w500)),
               Text(
-                  "${(dileveryPrice + widget.order.totalPrice).toString()} MAD",
-                  style: TextStyle(fontSize: 16)),
+                  "${(dileveryPrice + widget.order.totalPrice).toStringAsFixed(2)} MAD",
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: GlobalTheme.ktitleColor,
+                      fontWeight: FontWeight.w500)),
             ]),
+            SizedBox(height: 15),
+            Divider(color: GlobalTheme.kDeviderColor),
+            SizedBox(height: 15),
+            Text("Adresse de livraison",
+                style: TextStyle(
+                    fontSize: 14,
+                    color: GlobalTheme.ktitleColor,
+                    fontWeight: FontWeight.w500)),
             SizedBox(height: 10),
+            DileveryAdress(),
           ]),
         ));
   }

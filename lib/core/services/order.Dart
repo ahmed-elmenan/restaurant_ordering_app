@@ -12,10 +12,11 @@ class OrderServices {
   }
 
   void createOrder(Map<String, dynamic> values) {
-    _fireStore.collection(collection).doc().set(values);
+    _fireStore.collection(collection).doc(values["id"]).set(values);
   }
 
   void updateOrderData(Map<String, dynamic> values) {
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>< " + values["id"]);
     _fireStore.collection(collection).doc(values["id"]).update(values);
   }
 
@@ -23,6 +24,20 @@ class OrderServices {
     await _fireStore
         .collection(collection)
         .where("userId", isEqualTo: id)
+        .orderBy('createdAt', descending: true)
+        .get()
+        .then((doc) {
+      if (this.ordersList != null) this.ordersList.clear();
+      doc.docs.forEach((DocumentSnapshot doc) {
+        if (OrderModel.fromSnapshot(doc) != null)
+          this.ordersList.add(OrderModel.fromSnapshot(doc));
+      });
+    });
+  }
+
+  Future<List<OrderModel>> getOrders() async {
+    await _fireStore
+        .collection(collection)
         .orderBy('createdAt', descending: true)
         .get()
         .then((doc) {

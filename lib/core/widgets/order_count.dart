@@ -11,7 +11,7 @@ class OrderCount extends StatefulWidget {
 
 class _OrderCountState extends State<OrderCount> {
   TextStyle textStyle =
-      TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16);
+      TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14);
 
   @override
   void initState() {
@@ -22,7 +22,6 @@ class _OrderCountState extends State<OrderCount> {
   increaseOrderCount() {
     setState(() {
       widget.order.amount++;
-      
     });
   }
 
@@ -35,14 +34,14 @@ class _OrderCountState extends State<OrderCount> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      width: 130,
+      height: 32,
+      width: 101,
       padding: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(25),
         ),
-        border: Border.all(color: Colors.white, width: 2),
+        border: Border.all(color: Colors.white, width: 1),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,13 +50,18 @@ class _OrderCountState extends State<OrderCount> {
               onTap: () {
                 decreaseOrderCount();
               },
-              child: Text("-", style: textStyle)),
+              child: Container(
+                  height: 20, width: 20, child: Text("-", style: textStyle))),
           Text(widget.order.amount.toString(), style: textStyle),
           InkWell(
               onTap: () {
                 increaseOrderCount();
               },
-              child: Text("+", style: textStyle)),
+              child: Container(
+                  height: 20,
+                  width: 20,
+                  child:
+                      Text("+", textAlign: TextAlign.right, style: textStyle))),
         ],
       ),
     );
