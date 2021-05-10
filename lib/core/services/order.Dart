@@ -16,14 +16,13 @@ class OrderServices {
   }
 
   void updateOrderData(Map<String, dynamic> values) {
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>< " + values["id"]);
     _fireStore.collection(collection).doc(values["id"]).update(values);
   }
 
-  Future<List<OrderModel>> getOrderByUserId(String id) async {
+  Future<List<OrderModel>> getOrderByUserId(String client) async {
     await _fireStore
         .collection(collection)
-        .where("userId", isEqualTo: id)
+        .where("client", isEqualTo: client)
         .orderBy('createdAt', descending: true)
         .get()
         .then((doc) {

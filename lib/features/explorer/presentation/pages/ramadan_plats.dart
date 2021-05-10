@@ -1,16 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/product_big_card.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RamadanPlatsPage extends StatelessWidget {
+  UserModel userModel;
   List<ProductStatic> headerProductList;
   User user;
 
   RamadanPlatsPage(
-      {Key key, @required this.headerProductList, @required this.user})
+      {Key key, @required this.headerProductList, @required this.user, @required this.userModel,})
       : super(key: key);
 
   @override
@@ -75,6 +77,7 @@ class RamadanPlatsPage extends StatelessWidget {
                 width: double.infinity,
                 height: 196,
                 child: ProductBigCard(
+                  userModel: this.userModel,
                   product: this.headerProductList[index],
                   user: this.user,
                 ),

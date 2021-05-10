@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/ramadan_plats.dart';
@@ -10,9 +11,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ExplorerPage extends StatelessWidget {
+  UserModel userModel;
   final User user;
 
-  const ExplorerPage({Key key, this.user}) : super(key: key);
+   ExplorerPage({Key key, this.user, @required this.userModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +137,7 @@ class ExplorerPage extends StatelessWidget {
                           pushNewScreen(
                             context,
                             screen: RamadanPlatsPage(
+                              userModel: this.userModel,
                                 user: this.user,
                                 headerProductList: headerProductList),
                             withNavBar:
@@ -163,6 +166,7 @@ class ExplorerPage extends StatelessWidget {
                       return ProductBigCard(
                         product: e,
                         user: this.user,
+                        userModel: this.userModel,
                       );
                     });
                   }).toList(),
@@ -196,10 +200,12 @@ class ExplorerPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ProductSmallCard(
+                            userModel: this.userModel,
                               user: this.user,
                               promosProduct: promosProductList[productIndex]),
                           if (productIndex + 1 < promosProductList.length)
                             ProductSmallCard(
+                              userModel: this.userModel,
                                 user: this.user,
                                 promosProduct:
                                     promosProductList[productIndex + 1]),

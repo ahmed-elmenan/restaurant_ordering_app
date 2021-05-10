@@ -9,6 +9,7 @@ import 'package:flutter_application_1/core/widgets/order_count.dart';
 import 'package:flutter_application_1/features/explorer/presentation/bloc/add_order_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:uuid/uuid.dart';
 
 class OrderAddPlaceHolder extends StatelessWidget {
   OrderModel order;
@@ -103,6 +104,8 @@ class OrderAddPlaceHolderChild extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
+                    var uuid = Uuid();
+                    order.id = uuid.v4();
                     order.totalPrice =
                         calculate_total(order, COMPLETE_FORM_PRICE);
                     addOrderBloc

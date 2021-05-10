@@ -16,9 +16,9 @@ class OrderRepository {
 
   OrderRepository();
 
-  Future<List<OrderModel>> getUserOrders(String userId) async {
+  Future<List<OrderModel>> getUserOrders(String userName) async {
     try {
-      await _orderServices.getOrderByUserId(userId);
+      await _orderServices.getOrderByUserId(userName);
 
       return _orderServices.ordersList;
     } catch (e) {
@@ -37,7 +37,6 @@ class OrderRepository {
 
   Future<List<OrderModel>> getAllOrder() async {
     try {
-      
       await _orderServices.getOrders();
       return _orderServices.ordersList;
     } catch (e) {
@@ -45,7 +44,7 @@ class OrderRepository {
     }
   }
 
- Future<List<OrderModel>> updateOrderState(OrderModel order) async {
+  Future<List<OrderModel>> updateOrderState(OrderModel order) async {
     try {
       await _orderServices.updateOrderData({
         "userId": order.id,
@@ -57,14 +56,13 @@ class OrderRepository {
         "totalPrice": order.totalPrice,
         "amount": order.amount,
         "createdAt": order.createdAt,
+        "client": order.client,
         "delivered": false
       });
     } catch (e) {
       return null;
     }
   }
-
-
 
   Future<bool> addOrder(OrderModel order) async {
     var uuid = Uuid();
@@ -79,6 +77,7 @@ class OrderRepository {
         "totalPrice": order.totalPrice,
         "amount": order.amount,
         "createdAt": DateTime.now(),
+        "client": order.client,
         "delivered": false
       });
       return true;

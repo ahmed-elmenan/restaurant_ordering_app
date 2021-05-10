@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/constants.dart';
 import 'package:flutter_application_1/core/models/order.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/dark_layout.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
@@ -11,16 +12,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:uuid/uuid.dart';
 
 class OrderForm extends StatefulWidget {
+  UserModel userModel;
   ProductStatic product;
   User user;
 
-  OrderForm({@required this.user, @required this.product});
+  OrderForm(
+      {@required this.user, @required this.product, @required this.userModel});
 
   @override
   _OrderFormState createState() => _OrderFormState();
 }
 
-class _OrderFormState extends State<OrderForm> {
+class _OrderFormState extends State<OrderForm>
+    with AutomaticKeepAliveClientMixin {
   bool isFavorite = false;
   Icon favoriteIcon =
       Icon(Icons.favorite_border, color: Colors.white, size: 30);
@@ -30,9 +34,10 @@ class _OrderFormState extends State<OrderForm> {
   void initState() {
     var uuid = Uuid();
     order.orderCode = uuid.v4().split('-')[0];
-    order.id = widget.user.uid;
+
     order.userId = widget.user.uid;
     order.name = widget.product.name;
+    order.client = widget.userModel.partenariatUserName;
     super.initState();
   }
 
@@ -178,6 +183,10 @@ class _OrderFormState extends State<OrderForm> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 //  onTap: () {

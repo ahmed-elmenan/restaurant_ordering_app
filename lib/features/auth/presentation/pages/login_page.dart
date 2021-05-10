@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/brand.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 print("login button init");
               }, success: (user, userModel) {
                 if (userModel.status == 'regular')
-                  navigateToExplorerPage(context, user);
+                  navigateToExplorerPage(context, user, userModel);
                 else if (userModel.status == 'admin')
                   navigateToAdminDashBoardPage(context, user);
 
@@ -178,9 +179,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget navigateToExplorerPage(BuildContext context, User user) {
+  Widget navigateToExplorerPage(BuildContext context, User user, UserModel userModel) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return AppBottomNavBar(user: user);
+      return AppBottomNavBar(user: user, userModel: userModel);
     }));
   }
 

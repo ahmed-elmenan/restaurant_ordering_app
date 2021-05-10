@@ -10,13 +10,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AdminOrderCard extends StatefulWidget {
   OrderModel order;
+  int selectedIndex;
+  int index;
+  final VoidCallback onSelectedPressed;
 
-  AdminOrderCard({@required this.order});
+  AdminOrderCard(
+      {@required this.order,
+      this.selectedIndex,
+      this.index,
+      this.onSelectedPressed});
   @override
   _AdminOrderCardState createState() => _AdminOrderCardState();
 }
 
-class _AdminOrderCardState extends State<AdminOrderCard> {
+class _AdminOrderCardState extends State<AdminOrderCard>
+    with AutomaticKeepAliveClientMixin {
   UpdateOrderStateBloc updateOrderStateBloc;
   double dileveryPrice = 11.0;
   double height = 60;
@@ -54,7 +62,10 @@ class _AdminOrderCardState extends State<AdminOrderCard> {
       items.add(
         DropdownMenuItem(
           value: i,
-          child: Text(i['status']),
+          child: Text(
+            i['status'],
+            style: TextStyle(fontSize: 12),
+          ),
         ),
       );
     }
@@ -74,16 +85,38 @@ class _AdminOrderCardState extends State<AdminOrderCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(right: 10, left: 10),
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       width: double.infinity,
 
       // height: height,
-      decoration: bordersShape,
+      decoration: widget.selectedIndex == widget.index
+          ? BoxDecoration(
+              color: Color(0xFFFAFAFA),
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+              border: Border.all(color: GlobalTheme.kSecondaryText, width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            )
+          : BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(0),
+              ),
+            ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          sparator,
+          widget.selectedIndex == widget.index
+              ? Container()
+              : Divider(color: GlobalTheme.kDeviderColor, thickness: 1),
           SizedBox(
             height: 15,
           ),
@@ -138,65 +171,77 @@ class _AdminOrderCardState extends State<AdminOrderCard> {
                   }),
                 ),
                 DropdownBelow(
-                  itemWidth: 100,
+                  itemWidth: 110,
                   itemTextstyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black),
                   boxTextstyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.black),
                   boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                  boxWidth: 100,
+                  boxWidth: 110,
                   boxHeight: 45,
                   hint: Text('choose item'),
                   value: _selectedTest,
                   items: _dropdownTestItems,
                   onChanged: onChangeDropdownTests,
                 ),
+                SizedBox(
+                  width: 10,
+                ),
                 InkWell(
                   onTap: () {
                     setState(() {
-                      if (flag == false) {
-                        flag = true;
-                        details = ordersDetail();
-                        bordersShape = BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(25),
-                          ),
-                          border: Border.all(
-                              color: GlobalTheme.kSecondaryText, width: 1),
-                        );
-                        sparator = Container();
-                      } else {
-                        flag = false;
-                        details = Container();
-                        bordersShape = BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(0),
-                          ),
-                        );
-                        sparator = Divider(
-                            color: GlobalTheme.kDeviderColor, thickness: 1);
-                      }
+                      print(widget.selectedIndex);
+                      print(widget.index);
+
+                      // widget.selectedIndex = widget.index;
+                      widget.onSelectedPressed();
+
+                      // if (widget.selectedIndex == widget.index) {
+                      //   if (flag == false) {
+                      //     flag = true;
+                      //     details = ordersDetail();
+                      //     bordersShape = BoxDecoration(
+                      //       borderRadius: BorderRadius.all(
+                      //         Radius.circular(25),
+                      //       ),
+                      //       border: Border.all(
+                      //           color: GlobalTheme.kSecondaryText, width: 1),
+                      //     );
+                      //     sparator = Container();
+                      //   } else {
+                      //     flag = false;
+                      //     details = Container();
+                      //     bordersShape = BoxDecoration(
+                      //       borderRadius: BorderRadius.all(
+                      //         Radius.circular(0),
+                      //       ),
+                      //     );
+                      //     sparator = Divider(
+                      //         color: GlobalTheme.kDeviderColor, thickness: 1);
+                      //   }
+                      // }
                     });
                   },
                   child: Container(
                     height: 20,
                     width: 20,
+                    // padding: EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(25),
                       ),
                       border: Border.all(
-                          color: GlobalTheme.kSecondaryText, width: 1),
+                          color: GlobalTheme.kOrderCardArrow, width: 1),
                     ),
                     child: Center(
                       child: FaIcon(
-                        FontAwesomeIcons.arrowDown,
+                        FontAwesomeIcons.sortDown,
                         color: GlobalTheme.kOrderCardArrow,
-                        size: 15,
+                        size: 10,
                       ),
                     ),
                   ),
@@ -215,7 +260,14 @@ class _AdminOrderCardState extends State<AdminOrderCard> {
             convertDateTimeDisplay(widget.order.createdAt.toString()),
             style: TextStyle(color: GlobalTheme.kSecondaryText),
           ),
-          details,
+          SizedBox(height: 10),
+          Text(
+            "Client: " + widget.order.client,
+            style: TextStyle(
+                color: GlobalTheme.kSecondaryText, fontWeight: FontWeight.w500),
+          ),
+          widget.selectedIndex == widget.index ? ordersDetail() : Container()
+          // details,
           // SizedBox(
           //   height: 15,
           // ),
@@ -316,4 +368,7 @@ class _AdminOrderCardState extends State<AdminOrderCard> {
       ]),
     ]);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

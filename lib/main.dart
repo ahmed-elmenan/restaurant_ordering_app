@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter_application_1/features/orders/presentation/pages/orders_page.dart';
@@ -192,12 +193,12 @@ class Init extends StatelessWidget {
             content = Container();
           }, authenticatedState: (user) {
             print("Loading...");
-            content = AppBottomNavBar(user: user);
+            content = Container();
           }, unauthenticatedState: () {
-            // content = LoginPageParent();
-            content = AdminBottomNavBar(
-              user: null,
-            );
+            content = LoginPageParent();
+            // content = AdminBottomNavBar(
+            // user: null,
+            // );
             // content = OrderForm();
           });
           return content;
@@ -209,8 +210,9 @@ class Init extends StatelessWidget {
 
 class AppBottomNavBar extends StatefulWidget {
   final User user;
+  UserModel userModel;
 
-  AppBottomNavBar({@required this.user});
+  AppBottomNavBar({@required this.user, @required this.userModel});
   @override
   _AppBottomNavBarState createState() => _AppBottomNavBarState();
 }
@@ -225,8 +227,8 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
     User firebaseAuthUser = widget.user;
     List<Widget> _buildScreens() {
       return [
-        ExplorerPage(user: widget.user),
-        OrdersPage(user: firebaseAuthUser),
+        ExplorerPage(user: widget.user, userModel: widget.userModel),
+        OrdersPage(user: firebaseAuthUser, userModel: widget.userModel),
         PanierPage(),
         AccountPageParent(user: firebaseAuthUser)
       ];

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/order.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/failure.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
@@ -11,8 +12,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class OrdersPage extends StatefulWidget {
   final User user;
+  UserModel userModel;
 
-  OrdersPage({Key key, this.user}) : super(key: key);
+  OrdersPage({Key key, this.user, this.userModel}) : super(key: key);
 
   @override
   _OrdersPageState createState() => _OrdersPageState();
@@ -25,7 +27,7 @@ class _OrdersPageState extends State<OrdersPage> {
       RefreshController(initialRefresh: false);
 
   _onRefresh() async {
-    _orderBloc..add(OrdersEvent.loadOrders(widget.user.uid));
+    _orderBloc..add(OrdersEvent.loadOrders(widget.userModel.partenariatUserName));
     _refreshController.refreshCompleted();
   }
 

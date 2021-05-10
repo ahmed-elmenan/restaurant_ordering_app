@@ -33,7 +33,6 @@ class AdminDashBoardOrdersChild extends StatefulWidget {
 }
 
 class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
-  String selectedItem;
   OrdersBloc ordersBloc;
 
   List<Map<String, dynamic>> dropDownitems = [
@@ -42,8 +41,13 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
     {'status': 'Livrée', 'color': Colors.green},
     {'status': 'Annulée', 'color': Colors.grey},
   ];
+  List<String> dateDropDownItems = ["Aujourd'hui"];
+
   var _selectedTest;
+  var _selectedDate;
+
   List<DropdownMenuItem> _dropdownTestItems;
+  List<DropdownMenuItem> _dropdownDateItems;
 
   @override
   void initState() {
@@ -51,9 +55,23 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
     ordersBloc.add(OrdersEvent.started());
 
     super.initState();
+
     _dropdownTestItems = buildDropdownTestItems(dropDownitems);
+    _dropdownDateItems = buildDropdownDateItems(dateDropDownItems);
   }
 
+  List<DropdownMenuItem> buildDropdownDateItems(List dropDownitems) {
+    List<DropdownMenuItem> items = List();
+    for (var i in dateDropDownItems) {
+      items.add(
+        DropdownMenuItem(
+          value: i,
+          child: Text(i),
+        ),
+      );
+    }
+    return items;
+  }
   List<DropdownMenuItem> buildDropdownTestItems(List dropDownitems) {
     List<DropdownMenuItem> items = List();
     for (var i in dropDownitems) {
@@ -73,115 +91,141 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
       _selectedTest = selectedTest;
     });
   }
+  onChangeDropdownDate(selectedDate) {
+    print(selectedDate);
+    setState(() {
+      _selectedDate = selectedDate;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(top: 60, right: 30, left: 30),
-        child: Column(children: [
-          Text("Liste des commandes",
-              style: GlobalTheme.headerStyle(GlobalTheme.ktitleColor)),
-          SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: DropdownBelow(
-                  itemWidth: 145,
-                  itemTextstyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxTextstyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                  boxWidth: double.infinity,
-                  boxHeight: 45,
-                  hint: Text('choose item'),
-                  value: _selectedTest,
-                  items: _dropdownTestItems,
-                  onChanged: onChangeDropdownTests,
+        padding: const EdgeInsets.only(top: 100, right: 30, left: 30),
+        child: Container(
+          child: Column(children: [
+            Text("Liste des commandes",
+                style: GlobalTheme.headerStyle(GlobalTheme.ktitleColor)),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: DropdownBelow(
+                    itemWidth: 145,
+                    itemTextstyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                    boxTextstyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                    boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
+                    boxWidth: double.infinity,
+                    boxHeight: 45,
+                    hint: Text('choisir un status'),
+                    value: _selectedTest,
+                    items: _dropdownTestItems,
+                    onChanged: onChangeDropdownTests,
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: DropdownBelow(
-                  itemWidth: 145,
-                  itemTextstyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxTextstyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                  boxWidth: double.infinity,
-                  boxHeight: 45,
-                  hint: Text('choisir un status'),
-                  value: _selectedTest,
-                  items: _dropdownTestItems,
-                  onChanged: onChangeDropdownTests,
+                SizedBox(
+                  width: 10,
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              SvgPicture.asset(
-                "assets/images/search.svg",
-                color: GlobalTheme.ktitleColor,
-                height: 16.09,
-              ),
-            ],
-          ),
-          // SizedBox(height: 30),
-          // Divider(color: GlobalTheme.kDeviderColor),
-          // SizedBox(height: 20),
-          // AdminOrderCard(),
+                Expanded(
+                  child: DropdownBelow(
+                    itemWidth: 145,
+                    itemTextstyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                    boxTextstyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                    boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
+                    boxWidth: double.infinity,
+                    boxHeight: 45,
+                    hint: Text('choisir une date'),
+                    value: _selectedDate,
+                    items: _dropdownDateItems,
+                    onChanged: onChangeDropdownDate,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                SvgPicture.asset(
+                  "assets/images/search.svg",
+                  color: GlobalTheme.ktitleColor,
+                  height: 16.09,
+                ),
+              ],
+            ),
+            // SizedBox(height: 30),
+            // Divider(color: GlobalTheme.kDeviderColor),
+            // SizedBox(height: 20),
+            // AdminOrderCard(),
 
-          BlocBuilder<OrdersBloc, OrdersState>(builder: (context, state) {
-            Widget content;
-            state.when(initial: () {
-              content = Container();
-            }, loading: () {
-              content = Padding(
-                padding: const EdgeInsets.only(top: 15.0),
-                child: buildLoadingUI(),
-              );
-            }, success: (ordersList) {
-              content = OrderList(ordersList: ordersList);
-              print(ordersList[1].name);
-            }, failed: () {
-              content = Container();
-              print("nope");
-            });
-            return content;
-          }),
-        ]));
+            BlocBuilder<OrdersBloc, OrdersState>(builder: (context, state) {
+              Widget content;
+              state.when(initial: () {
+                content = Container();
+              }, loading: () {
+                content = Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: buildLoadingUI(),
+                );
+              }, success: (ordersList) {
+                content = OrderList(ordersList: ordersList);
+                print(ordersList[1].name);
+              }, failed: () {
+                content = Container();
+                print("nope");
+              });
+              return content;
+            }),
+          ]),
+        ));
   }
 }
 
-class OrderList extends StatelessWidget {
+class OrderList extends StatefulWidget {
   List<OrderModel> ordersList;
 
   OrderList({@required this.ordersList});
 
   @override
+  _OrderListState createState() => _OrderListState();
+}
+
+class _OrderListState extends State<OrderList> {
+  int selectedIndex = -1;
+
+  onSelectedPressed(int index) {
+    setState(() {
+      if (selectedIndex == index) {
+        selectedIndex = 1000;
+      } else
+        selectedIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(ordersList.length);
+    print(widget.ordersList.length);
     return Flexible(
       flex: 1,
       child: ListView.builder(
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
-        itemCount: ordersList.length,
+        itemCount: widget.ordersList.length,
         itemBuilder: (context, index) {
           return AdminOrderCard(
-            order: ordersList[index],
-          );
+              order: widget.ordersList[index],
+              onSelectedPressed: () => onSelectedPressed(index),
+              selectedIndex: selectedIndex,
+              index: index);
         },
       ),
     );

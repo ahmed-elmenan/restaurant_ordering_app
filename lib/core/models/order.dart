@@ -12,6 +12,7 @@ class OrderModel {
   static const ORDER_FORM = "orderForm";
   static const ORDER_CODE = "orderCode";
   static const TOTAL_PRICE = "totalPrice";
+  static const CLIENT = "client";
 
   String id;
   String _productId;
@@ -24,6 +25,7 @@ class OrderModel {
   Map<String, dynamic> orderForm = {};
   String orderCode;
   double totalPrice;
+  String client;
 
   // String get id => id;
   String get productId => _productId;
@@ -49,6 +51,7 @@ class OrderModel {
     orderCode = snapshot.data()[ORDER_CODE];
     orderForm = snapshot.data()[ORDER_FORM];
     totalPrice = snapshot.data()[TOTAL_PRICE];
+    client = snapshot.data()[CLIENT];
     _createdAt =
         DateTime.parse(snapshot.data()[CREATED_AT].toDate().toString());
   }
