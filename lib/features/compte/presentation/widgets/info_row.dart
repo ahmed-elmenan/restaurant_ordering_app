@@ -9,11 +9,16 @@ class InfoRow extends StatelessWidget {
   double imageSize;
   bool flag;
 
-  InfoRow({@required this.imageUrl, @required this.title, @required this.imageSize, this.flag = false});
+  InfoRow(
+      {@required this.imageUrl,
+      @required this.title,
+      @required this.imageSize,
+      this.flag = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white24,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

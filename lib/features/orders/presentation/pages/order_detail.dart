@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/order.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:flutter_application_1/core/utils/convert_date_time_display.dart';
 import 'package:flutter_application_1/core/widgets/header_with_back_arrow.dart';
 import 'package:flutter_application_1/features/orders/presentation/widgets/Dilevery_adress.dart';
 import 'package:flutter_application_1/features/orders/presentation/widgets/order_status_card.dart';
@@ -28,9 +29,9 @@ class _OrderDetailState extends State<OrderDetail> {
             Divider(color: GlobalTheme.kDeviderColor),
             OrderDileveryStatus(
               status: widget.order.delivered == false
-                  ? "Commande en progression"
+                  ? "Commande en attente"
                   : "Commande livrée",
-              orderDate: widget.order.createdAt,
+              orderDate: widget.order.createdAt?? DateTime.now(),
               orderCode: widget.order.orderCode,
             ),
             SizedBox(height: 15),

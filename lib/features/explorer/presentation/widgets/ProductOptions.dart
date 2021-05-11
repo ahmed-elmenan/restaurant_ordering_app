@@ -7,19 +7,29 @@ class ProductOptions extends StatefulWidget {
   List<Item> options;
   String title;
   OrderModel order;
+  Function(double) handleAddExtraPrice;
+  Function(double) handlesubtractExtraPrice;
 
-  ProductOptions({this.options, this.title, this.order});
+  ProductOptions(
+      {this.options,
+      this.title,
+      this.order,
+      this.handleAddExtraPrice,
+      this.handlesubtractExtraPrice});
   @override
   State<StatefulWidget> createState() => ProductOptionsState();
 }
 
 class ProductOptionsState extends State<ProductOptions> {
-  List<Item> items;
+  // List<Item> items;
   int selectedIndex;
 
   @override
   void initState() {
     // TODO: implement initState
+    for (int i = 0; i < widget.options.length; i++)
+      widget.options[i].isSelected = false;
+
     selectedIndex = -1;
     super.initState();
   }
@@ -84,7 +94,15 @@ class ProductOptionsState extends State<ProductOptions> {
     final item = widget.options[index];
     setState(() {
       selectedIndex = index;
-      item.isSelected = !item.isSelected;
+      if (widget.title == "EXTRA") {
+        item.isSelected = !item.isSelected;
+        if (item.isSelected == true)
+          widget.handleAddExtraPrice(item.extraPrice);
+        else
+          widget.handlesubtractExtraPrice(item.extraPrice);
+      }
+
+      print("WWWWWWww" + widget.order.total.toString());
       widget.title == "EXTRA"
           ? onExtraItemSelected(index)
           : widget.order.orderForm[widget.title] = widget.options[index].name;

@@ -1,16 +1,8 @@
 part of 'account_bloc.dart';
 
-abstract class AccountState extends Equatable {
-  const AccountState();
-  
-  @override
-  List<Object> get props => [];
+@freezed
+abstract class AccountState with _$AccountState {
+  const factory AccountState.logOutSuccess() = _LogOutSuccess;
+  const factory AccountState.logOutLoading() = _LogOutLoading;
+  const factory AccountState.logOutInitial() = _LogOutInitial;
 }
-
-class LogOutInitial extends AccountState {}
-
-class LogOutSuccess extends AccountState {}
-
-
-
-

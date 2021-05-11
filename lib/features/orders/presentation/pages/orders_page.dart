@@ -27,7 +27,8 @@ class _OrdersPageState extends State<OrdersPage> {
       RefreshController(initialRefresh: false);
 
   _onRefresh() async {
-    _orderBloc..add(OrdersEvent.loadOrders(widget.userModel.partenariatUserName));
+    _orderBloc
+      ..add(OrdersEvent.loadOrders(widget.userModel.partenariatUserName));
     _refreshController.refreshCompleted();
   }
 
@@ -40,8 +41,8 @@ class _OrdersPageState extends State<OrdersPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          _orderBloc..add(OrdersEvent.loadOrders(widget.user.uid)),
+      create: (context) => _orderBloc
+        ..add(OrdersEvent.loadOrders(widget.userModel.partenariatUserName)),
       child: SmartRefresher(
         controller: _refreshController,
         header: WaterDropMaterialHeader(

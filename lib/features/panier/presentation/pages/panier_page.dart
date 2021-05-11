@@ -1,12 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class PanierPage extends StatelessWidget {
   final User user;
+  PersistentTabController controller;
+  VoidCallback chnageExplorerState;
 
-  const PanierPage({Key key, this.user}) : super(key: key);
+  PanierPage({Key key, this.user, this.controller, this.chnageExplorerState})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,9 @@ class PanierPage extends StatelessWidget {
                   "Ajouter des articles",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  this.chnageExplorerState();
+                },
                 style: ElevatedButton.styleFrom(
                   primary: GlobalTheme.kColorLime,
                   onPrimary: Colors.white,

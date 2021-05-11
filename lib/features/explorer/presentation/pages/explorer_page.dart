@@ -11,10 +11,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ExplorerPage extends StatelessWidget {
+  String routeName = '/first';
   UserModel userModel;
   final User user;
 
-   ExplorerPage({Key key, this.user, @required this.userModel}) : super(key: key);
+  ExplorerPage({Key key, this.user, @required this.userModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +77,6 @@ class ExplorerPage extends StatelessWidget {
           imageLink: "assets/images/bastilla.jpg"),
     ];
     return Scaffold(
-      // Row(
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: [
-
-      //     ]),
-
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: AppBar(
@@ -137,7 +133,7 @@ class ExplorerPage extends StatelessWidget {
                           pushNewScreen(
                             context,
                             screen: RamadanPlatsPage(
-                              userModel: this.userModel,
+                                userModel: this.userModel,
                                 user: this.user,
                                 headerProductList: headerProductList),
                             withNavBar:
@@ -200,12 +196,12 @@ class ExplorerPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ProductSmallCard(
-                            userModel: this.userModel,
+                              userModel: this.userModel,
                               user: this.user,
                               promosProduct: promosProductList[productIndex]),
                           if (productIndex + 1 < promosProductList.length)
                             ProductSmallCard(
-                              userModel: this.userModel,
+                                userModel: this.userModel,
                                 user: this.user,
                                 promosProduct:
                                     promosProductList[productIndex + 1]),

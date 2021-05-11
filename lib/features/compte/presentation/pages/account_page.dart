@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter_application_1/features/compte/presentation/bloc/account_bloc.dart';
 import 'package:flutter_application_1/features/compte/presentation/pages/information.dart';
@@ -11,23 +13,25 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class AccountPageParent extends StatelessWidget {
   User user;
+  UserModel userModel;
 
-  AccountPageParent({this.user});
+  AccountPageParent({this.user, this.userModel});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AccountBloc(),
-      child: AccountPage(user: user),
+      child: AccountPage(user: user, userModel: userModel),
     );
   }
 }
 
 class AccountPage extends StatelessWidget {
   User user;
+  UserModel userModel;
   AccountBloc accountBloc;
 
-  AccountPage({this.user});
+  AccountPage({this.user, this.userModel});
 
   @override
   Widget build(BuildContext context) {
@@ -37,31 +41,31 @@ class AccountPage extends StatelessWidget {
         padding: EdgeInsets.only(top: 40, right: 30, left: 30),
         // color: Colors.blueAccent,
         child: ListView(children: [
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: GlobalTheme.kButtonInputBg,
-                minRadius: 50,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  "Lorem Ipsum",
-                  style: TextStyle(
-                      color: GlobalTheme.kAccountTitleColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-                SizedBox(
-                  height: 6,
-                ),
-                Text("lorem.Ipsum@email.com",
-                    style: TextStyle(
-                        color: GlobalTheme.kSecondaryText, fontSize: 13))
-              ])
-            ],
+          BlocListener<AccountBloc, AccountState>(
+            listener: (context, state) {
+              Widget content;
+              state.when(logOutSuccess: () {
+                content = Container();
+                navigateToSignInPage(context);
+              }, logOutInitial: () {
+                content = buildInitialUI();
+              }, logOutLoading: () {
+                Center(child: buildLoadingUI());
+              });
+              return content;
+            },
+            child: BlocBuilder<AccountBloc, AccountState>(
+                builder: (context, state) {
+              Widget content;
+              state.when(logOutSuccess: () {
+                content = Container();
+              }, logOutInitial: () {
+                content = buildInitialUI();
+              }, logOutLoading: () {
+                content = Center(child: buildLoadingUI());
+              });
+              return content;
+            }),
           ),
           SizedBox(height: 16),
           Divider(color: GlobalTheme.kDeviderColor),
@@ -76,7 +80,11 @@ class AccountPage extends StatelessWidget {
             onTap: () {
               pushNewScreen(
                 context,
-                screen: Scaffold(body: OrdersPage(user: this.user)),
+                screen: Scaffold(
+                    body: OrdersPage(
+                  user: this.user,
+                  userModel: this.userModel,
+                )),
                 withNavBar: true, // OPTIONAL VALUE. True by default.
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
@@ -136,10 +144,15 @@ class AccountPage extends StatelessWidget {
               imageSize: 16.74,
               flag: true),
           SizedBox(height: 19),
-          InfoRow(
-            imageUrl: "assets/images/deconnexion.svg",
-            title: "Déconnexion",
-            imageSize: 15.54,
+          GestureDetector(
+            onTap: () {
+              accountBloc.add(AccountEvent.logOutButtonPressedEvent());
+            },
+            child: InfoRow(
+              imageUrl: "assets/images/deconnexion.svg",
+              title: "Déconnexion",
+              imageSize: 15.54,
+            ),
           ),
           Container(
               margin: EdgeInsets.only(top: 27),
@@ -156,8 +169,39 @@ class AccountPage extends StatelessWidget {
   //     // accountBloc.add(LogOutButtonPressedEvent());
 
   void navigateToSignInPage(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return LoginPage();
-    }));
+
+    pushNewScreen(context,
+        screen: LoginPageParent(),
+        withNavBar: false, // OPTIONAL VALUE. True by default.
+        pageTransitionAnimation: PageTransitionAnimation.slideRight
+        );
+  }
+
+  Widget buildInitialUI() {
+    return Row(
+      children: [
+        CircleAvatar(
+          backgroundColor: GlobalTheme.kButtonInputBg,
+          minRadius: 50,
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            "Lorem Ipsum",
+            style: TextStyle(
+                color: GlobalTheme.kAccountTitleColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          Text("lorem.Ipsum@email.com",
+              style: TextStyle(color: GlobalTheme.kSecondaryText, fontSize: 13))
+        ])
+      ],
+    );
   }
 }

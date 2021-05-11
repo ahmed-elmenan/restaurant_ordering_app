@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/core/models/order.dart';
-import 'package:flutter_application_1/core/theme/global_theme.dart';
 
 class OrderCount extends StatefulWidget {
   OrderModel order;
+  VoidCallback onSelectedPressed;
 
-  OrderCount(this.order);
+  OrderCount(this.order, this.onSelectedPressed);
   @override
   _OrderCountState createState() => _OrderCountState();
 }
@@ -29,6 +29,7 @@ class _OrderCountState extends State<OrderCount>
       widget.order.amount++;
       usernameController.text = widget.order.amount.toString();
     });
+    widget.onSelectedPressed();
   }
 
   decreaseOrderCount() {
@@ -37,6 +38,7 @@ class _OrderCountState extends State<OrderCount>
       if (widget.order.amount > 1) widget.order.amount--;
       usernameController.text = widget.order.amount.toString();
     });
+    widget.onSelectedPressed();
   }
 
   @override
@@ -75,6 +77,7 @@ class _OrderCountState extends State<OrderCount>
                   onChanged: (value) {
                     setState(() {
                       widget.order.amount = int.parse(value);
+                      widget.onSelectedPressed();
                     });
                   },
                   inputFormatters: [

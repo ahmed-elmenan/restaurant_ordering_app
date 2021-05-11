@@ -1,15 +1,16 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/features/compte/domain/repositories/i_user_repository.dart';
+import 'package:flutter_application_1/features/admin_dashboard/domain/repositories/i_user_repository.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'account_event.dart';
 part 'account_state.dart';
+part 'account_bloc.freezed.dart';
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
-  UserRepository userRepository;
-  AccountBloc() : super(LogOutInitial()) {
+   UserRepository userRepository;
+  AccountBloc() : super(_LogOutInitial()) {
     userRepository = UserRepository();
   }
 
@@ -17,9 +18,10 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   Stream<AccountState> mapEventToState(
     AccountEvent event,
   ) async* {
-    if (event is LogOutButtonPressedEvent) {
+    if (event is _LogOutButtonPressedEvent) {
+      yield _LogOutLoading();
       await userRepository.signOut();
-      yield LogOutSuccess();
+      yield _LogOutSuccess();
     }
   }
 }

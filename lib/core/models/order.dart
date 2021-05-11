@@ -19,20 +19,21 @@ class OrderModel {
   String userId;
   String name;
   int amount;
-  bool _delivered;
+  bool delivered;
   String status;
   DateTime _createdAt;
   Map<String, dynamic> orderForm = {};
   String orderCode;
   double totalPrice;
   String client;
+  double total;
 
   // String get id => id;
   String get productId => _productId;
   // String get userId => userId;
   // String get name => name;
   // int get amount => amount;
-  bool get delivered => _delivered;
+  // bool get delivered => _delivered;
   // Map<String, dynamic> get orderForm => _orderForm;
   DateTime get createdAt => _createdAt;
 
@@ -47,7 +48,7 @@ class OrderModel {
     name = snapshot.data()[NAME];
     amount = snapshot.data()[AMOUNT];
     status = snapshot.data()[STATUS];
-    _delivered = snapshot.data()[DELIVERED];
+    delivered = snapshot.data()[DELIVERED];
     orderCode = snapshot.data()[ORDER_CODE];
     orderForm = snapshot.data()[ORDER_FORM];
     totalPrice = snapshot.data()[TOTAL_PRICE];

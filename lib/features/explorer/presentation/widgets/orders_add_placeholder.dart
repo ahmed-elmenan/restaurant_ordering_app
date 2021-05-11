@@ -25,12 +25,27 @@ class OrderAddPlaceHolder extends StatelessWidget {
   }
 }
 
-class OrderAddPlaceHolderChild extends StatelessWidget {
+class OrderAddPlaceHolderChild extends StatefulWidget {
   OrderModel order;
-  AddOrderBloc addOrderBloc;
-  double total = 75.00;
 
   OrderAddPlaceHolderChild({@required this.order});
+
+  @override
+  _OrderAddPlaceHolderChildState createState() =>
+      _OrderAddPlaceHolderChildState();
+}
+
+class _OrderAddPlaceHolderChildState extends State<OrderAddPlaceHolderChild> {
+  AddOrderBloc addOrderBloc;
+
+  // double total = 75.00;
+
+  onSelectedPressed(int value) {
+    setState(() {
+      widget.order.total = 75.00 * value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     addOrderBloc = BlocProvider.of<AddOrderBloc>(context);
@@ -68,9 +83,9 @@ class OrderAddPlaceHolderChild extends StatelessWidget {
         content = FailureWidget(message: message);
       });
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Container(
-          height: 54,
+          height: 60,
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.only(right: 13, left: 28),
           margin: EdgeInsets.only(top: 30, right: 20, left: 20, bottom: 25),
@@ -83,14 +98,23 @@ class OrderAddPlaceHolderChild extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${total.toStringAsFixed(2)} MAD",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14),
+              Container(
+                child: Text(
+                  "${widget.order.total.toStringAsFixed(2)} MAD",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
+                ),
               ),
-              OrderCount(order),
+              SizedBox(
+                width: 5,
+              ),
+              OrderCount(
+                  widget.order, () => onSelectedPressed(widget.order.amount)),
+              SizedBox(
+                width: 5,
+              ),
               Container(
                 width: 52,
                 height: 40,
@@ -105,11 +129,11 @@ class OrderAddPlaceHolderChild extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     var uuid = Uuid();
-                    order.id = uuid.v4();
-                    order.totalPrice =
-                        calculate_total(order, COMPLETE_FORM_PRICE);
-                    addOrderBloc
-                        .add(AddOrderEvent.addOrderButtonPressed(this.order));
+                    widget.order.id = uuid.v4();
+                    widget.order.totalPrice =
+                        calculate_total(widget.order, widget.order.total);
+                    addOrderBloc.add(
+                        AddOrderEvent.addOrderButtonPressed(this.widget.order));
                   },
                   child: SvgPicture.asset(
                     "assets/images/paniers.svg",

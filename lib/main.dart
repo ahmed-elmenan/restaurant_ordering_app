@@ -148,6 +148,14 @@ class MyApp extends StatelessWidget {
             home: Init(),
             onGenerateRoute: Routes.sailor.generator(),
             navigatorKey: Routes.sailor.navigatorKey,
+            routes: {
+              // When navigating to the "/" route, build the FirstScreen widget.
+              '/first': (context) => ExplorerPage(
+                    user: null,
+                    userModel: null,
+                  ),
+              // When navigating to the "/second" route, build the SecondScreen widget.
+            },
           );
         }
       },
@@ -221,16 +229,28 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
   int _currentIndex = 0;
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
+  bool flag = false;
+
+  chnageExplorerState() {
+    setState(() {
+      _controller.jumpToTab(0);
+      _currentIndex = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
     User firebaseAuthUser = widget.user;
     List<Widget> _buildScreens() {
       return [
         ExplorerPage(user: widget.user, userModel: widget.userModel),
         OrdersPage(user: firebaseAuthUser, userModel: widget.userModel),
-        PanierPage(),
-        AccountPageParent(user: firebaseAuthUser)
+        PanierPage(
+          controller: _controller,
+          chnageExplorerState: () => chnageExplorerState(),
+        ),
+        AccountPageParent(user: firebaseAuthUser, userModel: widget.userModel)
       ];
     }
 
@@ -256,7 +276,12 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
         navBarHeight: 100,
         popActionScreens: PopActionScreensType.all,
         navBarStyle: NavBarStyle.style6,
-      ),
+        screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
+          animateTabTransition: false,
+         ),
+        )
+        
+      
     );
   }
 
@@ -285,6 +310,12 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
         ),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: GlobalTheme.kBottomNavBarIconBorderColor,
+        routeAndNavigatorSettings: RouteAndNavigatorSettings(
+          initialRoute: '/',
+          routes: {
+            '/first': (context) => ExplorerPage(user: null, userModel: null),
+          },
+        ),
       ),
       PersistentBottomNavBarItem(
         icon: Column(
@@ -311,6 +342,12 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
         ),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: GlobalTheme.kBottomNavBarIconBorderColor,
+        routeAndNavigatorSettings: RouteAndNavigatorSettings(
+          initialRoute: '/',
+          routes: {
+            '/first': (context) => ExplorerPage(user: null, userModel: null),
+          },
+        ),
       ),
       PersistentBottomNavBarItem(
         icon: Column(
@@ -337,6 +374,12 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
         ),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: GlobalTheme.kBottomNavBarIconBorderColor,
+        routeAndNavigatorSettings: RouteAndNavigatorSettings(
+          initialRoute: '/',
+          routes: {
+            '/first': (context) => ExplorerPage(user: null, userModel: null),
+          },
+        ),
       ),
       PersistentBottomNavBarItem(
         icon: Column(
@@ -363,6 +406,12 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
         ),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: GlobalTheme.kBottomNavBarIconBorderColor,
+        routeAndNavigatorSettings: RouteAndNavigatorSettings(
+          initialRoute: '/',
+          routes: {
+            '/first': (context) => ExplorerPage(user: null, userModel: null),
+          },
+        ),
       ),
     ];
   }

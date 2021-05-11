@@ -49,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
                   navigateToExplorerPage(context, user, userModel);
                 else if (userModel.status == 'admin')
                   navigateToAdminDashBoardPage(context, user);
-
               }, loading: () {
                 print("login button loading");
               }, failure: (message) {
@@ -113,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(32),
                 ),
                 child: TextField(
+                  obscureText: true,
                   controller: passwordController,
                   decoration: InputDecoration(
                     hintText: "Mot de passe",
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () async {
                   loginBloc.add(LoginButtonPressEvent.started(
-                      username: usernameController.text,
+                      username: usernameController.text.trim(),
                       password: passwordController.text));
                 },
                 style: ElevatedButton.styleFrom(
@@ -179,7 +179,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget navigateToExplorerPage(BuildContext context, User user, UserModel userModel) {
+  Widget navigateToExplorerPage(
+      BuildContext context, User user, UserModel userModel) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return AppBottomNavBar(user: user, userModel: userModel);
     }));
