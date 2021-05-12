@@ -4,7 +4,7 @@ import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
-import 'package:flutter_application_1/features/compte/presentation/bloc/account_bloc.dart';
+import 'package:flutter_application_1/features/compte/presentation/blocs/signout_bloc/account_bloc.dart';
 import 'package:flutter_application_1/features/compte/presentation/pages/information.dart';
 import 'package:flutter_application_1/features/compte/presentation/widgets/info_row.dart';
 import 'package:flutter_application_1/features/orders/presentation/pages/orders_page.dart';

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/header_with_back_arrow.dart';
+import 'package:flutter_application_1/features/compte/presentation/pages/password_reset_page.dart';
 import 'package:flutter_application_1/features/compte/presentation/widgets/user_info.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class Information extends StatelessWidget {
   User user;
@@ -39,11 +41,25 @@ class Information extends StatelessWidget {
               imageSize: 14.4,
             ),
             SizedBox(height: 40),
-            UserInfos(
-              imageUrl: "assets/images/lock.svg",
-              title: "Changer le mot de passe",
-              flag: true,
-              imageSize: 21.01,
+            GestureDetector(
+              onTap: () {
+                pushNewScreen(
+                  context,
+                  screen: Scaffold(
+                      body: PasswordResetPage(
+                    user: this.user,
+                    userModel: this.userModel,
+                  )),
+                  withNavBar: false, // OPTIONAL VALUE. True by default.
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                );
+              },
+              child: UserInfos(
+                imageUrl: "assets/images/lock.svg",
+                title: "Changer le mot de passe",
+                flag: true,
+                imageSize: 21.01,
+              ),
             ),
             SizedBox(height: 40),
             UserInfos(

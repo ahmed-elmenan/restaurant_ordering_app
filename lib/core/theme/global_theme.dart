@@ -14,6 +14,8 @@ class GlobalTheme {
   static const kAccountTitleColor = Color(0xFF2E2E2E);
   static const kAdminBottmBarColor = Color(0xFF2f3034);
   static const kAdminBottomBarItemColor = Color(0xFF5a5c5e);
+  static const kInputHintColor = Color(0xFF979BA3);
+
 
   
   static const kBottomNavBarIconBorderColor = Color(0xFF3B846B);

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
+import 'package:flutter_application_1/features/compte/presentation/pages/password_reset_page.dart';
 import 'package:flutter_application_1/features/orders/presentation/pages/orders_page.dart';
 import 'package:flutter_application_1/features/compte/presentation/pages/account_page.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
@@ -203,7 +204,9 @@ class Init extends StatelessWidget {
             print("Loading...");
             content = Container();
           }, unauthenticatedState: () {
-            content = LoginPageParent();
+            // content = LoginPageParent();
+            content =
+                Scaffold(body: PasswordResetPage(user: null, userModel: null));
             // content = AdminBottomNavBar(
             // user: null,
             // );
@@ -240,7 +243,6 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-
     User firebaseAuthUser = widget.user;
     List<Widget> _buildScreens() {
       return [
@@ -255,34 +257,32 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
     }
 
     return Scaffold(
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: _buildScreens(),
-        items: _navBarsItems(),
-        confineInSafeArea: false,
-        backgroundColor: GlobalTheme.kColorLime,
-        handleAndroidBackButtonPress: true,
-        resizeToAvoidBottomInset: true,
-        onItemSelected: (value) {
-          setState(() {
-            _currentIndex = value;
-          });
-        },
-        padding: NavBarPadding.only(bottom: 32),
-        stateManagement: true,
-        hideNavigationBarWhenKeyboardShows: true,
-        popAllScreensOnTapOfSelectedTab: true,
-        navBarHeight: 100,
-        popActionScreens: PopActionScreensType.all,
-        navBarStyle: NavBarStyle.style6,
-        screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
-          animateTabTransition: false,
-         ),
-        )
-        
-      
-    );
+        body: PersistentTabView(
+      context,
+      controller: _controller,
+      screens: _buildScreens(),
+      items: _navBarsItems(),
+      confineInSafeArea: false,
+      backgroundColor: GlobalTheme.kColorLime,
+      handleAndroidBackButtonPress: true,
+      resizeToAvoidBottomInset: true,
+      onItemSelected: (value) {
+        setState(() {
+          _currentIndex = value;
+        });
+      },
+      padding: NavBarPadding.only(bottom: 32),
+      stateManagement: true,
+      hideNavigationBarWhenKeyboardShows: true,
+      popAllScreensOnTapOfSelectedTab: true,
+      navBarHeight: 100,
+      popActionScreens: PopActionScreensType.all,
+      navBarStyle: NavBarStyle.style6,
+      screenTransitionAnimation: ScreenTransitionAnimation(
+        // Screen transition animation on change of selected tab.
+        animateTabTransition: false,
+      ),
+    ));
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
