@@ -26,8 +26,8 @@ class SendMailBloc extends Bloc<SendMailEvent, SendMailState> {
       try {
         yield _MailSentLoading();
 
-        await userRepository.sendCodeToEmail(
-            event.user.email, event.verificationCode);
+        await userRepository.sendCodeToEmail(event.verificationCode,
+            event.user.email);
         print('rah sent');
         yield _MailSentSuccess();
       } catch (e) {

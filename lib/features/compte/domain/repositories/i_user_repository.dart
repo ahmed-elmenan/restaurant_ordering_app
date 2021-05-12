@@ -31,7 +31,7 @@ class UserRepository {
   Future sendCodeToEmail(String verificationCode, String email) async {
     String username = 'coemco12@gmail.com';
     String password = 'Coemco@123@@';
-
+    print(">>>>>>>>" + email);
     // ignore: deprecated_member_use
     final smtpServer = gmail(username, password);
     // Use the SmtpServer class to configure an SMTP server:

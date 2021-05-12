@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:flutter_application_1/features/compte/presentation/blocs/send_mail_bloc/send_mail_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -71,7 +73,8 @@ class PasswordResetPage extends StatelessWidget {
               children: [
                 Form(
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 7, horizontal: 17),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 7, horizontal: 17),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(32),
@@ -92,7 +95,8 @@ class PasswordResetPage extends StatelessWidget {
                 ),
                 Form(
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 7, horizontal: 17),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 7, horizontal: 17),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(32),
@@ -113,7 +117,8 @@ class PasswordResetPage extends StatelessWidget {
                 ),
                 Form(
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 7, horizontal: 17),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 7, horizontal: 17),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(32),
@@ -138,23 +143,25 @@ class PasswordResetPage extends StatelessWidget {
                   child: ElevatedButton(
                     child: Text(
                       "Envoyer",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     onPressed: () async {
-                      pushNewScreen(
-                context,
-                screen: Scaffold(
-                    body: EmailVerificationPage(
-                  user: this.user,
-                  userModel: this.userModel,
-                )),
-                withNavBar: false, // OPTIONAL VALUE. True by default.
-                pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              );
-                      // loginBloc.add(LoginButtonPressEvent.started(
+                      // sendMailBloc.add(SendMailEvent.sendMailButtonPressed(
                       //     username: usernameController.text.trim(),
                       //     password: passwordController.text));
+                      
+                      pushNewScreen(
+                        context,
+                        screen: Scaffold(
+                            body: EmailVerificationPage(
+                          user: this.user,
+                          userModel: this.userModel,
+                        )),
+                        withNavBar: false, // OPTIONAL VALUE. True by default.
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: GlobalTheme.kColorLime,
