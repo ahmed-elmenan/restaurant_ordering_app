@@ -172,26 +172,43 @@ class _AdminOrderCardState extends State<AdminOrderCard>
                   }),
                 ),
                 Container(
-                  child: DropdownButton(
-                    // itemWidth: 115,
-                    // itemTextstyle: TextStyle(
-                    //     fontSize: 12,
-                    //     fontWeight: FontWeight.w400,
-                    //     color: Colors.black),
-                    // boxTextstyle: TextStyle(
-                    //     fontSize: 12,
-                    //     fontWeight: FontWeight.w400,
-                    //     color: GlobalTheme.ktitleColor),
-                    // boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                    // boxWidth: 115,
-                    // boxHeight: 45,
-                    hint: Text(
-                      widget.order.status,
-                      style: dropDowntextStyle,
+                  width: 120,
+                  height: 30,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(13),
                     ),
-                    value: _selectedTest,
-                    items: _dropdownTestItems,
-                    onChanged: onChangeDropdownTests,
+                    border:
+                        Border.all(color: GlobalTheme.kSecondaryText, width: 1),
+                  ),
+                  child: Center(
+                    child: DropdownButton(
+                      // itemWidth: 115,
+                      // itemTextstyle: TextStyle(
+                      //     fontSize: 12,
+                      //     fontWeight: FontWeight.w400,
+                      //     color: Colors.black),
+                      // boxTextstyle: TextStyle(
+                      //     fontSize: 12,
+                      //     fontWeight: FontWeight.w400,
+                      //     color: GlobalTheme.ktitleColor),
+                      // boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
+                      // boxWidth: 115,
+                      // boxHeight: 45,
+                      isExpanded: true,
+                      style: dropDowntextStyle,
+                      underline: SizedBox(),
+                      iconDisabledColor: GlobalTheme.kOrderCardArrow,
+                      hint: Text(
+                        widget.order.status,
+                        style: dropDowntextStyle,
+                      ),
+                      value: _selectedTest,
+                      items: _dropdownTestItems,
+                      onChanged: onChangeDropdownTests,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -233,9 +250,9 @@ class _AdminOrderCardState extends State<AdminOrderCard>
                     });
                   },
                   child: Container(
-                    height: 20,
-                    width: 20,
-                    // padding: EdgeInsets.only(bottom: 20),
+                    height: 30,
+                    width: 30,
+                    padding: EdgeInsets.only(bottom: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(25),
@@ -246,8 +263,8 @@ class _AdminOrderCardState extends State<AdminOrderCard>
                     child: Center(
                       child: FaIcon(
                         FontAwesomeIcons.sortDown,
-                        color: GlobalTheme.kOrderCardArrow,
-                        size: 10,
+                        color: GlobalTheme.ktitleColor,
+                        size: 14,
                       ),
                     ),
                   ),
