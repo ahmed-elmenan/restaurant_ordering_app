@@ -33,7 +33,7 @@ class _OrderDetailState extends State<OrderDetail> {
             SizedBox(height: 16),
             Divider(color: GlobalTheme.kDeviderColor),
             OrderDileveryStatus(
-              status: "Commande " + widget.order.status.toLowerCase(),
+              status: widget.order.status,
               orderDate: widget.order.createdAt ?? DateTime.now(),
               orderCode: widget.order.orderCode,
             ),

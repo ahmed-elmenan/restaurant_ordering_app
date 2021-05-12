@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/utils/convert_date_time_display.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class OrderDileveryStatus extends StatefulWidget {
   String status;
@@ -17,6 +18,20 @@ class OrderDileveryStatus extends StatefulWidget {
 }
 
 class _OrderDileveryStatusState extends State<OrderDileveryStatus> {
+  String selectStateColor(String status) {
+    print(">>>><" + status);
+    switch (status) {
+      case "En attente":
+        return "assets/images/traitement.svg";
+
+      case "En traitement":
+        return "assets/images/traitement.svg";
+
+      case "Livrée":
+        return "assets/images/progression.svg";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,17 +39,23 @@ class _OrderDileveryStatusState extends State<OrderDileveryStatus> {
       height: 71,
       child: Row(
         children: [
-          SvgPicture.asset(
-            "assets/images/progression.svg",
-            height: 40,
-            color: GlobalTheme.kColorLime,
-          ),
+          widget.status == "Annulée"
+              ? FaIcon(
+                  FontAwesomeIcons.timesCircle,
+                  color: Colors.red[400],
+                  size: 40,
+                )
+              : SvgPicture.asset(
+                  selectStateColor(widget.status),
+                  height: 40,
+                  color: GlobalTheme.kColorLime,
+                ),
           SizedBox(width: 14),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.status,
+              Text("Commande " + widget.status.toLowerCase(),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               SizedBox(height: 5),
               Text(

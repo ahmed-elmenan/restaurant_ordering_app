@@ -13,7 +13,7 @@ class HeaderWithBackArrow extends StatelessWidget {
   User user;
   UserModel userModel;
 
-  HeaderWithBackArrow({@required this.title, this.flag = false, this.toExplorer, this.user,  this.userModel});
+  HeaderWithBackArrow({@required this.title, this.flag = false, this.toExplorer = false, this.user,  this.userModel});
   @override
   Widget build(BuildContext context) {
     return Container(
