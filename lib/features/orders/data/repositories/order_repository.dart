@@ -44,6 +44,33 @@ class OrderRepository {
     }
   }
 
+  Future<List<OrderModel>> getOrderbyStatus(String status) async {
+    try {
+      await _orderServices.getOrderByStatus(status);
+      return _orderServices.ordersList;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<OrderModel>> getTodayOrdersbyStatus(Map<String, dynamic> data) async {
+    try {
+      await _orderServices.getOrderByStatusAndDate(data);
+      return _orderServices.ordersList;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<OrderModel>> getTodayOrders() async {
+    try {
+      await _orderServices.getOrderByDate();
+      return _orderServices.ordersList;
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<List<OrderModel>> updateOrderState(OrderModel order) async {
     try {
       await _orderServices.updateOrderData({

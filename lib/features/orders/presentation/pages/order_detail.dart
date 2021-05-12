@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/order.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/utils/convert_date_time_display.dart';
 import 'package:flutter_application_1/core/widgets/header_with_back_arrow.dart';
@@ -8,7 +10,10 @@ import 'package:flutter_application_1/features/orders/presentation/widgets/order
 
 class OrderDetail extends StatefulWidget {
   OrderModel order;
-  OrderDetail({Key key, @required this.order}) : super(key: key);
+  bool toExplorer;
+  User user;
+  UserModel userModel;
+  OrderDetail({Key key, @required this.order, this.toExplorer = false, this.user, this.userModel}) : super(key: key);
 
   @override
   _OrderDetailState createState() => _OrderDetailState();
@@ -24,14 +29,12 @@ class _OrderDetailState extends State<OrderDetail> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: ListView(children: [
-            HeaderWithBackArrow(title: "Détails de votre commandes"),
+            HeaderWithBackArrow(title: "Détails de votre commandes", toExplorer: widget.toExplorer, user: widget.user, userModel: widget.userModel,),
             SizedBox(height: 16),
             Divider(color: GlobalTheme.kDeviderColor),
             OrderDileveryStatus(
-              status: widget.order.delivered == false
-                  ? "Commande en attente"
-                  : "Commande livrée",
-              orderDate: widget.order.createdAt?? DateTime.now(),
+              status: "Commande " + widget.order.status.toLowerCase(),
+              orderDate: widget.order.createdAt ?? DateTime.now(),
               orderCode: widget.order.orderCode,
             ),
             SizedBox(height: 15),

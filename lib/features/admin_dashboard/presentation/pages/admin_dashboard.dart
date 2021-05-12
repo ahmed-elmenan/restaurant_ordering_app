@@ -34,6 +34,10 @@ class AdminDashBoardOrdersChild extends StatefulWidget {
 
 class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
   OrdersBloc ordersBloc;
+  TextStyle dropDowntextStyle = TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: GlobalTheme.ktitleColor);
 
   List<Map<String, dynamic>> dropDownitems = [
     {'status': 'Toute', 'color': Colors.red},
@@ -45,6 +49,10 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
 
   var _selectedTest;
   var _selectedDate;
+  Map<String, dynamic> event_data = {
+    'status': false,
+    'date': false,
+  };
 
   List<DropdownMenuItem> _dropdownTestItems;
   List<DropdownMenuItem> _dropdownDateItems;
@@ -52,7 +60,7 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
   @override
   void initState() {
     ordersBloc = BlocProvider.of<OrdersBloc>(context);
-    ordersBloc.add(OrdersEvent.started());
+    ordersBloc.add(OrdersEvent.started(event_data));
 
     super.initState();
 
@@ -66,19 +74,26 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
       items.add(
         DropdownMenuItem(
           value: i,
-          child: Text(i),
+          child: Text(
+            i,
+            style: dropDowntextStyle,
+          ),
         ),
       );
     }
     return items;
   }
+
   List<DropdownMenuItem> buildDropdownTestItems(List dropDownitems) {
     List<DropdownMenuItem> items = List();
     for (var i in dropDownitems) {
       items.add(
         DropdownMenuItem(
           value: i,
-          child: Text(i['status']),
+          child: Text(
+            i['status'],
+            style: dropDowntextStyle,
+          ),
         ),
       );
     }
@@ -89,104 +104,105 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
     print(selectedTest);
     setState(() {
       _selectedTest = selectedTest;
+      event_data['status'] = _selectedTest['status'];
+      ordersBloc.add(OrdersEvent.started(event_data));
     });
   }
+
   onChangeDropdownDate(selectedDate) {
     print(selectedDate);
     setState(() {
       _selectedDate = selectedDate;
+      event_data['date'] = _selectedDate;
+      ordersBloc.add(OrdersEvent.started(event_data));
     });
+    print(event_data);
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(top: 100, right: 30, left: 30),
-        child: Container(
-          child: Column(children: [
-            Text("Liste des commandes",
-                style: GlobalTheme.headerStyle(GlobalTheme.ktitleColor)),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: DropdownBelow(
-                    itemWidth: 145,
-                    itemTextstyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
-                    boxTextstyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
-                    boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                    boxWidth: double.infinity,
-                    boxHeight: 45,
-                    hint: Text('choisir un status'),
-                    value: _selectedTest,
-                    items: _dropdownTestItems,
-                    onChanged: onChangeDropdownTests,
+        padding: const EdgeInsets.only(top: 70, right: 30, left: 30),
+        child: Column(children: [
+          Text("Liste des commandes",
+              style: GlobalTheme.headerStyle(GlobalTheme.ktitleColor)),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: DropdownBelow(
+                  itemWidth: 145,
+                  itemTextstyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
+                  boxTextstyle: dropDowntextStyle,
+                  boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
+                  boxWidth: double.infinity,
+                  boxHeight: 45,
+                  hint: Text('choisir un status'),
+                  value: _selectedTest,
+                  items: _dropdownTestItems,
+                  onChanged: onChangeDropdownTests,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: DropdownBelow(
+                  itemWidth: 145,
+                  itemTextstyle: dropDowntextStyle,
+                  boxTextstyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
+                  boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
+                  boxWidth: double.infinity,
+                  boxHeight: 45,
+                  hint: Text(
+                    'choisir une date',
+                    style: dropDowntextStyle,
                   ),
+                  value: _selectedDate,
+                  items: _dropdownDateItems,
+                  onChanged: onChangeDropdownDate,
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: DropdownBelow(
-                    itemWidth: 145,
-                    itemTextstyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
-                    boxTextstyle: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
-                    boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                    boxWidth: double.infinity,
-                    boxHeight: 45,
-                    hint: Text('choisir une date'),
-                    value: _selectedDate,
-                    items: _dropdownDateItems,
-                    onChanged: onChangeDropdownDate,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                SvgPicture.asset(
-                  "assets/images/search.svg",
-                  color: GlobalTheme.ktitleColor,
-                  height: 16.09,
-                ),
-              ],
-            ),
-            // SizedBox(height: 30),
-            // Divider(color: GlobalTheme.kDeviderColor),
-            // SizedBox(height: 20),
-            // AdminOrderCard(),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              SvgPicture.asset(
+                "assets/images/search.svg",
+                color: GlobalTheme.ktitleColor,
+                height: 16.09,
+              ),
+            ],
+          ),
+          // SizedBox(height: 30),
+          // Divider(color: GlobalTheme.kDeviderColor),
+          // SizedBox(height: 20),
+          // AdminOrderCard(),
 
-            BlocBuilder<OrdersBloc, OrdersState>(builder: (context, state) {
-              Widget content;
-              state.when(initial: () {
-                content = Container();
-              }, loading: () {
-                content = Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: buildLoadingUI(),
-                );
-              }, success: (ordersList) {
-                content = OrderList(ordersList: ordersList);
-                print(ordersList[1].name);
-              }, failed: () {
-                content = Container();
-                print("nope");
-              });
-              return content;
-            }),
-          ]),
-        ));
+          BlocBuilder<OrdersBloc, OrdersState>(builder: (context, state) {
+            Widget content;
+            state.when(initial: () {
+              content = Container();
+            }, loading: () {
+              content = Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: buildLoadingUI(),
+              );
+            }, success: (ordersList) {
+              content = OrderList(ordersList: ordersList);
+              // print(ordersList[1].name);
+            }, failed: () {
+              content = Container();
+              print("nope");
+            });
+            return content;
+          }),
+        ]));
   }
 }
 

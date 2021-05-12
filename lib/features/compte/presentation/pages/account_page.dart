@@ -100,7 +100,7 @@ class AccountPage extends StatelessWidget {
             onTap: () {
               pushNewScreen(
                 context,
-                screen: Information(),
+                screen: Information(userModel: this.userModel, user: this.user),
                 withNavBar: true, // OPTIONAL VALUE. True by default.
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
@@ -169,12 +169,10 @@ class AccountPage extends StatelessWidget {
   //     // accountBloc.add(LogOutButtonPressedEvent());
 
   void navigateToSignInPage(BuildContext context) {
-
     pushNewScreen(context,
         screen: LoginPageParent(),
         withNavBar: false, // OPTIONAL VALUE. True by default.
-        pageTransitionAnimation: PageTransitionAnimation.slideRight
-        );
+        pageTransitionAnimation: PageTransitionAnimation.slideRight);
   }
 
   Widget buildInitialUI() {
@@ -189,7 +187,7 @@ class AccountPage extends StatelessWidget {
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            "Lorem Ipsum",
+            this.userModel.partenariatUserName,
             style: TextStyle(
                 color: GlobalTheme.kAccountTitleColor,
                 fontWeight: FontWeight.bold,
@@ -198,7 +196,7 @@ class AccountPage extends StatelessWidget {
           SizedBox(
             height: 6,
           ),
-          Text("lorem.Ipsum@email.com",
+          Text(this.userModel.email,
               style: TextStyle(color: GlobalTheme.kSecondaryText, fontSize: 13))
         ])
       ],

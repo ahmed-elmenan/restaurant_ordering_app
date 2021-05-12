@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/constants.dart';
 import 'package:flutter_application_1/core/models/order.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductOptions extends StatefulWidget {
   List<Item> options;
@@ -147,20 +148,41 @@ class _ListItemState extends State<ListItem>
             onTap: () {
               widget.onSelectedPressed();
             },
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
+            child: widget.title == "EXTRA"
+                ? Container(
+                    decoration: BoxDecoration(
+                        color: widget.item.isSelected
+                            ? GlobalTheme.kExtraColor
+                            : Colors.transparent,
+                        border: Border.all(
+                          color: GlobalTheme.kExtraColor,
+                          width: 2,
+                        )),
+                    height: 19,
+                    width: 19,
+                    child: widget.item.isSelected
+                        ? Center(
+                            child: FaIcon(
+                              FontAwesomeIcons.check,
+                              color: Colors.white,
+                              size: 10,
+                            ),
+                          )
+                        : SizedBox())
+                : Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        border: Border.all(
+                          color: this.widget.title == "EXTRA"
+                              ? GlobalTheme.kExtraColor
+                              : GlobalTheme.kColorLime,
+                          width: isExtra() ? 6 : 2,
+                        )),
+                    height: 19,
+                    width: 19,
                   ),
-                  border: Border.all(
-                    color: this.widget.title == "EXTRA"
-                        ? GlobalTheme.kExtraColor
-                        : GlobalTheme.kColorLime,
-                    width: isExtra() ? 6 : 2,
-                  )),
-              height: 19,
-              width: 19,
-            ),
           ),
           SizedBox(width: 10),
           Text(widget.item.name,

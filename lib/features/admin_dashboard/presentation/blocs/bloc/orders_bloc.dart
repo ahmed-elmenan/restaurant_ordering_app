@@ -10,9 +10,9 @@ part 'orders_state.dart';
 part 'orders_bloc.freezed.dart';
 
 class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
- OrderRepository orderRepository;
+  OrderRepository orderRepository;
 
-  OrdersBloc() : super(_Initial()){
+  OrdersBloc() : super(_Initial()) {
     orderRepository = OrderRepository();
   }
 
@@ -24,12 +24,24 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       try {
         yield _Loading();
         List<OrderModel> ordersList;
-
-        ordersList = await orderRepository.getAllOrder();
+        if (event.event_data['status'] != false &&
+            event.event_data['date'] != false &&
+            event.event_data['status'] != 'Toute') {
+          ordersList =
+              await orderRepository.getTodayOrdersbyStatus(event.event_data);
+        } else if (event.event_data['status'] != false &&
+            event.event_data['status'] != 'Toute') {
+          ordersList = await orderRepository
+              .getOrderbyStatus(event.event_data['status']);
+        } else if (event.event_data['date'] != false) {
+          
+          ordersList = await orderRepository.getTodayOrders();
+        } else
+          ordersList = await orderRepository.getAllOrder();
         print("HOOOW");
         yield _Success(ordersList);
       } catch (e) {
-        print(e);
+        print('>><<' + e);
         yield _Failed();
       }
     }

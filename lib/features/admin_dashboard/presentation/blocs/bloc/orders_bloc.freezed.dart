@@ -14,8 +14,10 @@ class _$OrdersEventTearOff {
   const _$OrdersEventTearOff();
 
 // ignore: unused_element
-  _Started started() {
-    return const _Started();
+  _Started started(Map<String, dynamic> event_data) {
+    return _Started(
+      event_data,
+    );
   }
 }
 
@@ -25,13 +27,15 @@ const $OrdersEvent = _$OrdersEventTearOff();
 
 /// @nodoc
 mixin _$OrdersEvent {
+  Map<String, dynamic> get event_data;
+
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult started(),
+    @required TResult started(Map<String, dynamic> event_data),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult started(),
+    TResult started(Map<String, dynamic> event_data),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -43,6 +47,9 @@ mixin _$OrdersEvent {
     TResult started(_Started value),
     @required TResult orElse(),
   });
+
+  @JsonKey(ignore: true)
+  $OrdersEventCopyWith<OrdersEvent> get copyWith;
 }
 
 /// @nodoc
@@ -50,6 +57,7 @@ abstract class $OrdersEventCopyWith<$Res> {
   factory $OrdersEventCopyWith(
           OrdersEvent value, $Res Function(OrdersEvent) then) =
       _$OrdersEventCopyWithImpl<$Res>;
+  $Res call({Map<String, dynamic> event_data});
 }
 
 /// @nodoc
@@ -59,12 +67,25 @@ class _$OrdersEventCopyWithImpl<$Res> implements $OrdersEventCopyWith<$Res> {
   final OrdersEvent _value;
   // ignore: unused_field
   final $Res Function(OrdersEvent) _then;
+
+  @override
+  $Res call({
+    Object event_data = freezed,
+  }) {
+    return _then(_value.copyWith(
+      event_data: event_data == freezed
+          ? _value.event_data
+          : event_data as Map<String, dynamic>,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$StartedCopyWith<$Res> {
+abstract class _$StartedCopyWith<$Res> implements $OrdersEventCopyWith<$Res> {
   factory _$StartedCopyWith(_Started value, $Res Function(_Started) then) =
       __$StartedCopyWithImpl<$Res>;
+  @override
+  $Res call({Map<String, dynamic> event_data});
 }
 
 /// @nodoc
@@ -75,43 +96,67 @@ class __$StartedCopyWithImpl<$Res> extends _$OrdersEventCopyWithImpl<$Res>
 
   @override
   _Started get _value => super._value as _Started;
+
+  @override
+  $Res call({
+    Object event_data = freezed,
+  }) {
+    return _then(_Started(
+      event_data == freezed
+          ? _value.event_data
+          : event_data as Map<String, dynamic>,
+    ));
+  }
 }
 
 /// @nodoc
 class _$_Started implements _Started {
-  const _$_Started();
+  const _$_Started(this.event_data) : assert(event_data != null);
+
+  @override
+  final Map<String, dynamic> event_data;
 
   @override
   String toString() {
-    return 'OrdersEvent.started()';
+    return 'OrdersEvent.started(event_data: $event_data)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Started);
+    return identical(this, other) ||
+        (other is _Started &&
+            (identical(other.event_data, event_data) ||
+                const DeepCollectionEquality()
+                    .equals(other.event_data, event_data)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(event_data);
+
+  @JsonKey(ignore: true)
+  @override
+  _$StartedCopyWith<_Started> get copyWith =>
+      __$StartedCopyWithImpl<_Started>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult started(),
+    @required TResult started(Map<String, dynamic> event_data),
   }) {
     assert(started != null);
-    return started();
+    return started(event_data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult started(),
+    TResult started(Map<String, dynamic> event_data),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (started != null) {
-      return started();
+      return started(event_data);
     }
     return orElse();
   }
@@ -140,7 +185,13 @@ class _$_Started implements _Started {
 }
 
 abstract class _Started implements OrdersEvent {
-  const factory _Started() = _$_Started;
+  const factory _Started(Map<String, dynamic> event_data) = _$_Started;
+
+  @override
+  Map<String, dynamic> get event_data;
+  @override
+  @JsonKey(ignore: true)
+  _$StartedCopyWith<_Started> get copyWith;
 }
 
 /// @nodoc

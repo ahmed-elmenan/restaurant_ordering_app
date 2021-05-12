@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/constants.dart';
 import 'package:flutter_application_1/core/models/order.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/core/widgets/order_count.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 import 'package:flutter_application_1/features/explorer/presentation/bloc/add_order_bloc.dart';
+import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/ProductOptions.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/orders_add_placeholder.dart';
 import 'package:flutter_application_1/features/orders/presentation/pages/order_detail.dart';
@@ -73,6 +75,7 @@ class _OrderFormState extends State<OrderForm>
     order.client = widget.userModel.partenariatUserName;
     order.total = 75.00;
     order.delivered = false;
+    order.status = 'En attente';
     super.initState();
   }
 
@@ -210,11 +213,16 @@ class _OrderFormState extends State<OrderForm>
                             print("zeep it");
                             pushNewScreen(
                               context,
-                              screen: Scaffold(body: OrderDetail(order: order)),
+                              screen: Scaffold(
+                                  body: OrderDetail(
+                                      order: order,
+                                      toExplorer: true,
+                                      user: widget.user,
+                                      userModel: widget.userModel)),
                               withNavBar:
                                   true, // OPTIONAL VALUE. True by default.
                               pageTransitionAnimation:
-                                  PageTransitionAnimation.cupertino,
+                                  PageTransitionAnimation.slideRight,
                             );
                           }, addOrderFailed: (String message) {
                             content = FailureWidget(message: message);

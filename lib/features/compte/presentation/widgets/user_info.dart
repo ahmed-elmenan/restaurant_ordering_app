@@ -3,13 +3,13 @@ import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class UserInfo extends StatelessWidget {
+class UserInfos extends StatelessWidget {
   String imageUrl;
   double imageSize;
   String title;
   bool flag;
 
-  UserInfo(
+  UserInfos(
       {@required this.imageUrl,
       @required this.title,
       @required this.imageSize,

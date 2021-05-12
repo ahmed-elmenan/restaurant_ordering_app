@@ -27,16 +27,12 @@ class _AdminOrderCardState extends State<AdminOrderCard>
     with AutomaticKeepAliveClientMixin {
   UpdateOrderStateBloc updateOrderStateBloc;
   double dileveryPrice = 11.0;
-  double height = 60;
-  bool flag = false;
-  BoxDecoration bordersShape = BoxDecoration(
-    borderRadius: BorderRadius.all(
-      Radius.circular(0),
-    ),
-  );
-  Widget sparator = Divider(color: GlobalTheme.kDeviderColor, thickness: 1);
 
   Widget details = Container();
+  TextStyle dropDowntextStyle = TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: GlobalTheme.ktitleColor);
 
   String selectedItem;
 
@@ -64,7 +60,7 @@ class _AdminOrderCardState extends State<AdminOrderCard>
           value: i,
           child: Text(
             i['status'],
-            style: TextStyle(fontSize: 12),
+            style: dropDowntextStyle,
           ),
         ),
       );
@@ -74,19 +70,23 @@ class _AdminOrderCardState extends State<AdminOrderCard>
 
   onChangeDropdownTests(selectedTest) {
     // print(selectedTest);
-    updateOrderStateBloc
-        .add(UpdateOrderStateEvent.updateOrderState(widget.order));
     setState(() {
       _selectedTest = selectedTest;
-      widget.order.status = _selectedTest;
+      widget.order.status = _selectedTest['status'];
     });
+    updateOrderStateBloc
+        .add(UpdateOrderStateEvent.updateOrderState(widget.order));
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 10, left: 10),
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      margin: widget.selectedIndex == widget.index
+          ? EdgeInsets.symmetric(vertical: 7)
+          : EdgeInsets.zero,
+      padding: widget.selectedIndex == widget.index
+          ? EdgeInsets.symmetric(horizontal: 15, vertical: 7)
+          : EdgeInsets.zero,
       width: double.infinity,
 
       // height: height,
@@ -144,6 +144,7 @@ class _AdminOrderCardState extends State<AdminOrderCard>
                       );
                     }, success: () {
                       content = Container();
+                      print("status changed");
                     }, failed: () {
                       print('Failed');
                       content = Container();
@@ -170,23 +171,28 @@ class _AdminOrderCardState extends State<AdminOrderCard>
                     return content;
                   }),
                 ),
-                DropdownBelow(
-                  itemWidth: 110,
-                  itemTextstyle: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxTextstyle: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                  boxWidth: 110,
-                  boxHeight: 45,
-                  hint: Text('choose item'),
-                  value: _selectedTest,
-                  items: _dropdownTestItems,
-                  onChanged: onChangeDropdownTests,
+                Container(
+                  child: DropdownButton(
+                    // itemWidth: 115,
+                    // itemTextstyle: TextStyle(
+                    //     fontSize: 12,
+                    //     fontWeight: FontWeight.w400,
+                    //     color: Colors.black),
+                    // boxTextstyle: TextStyle(
+                    //     fontSize: 12,
+                    //     fontWeight: FontWeight.w400,
+                    //     color: GlobalTheme.ktitleColor),
+                    // boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
+                    // boxWidth: 115,
+                    // boxHeight: 45,
+                    hint: Text(
+                      widget.order.status,
+                      style: dropDowntextStyle,
+                    ),
+                    value: _selectedTest,
+                    items: _dropdownTestItems,
+                    onChanged: onChangeDropdownTests,
+                  ),
                 ),
                 SizedBox(
                   width: 10,
