@@ -33,8 +33,8 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
             event.event_data['status'] != 'Toute') {
           ordersList = await orderRepository
               .getOrderbyStatus(event.event_data['status']);
-        } else if (event.event_data['date'] != false) {
-          
+        } else if (event.event_data['date'] != false &&
+            event.event_data['date'] != 'Toute') {
           ordersList = await orderRepository.getTodayOrders();
         } else
           ordersList = await orderRepository.getAllOrder();

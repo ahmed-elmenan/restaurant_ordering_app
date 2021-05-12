@@ -26,21 +26,22 @@ class AdminOrderCard extends StatefulWidget {
 class _AdminOrderCardState extends State<AdminOrderCard>
     with AutomaticKeepAliveClientMixin {
   UpdateOrderStateBloc updateOrderStateBloc;
-  double dileveryPrice = 11.0;
 
+  double dileveryPrice = 11.0;
+  Map<String, Color> _statusColor;
   Widget details = Container();
   TextStyle dropDowntextStyle = TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w400,
-      color: GlobalTheme.ktitleColor);
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
 
   String selectedItem;
 
   List<Map<String, dynamic>> dropDownitems = [
-    {'status': 'En attente', 'color': Colors.blue},
-    {'status': 'En traitement', 'color': Colors.blue},
-    {'status': 'Livrée', 'color': Colors.green},
-    {'status': 'Annulée', 'color': Colors.grey},
+    {'status': 'En attente', 'color': Colors.grey},
+    {'status': 'En traitement', 'color': Colors.orange[300]},
+    {'status': 'Livrée', 'color': Colors.green[300]},
+    {'status': 'Annulée', 'color': Colors.red[300]},
   ];
   var _selectedTest;
   List<DropdownMenuItem> _dropdownTestItems;
@@ -48,11 +49,13 @@ class _AdminOrderCardState extends State<AdminOrderCard>
   @override
   void initState() {
     super.initState();
+    _statusColor = selectStateColor(widget.order.status);
     updateOrderStateBloc = UpdateOrderStateBloc();
     _dropdownTestItems = buildDropdownTestItems(dropDownitems);
   }
 
   List<DropdownMenuItem> buildDropdownTestItems(List dropDownitems) {
+    // List<Color> dropdownItemColors = [Colors.grey, Colors.orange[300], Colors.green[300], Colors.red[300]];
     List<DropdownMenuItem> items = List();
     for (var i in dropDownitems) {
       items.add(
@@ -60,7 +63,7 @@ class _AdminOrderCardState extends State<AdminOrderCard>
           value: i,
           child: Text(
             i['status'],
-            style: dropDowntextStyle,
+            style: dropDowntextStyle.copyWith(color: i['color']),
           ),
         ),
       );
@@ -70,19 +73,56 @@ class _AdminOrderCardState extends State<AdminOrderCard>
 
   onChangeDropdownTests(selectedTest) {
     // print(selectedTest);
+
     setState(() {
       _selectedTest = selectedTest;
       widget.order.status = _selectedTest['status'];
+      _statusColor = selectStateColor(_selectedTest['status']);
     });
     updateOrderStateBloc
         .add(UpdateOrderStateEvent.updateOrderState(widget.order));
+  }
+
+  Map<String, Color> selectStateColor(String status) {
+    switch (status) {
+      case "En attente":
+        {
+          return {
+            'bg': Colors.grey[200],
+            'fontColor': Colors.grey,
+          };
+        }
+
+      case "En traitement":
+        {
+          return {'bg': Colors.orange[100], 'fontColor': Colors.orange[300]};
+        }
+
+      case "Livrée":
+        {
+          return {
+            'bg': Colors.green[100],
+            'fontColor': Colors.green[300],
+          };
+        }
+        break;
+
+      case "Annulée":
+        {
+          print("z3al");
+          return {
+            'bg': Colors.red[100],
+            'fontColor': Colors.red[300],
+          };
+        }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: widget.selectedIndex == widget.index
-          ? EdgeInsets.symmetric(vertical: 7)
+          ? EdgeInsets.symmetric(vertical: 7, horizontal: 5)
           : EdgeInsets.zero,
       padding: widget.selectedIndex == widget.index
           ? EdgeInsets.symmetric(horizontal: 15, vertical: 7)
@@ -94,9 +134,9 @@ class _AdminOrderCardState extends State<AdminOrderCard>
           ? BoxDecoration(
               color: Color(0xFFFAFAFA),
               borderRadius: BorderRadius.all(
-                Radius.circular(25),
+                Radius.circular(13),
               ),
-              border: Border.all(color: GlobalTheme.kSecondaryText, width: 1),
+              border: Border.all(color: GlobalTheme.kDeviderColor, width: 1),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.3),
@@ -176,12 +216,12 @@ class _AdminOrderCardState extends State<AdminOrderCard>
                   height: 30,
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: _statusColor['bg'],
                     borderRadius: BorderRadius.all(
-                      Radius.circular(13),
+                      Radius.circular(20),
                     ),
-                    border:
-                        Border.all(color: GlobalTheme.kSecondaryText, width: 1),
+                    // border:
+                    //     Border.all(color: GlobalTheme.kSecondaryText, width: 1),
                   ),
                   child: Center(
                     child: DropdownButton(
@@ -198,12 +238,16 @@ class _AdminOrderCardState extends State<AdminOrderCard>
                       // boxWidth: 115,
                       // boxHeight: 45,
                       isExpanded: true,
-                      style: dropDowntextStyle,
+                      iconDisabledColor: _statusColor['fontColor'],
+                      iconEnabledColor: _statusColor['fontColor'],
+                      style: dropDowntextStyle.copyWith(
+                          color: _statusColor['fontColor']),
                       underline: SizedBox(),
-                      iconDisabledColor: GlobalTheme.kOrderCardArrow,
+                      // iconDisabledColor: _statusColor['fontColor'],
                       hint: Text(
                         widget.order.status,
-                        style: dropDowntextStyle,
+                        style: dropDowntextStyle.copyWith(
+                            color: _statusColor['fontColor']),
                       ),
                       value: _selectedTest,
                       items: _dropdownTestItems,

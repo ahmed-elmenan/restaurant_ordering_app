@@ -42,10 +42,11 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
   List<Map<String, dynamic>> dropDownitems = [
     {'status': 'Toute', 'color': Colors.red},
     {'status': 'En attente', 'color': Colors.blue},
+    {'status': 'En traitement', 'color': Colors.blue},
     {'status': 'Livrée', 'color': Colors.green},
     {'status': 'Annulée', 'color': Colors.grey},
   ];
-  List<String> dateDropDownItems = ["Aujourd'hui"];
+  List<String> dateDropDownItems = ["Toute", "Aujourd'hui"];
 
   var _selectedTest;
   var _selectedDate;
@@ -130,43 +131,57 @@ class _AdminDashBoardOrdersChildState extends State<AdminDashBoardOrdersChild> {
           Row(
             children: [
               Expanded(
-                child: DropdownBelow(
-                  itemWidth: 145,
-                  itemTextstyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxTextstyle: dropDowntextStyle,
-                  boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                  boxWidth: double.infinity,
-                  boxHeight: 45,
-                  hint: Text('choisir un status'),
-                  value: _selectedTest,
-                  items: _dropdownTestItems,
-                  onChanged: onChangeDropdownTests,
+                child: Container(
+                  height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    border:
+                        Border.all(color: GlobalTheme.kDeviderColor, width: 1),
+                  ),
+                  child: DropdownButton(
+                    isExpanded: true,
+                    style: dropDowntextStyle,
+                    underline: SizedBox(),
+                    iconDisabledColor: GlobalTheme.kOrderCardArrow,
+                    hint: Text('choisir un status'),
+                    value: _selectedTest,
+                    items: _dropdownTestItems,
+                    onChanged: onChangeDropdownTests,
+                  ),
                 ),
               ),
               SizedBox(
                 width: 10,
               ),
               Expanded(
-                child: DropdownBelow(
-                  itemWidth: 145,
-                  itemTextstyle: dropDowntextStyle,
-                  boxTextstyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
-                  boxPadding: EdgeInsets.fromLTRB(13, 12, 0, 12),
-                  boxWidth: double.infinity,
-                  boxHeight: 45,
-                  hint: Text(
-                    'choisir une date',
-                    style: dropDowntextStyle,
+                child: Container(
+                  height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    border:
+                        Border.all(color: GlobalTheme.kDeviderColor, width: 1),
                   ),
-                  value: _selectedDate,
-                  items: _dropdownDateItems,
-                  onChanged: onChangeDropdownDate,
+                  child: DropdownButton(
+                    isExpanded: true,
+                    style: dropDowntextStyle,
+                    underline: SizedBox(),
+                    iconDisabledColor: GlobalTheme.kOrderCardArrow,
+                    hint: Text(
+                      'choisir une date',
+                      style: dropDowntextStyle,
+                    ),
+                    value: _selectedDate,
+                    items: _dropdownDateItems,
+                    onChanged: onChangeDropdownDate,
+                  ),
                 ),
               ),
               SizedBox(
