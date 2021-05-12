@@ -35,6 +35,7 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     accountBloc = BlocProvider.of<AccountBloc>(context);
     return Scaffold(
       body: Container(

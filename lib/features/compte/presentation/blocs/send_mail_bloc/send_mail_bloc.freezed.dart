@@ -14,8 +14,13 @@ class _$SendMailEventTearOff {
   const _$SendMailEventTearOff();
 
 // ignore: unused_element
-  _Started started() {
-    return const _Started();
+  _SendMailButtonPressed sendMailButtonPressed(
+      User user, UserModel usermodel, String verificationCode) {
+    return _SendMailButtonPressed(
+      user,
+      usermodel,
+      verificationCode,
+    );
   }
 }
 
@@ -25,24 +30,34 @@ const $SendMailEvent = _$SendMailEventTearOff();
 
 /// @nodoc
 mixin _$SendMailEvent {
+  User get user;
+  UserModel get usermodel;
+  String get verificationCode;
+
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult started(),
+    @required
+        TResult sendMailButtonPressed(
+            User user, UserModel usermodel, String verificationCode),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult started(),
+    TResult sendMailButtonPressed(
+        User user, UserModel usermodel, String verificationCode),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult started(_Started value),
+    @required TResult sendMailButtonPressed(_SendMailButtonPressed value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult started(_Started value),
+    TResult sendMailButtonPressed(_SendMailButtonPressed value),
     @required TResult orElse(),
   });
+
+  @JsonKey(ignore: true)
+  $SendMailEventCopyWith<SendMailEvent> get copyWith;
 }
 
 /// @nodoc
@@ -50,6 +65,7 @@ abstract class $SendMailEventCopyWith<$Res> {
   factory $SendMailEventCopyWith(
           SendMailEvent value, $Res Function(SendMailEvent) then) =
       _$SendMailEventCopyWithImpl<$Res>;
+  $Res call({User user, UserModel usermodel, String verificationCode});
 }
 
 /// @nodoc
@@ -60,59 +76,129 @@ class _$SendMailEventCopyWithImpl<$Res>
   final SendMailEvent _value;
   // ignore: unused_field
   final $Res Function(SendMailEvent) _then;
-}
-
-/// @nodoc
-abstract class _$StartedCopyWith<$Res> {
-  factory _$StartedCopyWith(_Started value, $Res Function(_Started) then) =
-      __$StartedCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$StartedCopyWithImpl<$Res> extends _$SendMailEventCopyWithImpl<$Res>
-    implements _$StartedCopyWith<$Res> {
-  __$StartedCopyWithImpl(_Started _value, $Res Function(_Started) _then)
-      : super(_value, (v) => _then(v as _Started));
 
   @override
-  _Started get _value => super._value as _Started;
+  $Res call({
+    Object user = freezed,
+    Object usermodel = freezed,
+    Object verificationCode = freezed,
+  }) {
+    return _then(_value.copyWith(
+      user: user == freezed ? _value.user : user as User,
+      usermodel:
+          usermodel == freezed ? _value.usermodel : usermodel as UserModel,
+      verificationCode: verificationCode == freezed
+          ? _value.verificationCode
+          : verificationCode as String,
+    ));
+  }
 }
 
 /// @nodoc
-class _$_Started implements _Started {
-  const _$_Started();
+abstract class _$SendMailButtonPressedCopyWith<$Res>
+    implements $SendMailEventCopyWith<$Res> {
+  factory _$SendMailButtonPressedCopyWith(_SendMailButtonPressed value,
+          $Res Function(_SendMailButtonPressed) then) =
+      __$SendMailButtonPressedCopyWithImpl<$Res>;
+  @override
+  $Res call({User user, UserModel usermodel, String verificationCode});
+}
+
+/// @nodoc
+class __$SendMailButtonPressedCopyWithImpl<$Res>
+    extends _$SendMailEventCopyWithImpl<$Res>
+    implements _$SendMailButtonPressedCopyWith<$Res> {
+  __$SendMailButtonPressedCopyWithImpl(_SendMailButtonPressed _value,
+      $Res Function(_SendMailButtonPressed) _then)
+      : super(_value, (v) => _then(v as _SendMailButtonPressed));
+
+  @override
+  _SendMailButtonPressed get _value => super._value as _SendMailButtonPressed;
+
+  @override
+  $Res call({
+    Object user = freezed,
+    Object usermodel = freezed,
+    Object verificationCode = freezed,
+  }) {
+    return _then(_SendMailButtonPressed(
+      user == freezed ? _value.user : user as User,
+      usermodel == freezed ? _value.usermodel : usermodel as UserModel,
+      verificationCode == freezed
+          ? _value.verificationCode
+          : verificationCode as String,
+    ));
+  }
+}
+
+/// @nodoc
+class _$_SendMailButtonPressed implements _SendMailButtonPressed {
+  const _$_SendMailButtonPressed(
+      this.user, this.usermodel, this.verificationCode)
+      : assert(user != null),
+        assert(usermodel != null),
+        assert(verificationCode != null);
+
+  @override
+  final User user;
+  @override
+  final UserModel usermodel;
+  @override
+  final String verificationCode;
 
   @override
   String toString() {
-    return 'SendMailEvent.started()';
+    return 'SendMailEvent.sendMailButtonPressed(user: $user, usermodel: $usermodel, verificationCode: $verificationCode)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Started);
+    return identical(this, other) ||
+        (other is _SendMailButtonPressed &&
+            (identical(other.user, user) ||
+                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.usermodel, usermodel) ||
+                const DeepCollectionEquality()
+                    .equals(other.usermodel, usermodel)) &&
+            (identical(other.verificationCode, verificationCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.verificationCode, verificationCode)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(usermodel) ^
+      const DeepCollectionEquality().hash(verificationCode);
+
+  @JsonKey(ignore: true)
+  @override
+  _$SendMailButtonPressedCopyWith<_SendMailButtonPressed> get copyWith =>
+      __$SendMailButtonPressedCopyWithImpl<_SendMailButtonPressed>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult started(),
+    @required
+        TResult sendMailButtonPressed(
+            User user, UserModel usermodel, String verificationCode),
   }) {
-    assert(started != null);
-    return started();
+    assert(sendMailButtonPressed != null);
+    return sendMailButtonPressed(user, usermodel, verificationCode);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult started(),
+    TResult sendMailButtonPressed(
+        User user, UserModel usermodel, String verificationCode),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (started != null) {
-      return started();
+    if (sendMailButtonPressed != null) {
+      return sendMailButtonPressed(user, usermodel, verificationCode);
     }
     return orElse();
   }
@@ -120,28 +206,40 @@ class _$_Started implements _Started {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
-    @required TResult started(_Started value),
+    @required TResult sendMailButtonPressed(_SendMailButtonPressed value),
   }) {
-    assert(started != null);
-    return started(this);
+    assert(sendMailButtonPressed != null);
+    return sendMailButtonPressed(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
-    TResult started(_Started value),
+    TResult sendMailButtonPressed(_SendMailButtonPressed value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (started != null) {
-      return started(this);
+    if (sendMailButtonPressed != null) {
+      return sendMailButtonPressed(this);
     }
     return orElse();
   }
 }
 
-abstract class _Started implements SendMailEvent {
-  const factory _Started() = _$_Started;
+abstract class _SendMailButtonPressed implements SendMailEvent {
+  const factory _SendMailButtonPressed(
+          User user, UserModel usermodel, String verificationCode) =
+      _$_SendMailButtonPressed;
+
+  @override
+  User get user;
+  @override
+  UserModel get usermodel;
+  @override
+  String get verificationCode;
+  @override
+  @JsonKey(ignore: true)
+  _$SendMailButtonPressedCopyWith<_SendMailButtonPressed> get copyWith;
 }
 
 /// @nodoc
@@ -151,6 +249,21 @@ class _$SendMailStateTearOff {
 // ignore: unused_element
   _Initial initial() {
     return const _Initial();
+  }
+
+// ignore: unused_element
+  _MailSentLoading mailSentLoading() {
+    return const _MailSentLoading();
+  }
+
+// ignore: unused_element
+  _MailSentSuccess mailSentSuccess() {
+    return const _MailSentSuccess();
+  }
+
+// ignore: unused_element
+  _MailSentFailure mailSentFailure() {
+    return const _MailSentFailure();
   }
 }
 
@@ -163,19 +276,31 @@ mixin _$SendMailState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
+    @required TResult mailSentLoading(),
+    @required TResult mailSentSuccess(),
+    @required TResult mailSentFailure(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
+    TResult mailSentLoading(),
+    TResult mailSentSuccess(),
+    TResult mailSentFailure(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult initial(_Initial value),
+    @required TResult mailSentLoading(_MailSentLoading value),
+    @required TResult mailSentSuccess(_MailSentSuccess value),
+    @required TResult mailSentFailure(_MailSentFailure value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult initial(_Initial value),
+    TResult mailSentLoading(_MailSentLoading value),
+    TResult mailSentSuccess(_MailSentSuccess value),
+    TResult mailSentFailure(_MailSentFailure value),
     @required TResult orElse(),
   });
 }
@@ -234,8 +359,14 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
+    @required TResult mailSentLoading(),
+    @required TResult mailSentSuccess(),
+    @required TResult mailSentFailure(),
   }) {
     assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
     return initial();
   }
 
@@ -243,6 +374,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
+    TResult mailSentLoading(),
+    TResult mailSentSuccess(),
+    TResult mailSentFailure(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -256,8 +390,14 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object>({
     @required TResult initial(_Initial value),
+    @required TResult mailSentLoading(_MailSentLoading value),
+    @required TResult mailSentSuccess(_MailSentSuccess value),
+    @required TResult mailSentFailure(_MailSentFailure value),
   }) {
     assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
     return initial(this);
   }
 
@@ -265,6 +405,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult initial(_Initial value),
+    TResult mailSentLoading(_MailSentLoading value),
+    TResult mailSentSuccess(_MailSentSuccess value),
+    TResult mailSentFailure(_MailSentFailure value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -277,4 +420,313 @@ class _$_Initial implements _Initial {
 
 abstract class _Initial implements SendMailState {
   const factory _Initial() = _$_Initial;
+}
+
+/// @nodoc
+abstract class _$MailSentLoadingCopyWith<$Res> {
+  factory _$MailSentLoadingCopyWith(
+          _MailSentLoading value, $Res Function(_MailSentLoading) then) =
+      __$MailSentLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$MailSentLoadingCopyWithImpl<$Res>
+    extends _$SendMailStateCopyWithImpl<$Res>
+    implements _$MailSentLoadingCopyWith<$Res> {
+  __$MailSentLoadingCopyWithImpl(
+      _MailSentLoading _value, $Res Function(_MailSentLoading) _then)
+      : super(_value, (v) => _then(v as _MailSentLoading));
+
+  @override
+  _MailSentLoading get _value => super._value as _MailSentLoading;
+}
+
+/// @nodoc
+class _$_MailSentLoading implements _MailSentLoading {
+  const _$_MailSentLoading();
+
+  @override
+  String toString() {
+    return 'SendMailState.mailSentLoading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _MailSentLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult mailSentLoading(),
+    @required TResult mailSentSuccess(),
+    @required TResult mailSentFailure(),
+  }) {
+    assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
+    return mailSentLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult mailSentLoading(),
+    TResult mailSentSuccess(),
+    TResult mailSentFailure(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (mailSentLoading != null) {
+      return mailSentLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_Initial value),
+    @required TResult mailSentLoading(_MailSentLoading value),
+    @required TResult mailSentSuccess(_MailSentSuccess value),
+    @required TResult mailSentFailure(_MailSentFailure value),
+  }) {
+    assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
+    return mailSentLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_Initial value),
+    TResult mailSentLoading(_MailSentLoading value),
+    TResult mailSentSuccess(_MailSentSuccess value),
+    TResult mailSentFailure(_MailSentFailure value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (mailSentLoading != null) {
+      return mailSentLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MailSentLoading implements SendMailState {
+  const factory _MailSentLoading() = _$_MailSentLoading;
+}
+
+/// @nodoc
+abstract class _$MailSentSuccessCopyWith<$Res> {
+  factory _$MailSentSuccessCopyWith(
+          _MailSentSuccess value, $Res Function(_MailSentSuccess) then) =
+      __$MailSentSuccessCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$MailSentSuccessCopyWithImpl<$Res>
+    extends _$SendMailStateCopyWithImpl<$Res>
+    implements _$MailSentSuccessCopyWith<$Res> {
+  __$MailSentSuccessCopyWithImpl(
+      _MailSentSuccess _value, $Res Function(_MailSentSuccess) _then)
+      : super(_value, (v) => _then(v as _MailSentSuccess));
+
+  @override
+  _MailSentSuccess get _value => super._value as _MailSentSuccess;
+}
+
+/// @nodoc
+class _$_MailSentSuccess implements _MailSentSuccess {
+  const _$_MailSentSuccess();
+
+  @override
+  String toString() {
+    return 'SendMailState.mailSentSuccess()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _MailSentSuccess);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult mailSentLoading(),
+    @required TResult mailSentSuccess(),
+    @required TResult mailSentFailure(),
+  }) {
+    assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
+    return mailSentSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult mailSentLoading(),
+    TResult mailSentSuccess(),
+    TResult mailSentFailure(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (mailSentSuccess != null) {
+      return mailSentSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_Initial value),
+    @required TResult mailSentLoading(_MailSentLoading value),
+    @required TResult mailSentSuccess(_MailSentSuccess value),
+    @required TResult mailSentFailure(_MailSentFailure value),
+  }) {
+    assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
+    return mailSentSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_Initial value),
+    TResult mailSentLoading(_MailSentLoading value),
+    TResult mailSentSuccess(_MailSentSuccess value),
+    TResult mailSentFailure(_MailSentFailure value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (mailSentSuccess != null) {
+      return mailSentSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MailSentSuccess implements SendMailState {
+  const factory _MailSentSuccess() = _$_MailSentSuccess;
+}
+
+/// @nodoc
+abstract class _$MailSentFailureCopyWith<$Res> {
+  factory _$MailSentFailureCopyWith(
+          _MailSentFailure value, $Res Function(_MailSentFailure) then) =
+      __$MailSentFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$MailSentFailureCopyWithImpl<$Res>
+    extends _$SendMailStateCopyWithImpl<$Res>
+    implements _$MailSentFailureCopyWith<$Res> {
+  __$MailSentFailureCopyWithImpl(
+      _MailSentFailure _value, $Res Function(_MailSentFailure) _then)
+      : super(_value, (v) => _then(v as _MailSentFailure));
+
+  @override
+  _MailSentFailure get _value => super._value as _MailSentFailure;
+}
+
+/// @nodoc
+class _$_MailSentFailure implements _MailSentFailure {
+  const _$_MailSentFailure();
+
+  @override
+  String toString() {
+    return 'SendMailState.mailSentFailure()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _MailSentFailure);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(),
+    @required TResult mailSentLoading(),
+    @required TResult mailSentSuccess(),
+    @required TResult mailSentFailure(),
+  }) {
+    assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
+    return mailSentFailure();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(),
+    TResult mailSentLoading(),
+    TResult mailSentSuccess(),
+    TResult mailSentFailure(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (mailSentFailure != null) {
+      return mailSentFailure();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_Initial value),
+    @required TResult mailSentLoading(_MailSentLoading value),
+    @required TResult mailSentSuccess(_MailSentSuccess value),
+    @required TResult mailSentFailure(_MailSentFailure value),
+  }) {
+    assert(initial != null);
+    assert(mailSentLoading != null);
+    assert(mailSentSuccess != null);
+    assert(mailSentFailure != null);
+    return mailSentFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_Initial value),
+    TResult mailSentLoading(_MailSentLoading value),
+    TResult mailSentSuccess(_MailSentSuccess value),
+    TResult mailSentFailure(_MailSentFailure value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (mailSentFailure != null) {
+      return mailSentFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MailSentFailure implements SendMailState {
+  const factory _MailSentFailure() = _$_MailSentFailure;
 }

@@ -204,9 +204,9 @@ class Init extends StatelessWidget {
             print("Loading...");
             content = Container();
           }, unauthenticatedState: () {
-            // content = LoginPageParent();
-            content =
-                Scaffold(body: PasswordResetPage(user: null, userModel: null));
+            content = LoginPageParent();
+            // content =
+            //     Scaffold(body: PasswordResetPage(user: null, userModel: null));
             // content = AdminBottomNavBar(
             // user: null,
             // );

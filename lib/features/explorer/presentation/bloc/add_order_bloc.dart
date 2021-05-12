@@ -45,7 +45,6 @@ class AddOrderBloc extends Bloc<AddOrderEvent, AddOrderState> {
       try {
         yield _AddOrderLoading();
         await orderRepository.addOrder(event.order);
-        print('kmokh');
         yield _AddOrderSuccess();
       } catch (e) {
         yield _AddOrderFailed(e);
