@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/core/models/user.dart';
+import 'package:string_validator/string_validator.dart';
 
 class UserServices {
   String collection = "users";
@@ -31,6 +32,32 @@ class UserServices {
         print("++++x++++>" + this.user.email);
       });
     });
+    return this.user;
+  }
+
+  Future<UserModel> getUserByInfo(String societyName,
+      String partenariatUserName, String emailOrPhone) async {
+    String isEmailOrTel =
+        isNumeric(emailOrPhone) == true ? "mobileNumber" : "email";
+    print('>>>>>>>>>' + isEmailOrTel);
+
+    try {
+      await _fireStore
+          .collection(collection)
+          .where("partenariatUserName", isEqualTo: partenariatUserName)
+          .where("companyName", isEqualTo: societyName)
+          .where(isEmailOrTel, isEqualTo: emailOrPhone)
+          .get()
+          .then((doc) {
+        doc.docs.forEach((DocumentSnapshot doc) {
+          this.user = UserModel.fromSnapshot(doc);
+          print("++++x++++>" + this.user.email);
+        });
+      });
+    } catch (e) {
+      print('<<<<<' + e);
+    }
+    print('>>>>>>>>>' + user.companyName);
     return this.user;
   }
 }

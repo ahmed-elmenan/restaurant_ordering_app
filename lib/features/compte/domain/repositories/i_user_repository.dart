@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/core/models/user.dart';
+import 'package:flutter_application_1/core/services/user.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
 class UserRepository {
   FirebaseAuth firebaseAuth;
+  UserServices userServices;
 
   UserRepository() {
     this.firebaseAuth = FirebaseAuth.instance;
+    this.userServices = UserServices();
   }
 
   Future<User> signInUser(String email, String password) async {
@@ -26,6 +30,25 @@ class UserRepository {
 
   User getCurrentUser() {
     return firebaseAuth.currentUser;
+  }
+
+  Future<UserModel> verifyUserInfo(String societyName,
+      String partenariatUserName, String emailOrPhone) async {
+    try {
+      return userServices.getUserByInfo(
+          societyName, partenariatUserName, emailOrPhone);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future changeUserPassword(User user, String newPassword) async {
+    try {
+      await user.updatePassword(newPassword);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future sendCodeToEmail(String verificationCode, String email) async {

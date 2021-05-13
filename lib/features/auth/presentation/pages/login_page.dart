@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget buildFailureUI(String message) {
     return Padding(
       padding: const EdgeInsets.only(top: 30.0),
-      child: Text("Identifiant ou mot de passe incorrecte",
+      child: Text("Identifiant ou mot de passe est incorrecte",
           textAlign: TextAlign.center, style: TextStyle(color: Colors.red)),
     );
   }

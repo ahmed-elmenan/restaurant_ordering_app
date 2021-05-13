@@ -12,7 +12,6 @@ part 'send_mail_bloc.freezed.dart';
 
 class SendMailBloc extends Bloc<SendMailEvent, SendMailState> {
   UserRepository userRepository;
-  UserModel x;
 
   SendMailBloc() : super(_Initial()) {
     userRepository = UserRepository();

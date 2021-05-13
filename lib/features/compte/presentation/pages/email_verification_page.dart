@@ -129,8 +129,21 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
                       onPressed: () async {
-                        if (generatedVerificationCode ==
-                            verificationCodeController.text) {
+                        if (verificationCodeController.text.trim().isEmpty)
+                        {
+                          setState(() {
+                            message = Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Center(
+                                  child: Text(
+                                "Le champs est vide",
+                                style: TextStyle(color: Colors.red),
+                              )),
+                            );
+                          });
+
+                        } else if (generatedVerificationCode ==
+                            verificationCodeController.text.trim()) {
                           pushNewScreen(
                             context,
                             screen: Scaffold(
@@ -145,7 +158,14 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                           );
                         } else {
                           setState(() {
-                            message = Text("Le code de verification est incorrecte");
+                            message = Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Center(
+                                  child: Text(
+                                "Le code de verification est incorrecte",
+                                style: TextStyle(color: Colors.red),
+                              )),
+                            );
                           });
                         }
                       },
@@ -173,12 +193,20 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),
-                  Text(
-                    "Renvoyer",
-                    style: TextStyle(
-                        color: GlobalTheme.kColorLime,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16),
+                  GestureDetector(
+                    onTap: () {
+                      sendMailBloc.add(SendMailEvent.sendMailButtonPressed(
+                          widget.user,
+                          widget.userModel,
+                          generatedVerificationCode)); 
+                    },
+                    child: Text(
+                      "Renvoyer",
+                      style: TextStyle(
+                          color: GlobalTheme.kColorLime,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
                   ),
                 ],
               )
