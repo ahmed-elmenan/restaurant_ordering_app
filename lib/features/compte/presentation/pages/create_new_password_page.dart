@@ -175,7 +175,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
-                      onPressed: () async {
+                      onPressed: ()  {
                         if (newPasswordController.text.isEmpty ||
                             confirmNewPasswordController.text.isEmpty)
                           setState(() {

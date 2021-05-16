@@ -129,11 +129,11 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
                       onPressed: () async {
-                        if (verificationCodeController.text.trim().isEmpty)
-                        {
+                        if (verificationCodeController.text.trim().isEmpty) {
                           setState(() {
                             message = Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
                               child: Center(
                                   child: Text(
                                 "Le champs est vide",
@@ -141,7 +141,6 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                               )),
                             );
                           });
-
                         } else if (generatedVerificationCode ==
                             verificationCodeController.text.trim()) {
                           pushNewScreen(
@@ -159,7 +158,8 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                         } else {
                           setState(() {
                             message = Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
                               child: Center(
                                   child: Text(
                                 "Le code de verification est incorrecte",
@@ -198,7 +198,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                       sendMailBloc.add(SendMailEvent.sendMailButtonPressed(
                           widget.user,
                           widget.userModel,
-                          generatedVerificationCode)); 
+                          generatedVerificationCode));
                     },
                     child: Text(
                       "Renvoyer",

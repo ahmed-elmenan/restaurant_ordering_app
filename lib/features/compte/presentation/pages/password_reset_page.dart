@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
-import 'package:flutter_application_1/features/compte/presentation/blocs/send_mail_bloc/send_mail_bloc.dart';
 import 'package:flutter_application_1/features/compte/presentation/blocs/verify_user_info_bloc/verify_user_info_bloc.dart';
+import 'package:flutter_application_1/features/compte/presentation/pages/forgotten_password.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -14,8 +14,12 @@ import 'email_verification_page.dart';
 class PasswordResetPage extends StatefulWidget {
   final User user;
   final UserModel userModel;
+  bool isForgottenPassword;
 
-  PasswordResetPage({@required this.user, @required this.userModel});
+  PasswordResetPage(
+      {@required this.user,
+      @required this.userModel,
+      this.isForgottenPassword = false});
 
   @override
   _PasswordResetPageState createState() => _PasswordResetPageState();
@@ -84,14 +88,19 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                             child: buildLoadingUI(),
                           );
                         }, verifyUserInfoSuccess: () {
-                          content = Container();
+                          content = buildInitUI(size);
+
                           pushNewScreen(
                             context,
                             screen: Scaffold(
-                                body: EmailVerificationPage(
-                              user: this.widget.user,
-                              userModel: this.widget.userModel,
-                            )),
+                                body: widget.isForgottenPassword == false
+                                    ? EmailVerificationPage(
+                                        user: this.widget.user,
+                                        userModel: this.widget.userModel,
+                                      )
+                                    : ForgottenPAssword(
+                                        userModel: this.widget.userModel,
+                                      )),
                             withNavBar:
                                 false, // OPTIONAL VALUE. True by default.
                             pageTransitionAnimation:
@@ -123,7 +132,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                             child: buildLoadingUI(),
                           );
                         }, verifyUserInfoSuccess: () {
-                          content = Container();
+                          content = buildInitUI(size);
                         }, verifyUserInfoFailure: () {
                           content = Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -220,7 +229,9 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                       ),
                       onPressed: () async {
                         if (societyNameController.text.trim().isNotEmpty &&
-                            partenariatUsernameController.text.trim().isNotEmpty &&
+                            partenariatUsernameController.text
+                                .trim()
+                                .isNotEmpty &&
                             emailOrPhoneController.text.trim().isNotEmpty) {
                           setState(() {
                             errorMessage = SizedBox(height: 20);

@@ -192,6 +192,7 @@ class Init extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("barééééééééé");
     return BlocProvider(
       create: (context) => AuthBloc()..add(AuthEvent.started()),
       child: BlocBuilder<AuthBloc, AuthState>(
@@ -200,9 +201,12 @@ class Init extends StatelessWidget {
           state.when(initial: () {
             print("init");
             content = Container();
-          }, authenticatedState: (user) {
+          }, authenticatedState: (user, userModel) {
             print("Loading...");
-            content = Container();
+            if (userModel.status == 'regular')
+              content = AppBottomNavBar(user: user, userModel: userModel);
+            else if (userModel.status == 'admin')
+              content = AdminBottomNavBar(user: user);
           }, unauthenticatedState: () {
             content = LoginPageParent();
             // content =

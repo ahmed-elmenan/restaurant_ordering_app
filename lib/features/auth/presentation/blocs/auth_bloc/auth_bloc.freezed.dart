@@ -152,9 +152,10 @@ class _$AuthStateTearOff {
   }
 
 // ignore: unused_element
-  _AuthenticatedState authenticatedState(User user) {
+  _AuthenticatedState authenticatedState(User user, UserModel userModel) {
     return _AuthenticatedState(
       user,
+      userModel,
     );
   }
 
@@ -173,13 +174,13 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
-    @required TResult authenticatedState(User user),
+    @required TResult authenticatedState(User user, UserModel userModel),
     @required TResult unauthenticatedState(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
-    TResult authenticatedState(User user),
+    TResult authenticatedState(User user, UserModel userModel),
     TResult unauthenticatedState(),
     @required TResult orElse(),
   });
@@ -250,7 +251,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
-    @required TResult authenticatedState(User user),
+    @required TResult authenticatedState(User user, UserModel userModel),
     @required TResult unauthenticatedState(),
   }) {
     assert(initial != null);
@@ -263,7 +264,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
-    TResult authenticatedState(User user),
+    TResult authenticatedState(User user, UserModel userModel),
     TResult unauthenticatedState(),
     @required TResult orElse(),
   }) {
@@ -312,7 +313,7 @@ abstract class _$AuthenticatedStateCopyWith<$Res> {
   factory _$AuthenticatedStateCopyWith(
           _AuthenticatedState value, $Res Function(_AuthenticatedState) then) =
       __$AuthenticatedStateCopyWithImpl<$Res>;
-  $Res call({User user});
+  $Res call({User user, UserModel userModel});
 }
 
 /// @nodoc
@@ -329,23 +330,29 @@ class __$AuthenticatedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object user = freezed,
+    Object userModel = freezed,
   }) {
     return _then(_AuthenticatedState(
       user == freezed ? _value.user : user as User,
+      userModel == freezed ? _value.userModel : userModel as UserModel,
     ));
   }
 }
 
 /// @nodoc
 class _$_AuthenticatedState implements _AuthenticatedState {
-  const _$_AuthenticatedState(this.user) : assert(user != null);
+  const _$_AuthenticatedState(this.user, this.userModel)
+      : assert(user != null),
+        assert(userModel != null);
 
   @override
   final User user;
+  @override
+  final UserModel userModel;
 
   @override
   String toString() {
-    return 'AuthState.authenticatedState(user: $user)';
+    return 'AuthState.authenticatedState(user: $user, userModel: $userModel)';
   }
 
   @override
@@ -353,12 +360,17 @@ class _$_AuthenticatedState implements _AuthenticatedState {
     return identical(this, other) ||
         (other is _AuthenticatedState &&
             (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)));
+                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.userModel, userModel) ||
+                const DeepCollectionEquality()
+                    .equals(other.userModel, userModel)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(userModel);
 
   @JsonKey(ignore: true)
   @override
@@ -369,26 +381,26 @@ class _$_AuthenticatedState implements _AuthenticatedState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
-    @required TResult authenticatedState(User user),
+    @required TResult authenticatedState(User user, UserModel userModel),
     @required TResult unauthenticatedState(),
   }) {
     assert(initial != null);
     assert(authenticatedState != null);
     assert(unauthenticatedState != null);
-    return authenticatedState(user);
+    return authenticatedState(user, userModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
-    TResult authenticatedState(User user),
+    TResult authenticatedState(User user, UserModel userModel),
     TResult unauthenticatedState(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (authenticatedState != null) {
-      return authenticatedState(user);
+      return authenticatedState(user, userModel);
     }
     return orElse();
   }
@@ -423,9 +435,11 @@ class _$_AuthenticatedState implements _AuthenticatedState {
 }
 
 abstract class _AuthenticatedState implements AuthState {
-  const factory _AuthenticatedState(User user) = _$_AuthenticatedState;
+  const factory _AuthenticatedState(User user, UserModel userModel) =
+      _$_AuthenticatedState;
 
   User get user;
+  UserModel get userModel;
   @JsonKey(ignore: true)
   _$AuthenticatedStateCopyWith<_AuthenticatedState> get copyWith;
 }
@@ -470,7 +484,7 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult initial(),
-    @required TResult authenticatedState(User user),
+    @required TResult authenticatedState(User user, UserModel userModel),
     @required TResult unauthenticatedState(),
   }) {
     assert(initial != null);
@@ -483,7 +497,7 @@ class _$_UnauthenticatedState implements _UnauthenticatedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(),
-    TResult authenticatedState(User user),
+    TResult authenticatedState(User user, UserModel userModel),
     TResult unauthenticatedState(),
     @required TResult orElse(),
   }) {

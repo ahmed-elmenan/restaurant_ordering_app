@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
+import 'package:flutter_application_1/core/user_session_management/shared_pref.dart';
 import 'package:flutter_application_1/core/widgets/brand.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/admin_bottom_app_bar.dart';
 import 'package:flutter_application_1/features/auth/presentation/blocs/login_bloc/login_bloc.dart';
+import 'package:flutter_application_1/features/compte/presentation/pages/password_reset_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../main.dart';
@@ -45,6 +47,8 @@ class _LoginPageState extends State<LoginPage> {
               state.when(initial: () {
                 print("login button init");
               }, success: (user, userModel) {
+                SharedPref sharedPref = SharedPref();
+                sharedPref.save('userModel', userModel);
                 if (userModel.status == 'regular')
                   navigateToExplorerPage(context, user, userModel);
                 else if (userModel.status == 'admin')
@@ -156,8 +160,13 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: 30),
           GestureDetector(
-            // onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            //     builder: (context) => ForgottenPasswordPage())),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Scaffold(
+                      body: PasswordResetPage(
+                          user: null,
+                          userModel: null,
+                          isForgottenPassword: true),
+                    ))),
             child: Text("Mot de pass oublié?",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, color: Color(0xFF979BA3))),
@@ -181,14 +190,32 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget navigateToExplorerPage(
       BuildContext context, User user, UserModel userModel) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return AppBottomNavBar(user: user, userModel: userModel);
-    }));
+    // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+    //   return AppBottomNavBar(user: user, userModel: userModel);
+    // }));
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+    //       builder: (BuildContext context) =>
+    //           AppBottomNavBar(user: user, userModel: userModel)));
+    // });
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              AppBottomNavBar(user: user, userModel: userModel)),
+      (Route<dynamic> route) => false,
+    );
   }
 
   Widget navigateToAdminDashBoardPage(BuildContext context, User user) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return AdminBottomNavBar(user: user);
-    }));
+    //   Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+    //     return AdminBottomNavBar(user: user);
+    //   }));
+    // }
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => AdminBottomNavBar(user: user)),
+      (Route<dynamic> route) => false,
+    );
   }
 }

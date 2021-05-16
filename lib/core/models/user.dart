@@ -33,4 +33,23 @@ class UserModel {
     status = snapshot.data()[STATUS];
     _likedFood = snapshot.data()[LIKED_FOOD] ?? [];
   }
+
+  Map<String, dynamic> toJson() => {
+        'companyName': _companyName,
+        'partenariatUserName': _partenariatUserName,
+        'email': _email,
+        'mobileNumber': _mobileNumber,
+        'id': _id,
+        'status': status,
+        'likedFood': _likedFood,
+      };
+
+  UserModel.fromJson(Map<String, dynamic> json)
+      : _companyName = json['companyName'],
+        _partenariatUserName = json['partenariatUserName'],
+        _email = json['email'],
+        _mobileNumber = json['mobileNumber'],
+        _id = json['id'],
+        status = json['status'],
+        _likedFood = json['likedFood'];
 }

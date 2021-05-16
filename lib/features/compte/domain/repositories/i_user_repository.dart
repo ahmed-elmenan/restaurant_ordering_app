@@ -1,16 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/services/user.dart';
+import 'package:flutter_application_1/core/user_session_management/shared_pref.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
 class UserRepository {
   FirebaseAuth firebaseAuth;
   UserServices userServices;
+  SharedPref sharedPref;
 
   UserRepository() {
     this.firebaseAuth = FirebaseAuth.instance;
     this.userServices = UserServices();
+    this.sharedPref = SharedPref();
   }
 
   Future<User> signInUser(String email, String password) async {
@@ -21,6 +24,7 @@ class UserRepository {
   }
 
   Future<void> signOut() async {
+    await sharedPref.remove('userModel');
     await firebaseAuth.signOut();
   }
 
@@ -80,6 +84,15 @@ class UserRepository {
       for (var p in e.problems) {
         print('Problem: ${p.code}: ${p.msg}');
       }
+    }
+  }
+
+  Future sendFirebaseForgottenPasswordEmail(String email) async {
+    try {
+      await this.firebaseAuth.sendPasswordResetEmail(email: email);
+      print("repo email >>" + email);
+    } catch (e) {
+      print('repo : >>' + e);
     }
   }
 }

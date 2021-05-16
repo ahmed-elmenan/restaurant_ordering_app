@@ -171,7 +171,9 @@ class AccountPage extends StatelessWidget {
 
   void navigateToSignInPage(BuildContext context) {
     pushNewScreen(context,
-        screen: LoginPageParent(),
+        screen: WillPopScope(
+          onWillPop: () async => false,
+          child: LoginPageParent()),
         withNavBar: false, // OPTIONAL VALUE. True by default.
         pageTransitionAnimation: PageTransitionAnimation.slideRight);
   }

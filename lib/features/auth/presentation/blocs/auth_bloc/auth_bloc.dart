@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/features/auth/domain/repositories/i_user_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
@@ -11,23 +12,26 @@ part 'auth_state.dart';
 part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-
   UserRepository userRepository;
 
-  AuthBloc() : super(_Initial());
-
+  AuthBloc() : super(_Initial()) {
+    userRepository = UserRepository();
+  }
 
   Logger logger;
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
-     if (event is _Started) {
+    if (event is _Started) {
       try {
         var isSignedIn = userRepository.isSignIn();
 
         if (isSignedIn) {
           var user = userRepository.getCurrentUser();
-          yield _AuthenticatedState(user);
+          await userRepository.loadSharedPrefs();
+
+          print("--------->" + userRepository.userModel.email);
+          yield _AuthenticatedState(user, userRepository.userModel);
         } else {
           yield _UnauthenticatedState();
         }
@@ -54,6 +58,4 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     logger?.e(error);
     super.onError(error, stackTrace);
   }
-
-
 }
