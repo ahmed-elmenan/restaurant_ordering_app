@@ -72,7 +72,6 @@ class Init extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("barééééééééé");
     return BlocProvider(
       create: (context) => AuthBloc()..add(AuthEvent.started()),
       child: BlocBuilder<AuthBloc, AuthState>(

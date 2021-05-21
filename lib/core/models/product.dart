@@ -1,33 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Product {
-  static const ID = "id";
-  static const NAME = "name";
-  static const IMAGE = "image";
+class ProductModel {
+  static const PRODUCT_ID = "productId";
+  static const PRODUCT_NAME = "productName";
+  static const PRODUCT_DESCRIPTION = "productDescription";
+  static const PRODUCT_PRICE = "productPrice";
+  static const PRODUCT_IMAGE_URL = "productImageURL";
   static const RATING = "rating";
   static const RATES = "rates";
-  static const PRICE = "price";
 
-  String _id;
-  String _name;
-  String _image;
-  double _rating;
-  double _price;
-  int _rates;
+  String id;
+  String name;
+  String description;
+  String imageURL;
+  double rating;
+  double price;
+  int rates;
 
-  String get id => _id;
-  String get name => _name;
-  String get image => _image;
-  double get rating => _rating;
-  int get rates => _rates;
-  double get price => _price;
+  // String get id => _id;
+  // String get name => _name;
+  // String get image => _image;
+  // double get rating => _rating;
+  // int get rates => _rates;
+  // double get price => _price;
+  ProductModel();
 
-  Product.fromSnapshot(DocumentSnapshot snapshot) {
-    _id = snapshot.data()[ID];
-    _name = snapshot.data()[NAME];
-    _image = snapshot.data()[IMAGE];
-    _rating = snapshot.data()[RATING];
-    _rates = snapshot.data()[RATES];
-    _price = snapshot.data()[PRICE];
+  ProductModel.fromSnapshot(DocumentSnapshot snapshot) {
+    id = snapshot.data()[PRODUCT_ID];
+    name = snapshot.data()[PRODUCT_NAME];
+    imageURL = snapshot.data()[PRODUCT_DESCRIPTION];
+    description = snapshot.data()[PRODUCT_DESCRIPTION];
+    // rating = snapshot.data()[RATING];
+    // rates = snapshot.data()[RATES];
+    price = snapshot.data()[PRODUCT_PRICE];
   }
 }

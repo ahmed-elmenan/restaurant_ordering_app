@@ -14,8 +14,10 @@ class _$AddProductEventTearOff {
   const _$AddProductEventTearOff();
 
 // ignore: unused_element
-  _AddProductButtonPressed addProductButtonPressed() {
-    return const _AddProductButtonPressed();
+  _AddProductButtonPressed addProductButtonPressed(ProductModel productModel) {
+    return _AddProductButtonPressed(
+      productModel,
+    );
   }
 }
 
@@ -25,13 +27,15 @@ const $AddProductEvent = _$AddProductEventTearOff();
 
 /// @nodoc
 mixin _$AddProductEvent {
+  ProductModel get productModel;
+
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult addProductButtonPressed(),
+    @required TResult addProductButtonPressed(ProductModel productModel),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult addProductButtonPressed(),
+    TResult addProductButtonPressed(ProductModel productModel),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -43,6 +47,9 @@ mixin _$AddProductEvent {
     TResult addProductButtonPressed(_AddProductButtonPressed value),
     @required TResult orElse(),
   });
+
+  @JsonKey(ignore: true)
+  $AddProductEventCopyWith<AddProductEvent> get copyWith;
 }
 
 /// @nodoc
@@ -50,6 +57,7 @@ abstract class $AddProductEventCopyWith<$Res> {
   factory $AddProductEventCopyWith(
           AddProductEvent value, $Res Function(AddProductEvent) then) =
       _$AddProductEventCopyWithImpl<$Res>;
+  $Res call({ProductModel productModel});
 }
 
 /// @nodoc
@@ -60,13 +68,27 @@ class _$AddProductEventCopyWithImpl<$Res>
   final AddProductEvent _value;
   // ignore: unused_field
   final $Res Function(AddProductEvent) _then;
+
+  @override
+  $Res call({
+    Object productModel = freezed,
+  }) {
+    return _then(_value.copyWith(
+      productModel: productModel == freezed
+          ? _value.productModel
+          : productModel as ProductModel,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$AddProductButtonPressedCopyWith<$Res> {
+abstract class _$AddProductButtonPressedCopyWith<$Res>
+    implements $AddProductEventCopyWith<$Res> {
   factory _$AddProductButtonPressedCopyWith(_AddProductButtonPressed value,
           $Res Function(_AddProductButtonPressed) then) =
       __$AddProductButtonPressedCopyWithImpl<$Res>;
+  @override
+  $Res call({ProductModel productModel});
 }
 
 /// @nodoc
@@ -80,43 +102,69 @@ class __$AddProductButtonPressedCopyWithImpl<$Res>
   @override
   _AddProductButtonPressed get _value =>
       super._value as _AddProductButtonPressed;
+
+  @override
+  $Res call({
+    Object productModel = freezed,
+  }) {
+    return _then(_AddProductButtonPressed(
+      productModel == freezed
+          ? _value.productModel
+          : productModel as ProductModel,
+    ));
+  }
 }
 
 /// @nodoc
 class _$_AddProductButtonPressed implements _AddProductButtonPressed {
-  const _$_AddProductButtonPressed();
+  const _$_AddProductButtonPressed(this.productModel)
+      : assert(productModel != null);
+
+  @override
+  final ProductModel productModel;
 
   @override
   String toString() {
-    return 'AddProductEvent.addProductButtonPressed()';
+    return 'AddProductEvent.addProductButtonPressed(productModel: $productModel)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _AddProductButtonPressed);
+    return identical(this, other) ||
+        (other is _AddProductButtonPressed &&
+            (identical(other.productModel, productModel) ||
+                const DeepCollectionEquality()
+                    .equals(other.productModel, productModel)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(productModel);
+
+  @JsonKey(ignore: true)
+  @override
+  _$AddProductButtonPressedCopyWith<_AddProductButtonPressed> get copyWith =>
+      __$AddProductButtonPressedCopyWithImpl<_AddProductButtonPressed>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult addProductButtonPressed(),
+    @required TResult addProductButtonPressed(ProductModel productModel),
   }) {
     assert(addProductButtonPressed != null);
-    return addProductButtonPressed();
+    return addProductButtonPressed(productModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult addProductButtonPressed(),
+    TResult addProductButtonPressed(ProductModel productModel),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (addProductButtonPressed != null) {
-      return addProductButtonPressed();
+      return addProductButtonPressed(productModel);
     }
     return orElse();
   }
@@ -145,7 +193,14 @@ class _$_AddProductButtonPressed implements _AddProductButtonPressed {
 }
 
 abstract class _AddProductButtonPressed implements AddProductEvent {
-  const factory _AddProductButtonPressed() = _$_AddProductButtonPressed;
+  const factory _AddProductButtonPressed(ProductModel productModel) =
+      _$_AddProductButtonPressed;
+
+  @override
+  ProductModel get productModel;
+  @override
+  @JsonKey(ignore: true)
+  _$AddProductButtonPressedCopyWith<_AddProductButtonPressed> get copyWith;
 }
 
 /// @nodoc
