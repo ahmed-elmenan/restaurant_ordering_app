@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/admin_dashboard.dart';
-import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/admin_dashboard.dart';
+import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/products_manipulation_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -25,7 +25,7 @@ class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
     List<Widget> _buildScreens() {
       return [
         AdminDashBoardOrders(user: widget.user),
-        Container(color: Colors.lightBlue),
+        ProductManipulatioPAge(),
         Container(color: Colors.lightGreenAccent),
       ];
     }
