@@ -49,15 +49,16 @@ class OrderServices {
     });
   }
 
-  Future<List<OrderModel>> getOrderByStatusAndDate(Map<String, dynamic> data) async {
+  Future<List<OrderModel>> getOrderByStatusAndDate(
+      Map<String, dynamic> data) async {
     DateTime _now = DateTime.now();
     DateTime _start = DateTime(_now.year, _now.month, _now.day, 0, 0);
     DateTime _end = DateTime(_now.year, _now.month, _now.day, 23, 59, 59);
-    
+
     await _fireStore
         .collection(collection)
         .where("status", isEqualTo: data['status'])
-        .where('createdAt', isGreaterThanOrEqualTo: _start) 
+        .where('createdAt', isGreaterThanOrEqualTo: _start)
         .where('createdAt', isLessThanOrEqualTo: _end)
         .orderBy('createdAt', descending: false)
         .get()
@@ -74,10 +75,10 @@ class OrderServices {
     DateTime _now = DateTime.now();
     DateTime _start = DateTime(_now.year, _now.month, _now.day, 0, 0);
     DateTime _end = DateTime(_now.year, _now.month, _now.day, 23, 59, 59);
-    
+
     await _fireStore
         .collection(collection)
-        .where('createdAt', isGreaterThanOrEqualTo: _start) 
+        .where('createdAt', isGreaterThanOrEqualTo: _start)
         .where('createdAt', isLessThanOrEqualTo: _end)
         .orderBy('createdAt', descending: false)
         .get()

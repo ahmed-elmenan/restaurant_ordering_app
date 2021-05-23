@@ -30,7 +30,8 @@ class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
 
   @override
   Widget build(BuildContext context) {
-    print("kmokh");
+    print("=========================================>kmokh");
+    setState(() {});
     return BlocProvider(
       create: (context) => addProductBloc,
       child: Scaffold(
@@ -45,7 +46,6 @@ class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
                 SizedBox(height: 10),
                 ProductCard(),
                 SizedBox(height: 10),
-                
               ])),
           floatingActionButton: new FloatingActionButton(
               elevation: 0.0,

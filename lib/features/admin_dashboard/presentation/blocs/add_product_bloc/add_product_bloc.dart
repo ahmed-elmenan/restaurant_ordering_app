@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_application_1/core/models/product.dart';
@@ -23,9 +24,18 @@ class AddProductBloc extends Bloc<AddProductEvent, AddProductState> {
     if (event is _AddProductButtonPressed) {
       try {
         yield _AddProductLoading();
+        // String imageURL =
+        //     ;
+        print("totest = " +
+            await productRepository
+                .uploadImageToFirebase(event.image)
+                .toString());
+        event.productModel.imageURL =
+            await productRepository.uploadImageToFirebase(event.image);
         await productRepository.addProduct(event.productModel);
         yield _AddProductSuccess();
       } catch (e) {
+        print("===>" + e.toString());
         yield _AddProductFailed();
       }
     }

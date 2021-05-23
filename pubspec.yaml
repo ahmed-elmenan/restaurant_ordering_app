@@ -54,6 +54,8 @@ dependencies:
   mailer: ^5.0.0
   string_validator: ^0.3.0
   shared_preferences: any
+  firebase_storage: ^8.1.0
+  image_picker:
 
 dev_dependencies:
   flutter_test:
