@@ -48,9 +48,9 @@ class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
         padding: NavBarPadding.only(bottom: 32),
         stateManagement: true,
         hideNavigationBarWhenKeyboardShows: true,
-        popAllScreensOnTapOfSelectedTab: true,
+        popAllScreensOnTapOfSelectedTab: false,
         navBarHeight: 100,
-        popActionScreens: PopActionScreensType.all,
+        // popActionScreens: PopActionScreensType.all,
         navBarStyle: NavBarStyle.style6,
       ),
     );

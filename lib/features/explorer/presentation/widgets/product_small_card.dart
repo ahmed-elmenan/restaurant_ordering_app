@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/rating_icons.dart';
@@ -9,10 +10,10 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProductSmallCard extends StatefulWidget {
   UserModel userModel;
-  ProductStatic promosProduct;
+  ProductModel productModel;
   User user;
 
-  ProductSmallCard({@required this.promosProduct, @required this.user, @required this.userModel});
+  ProductSmallCard({@required this.productModel, @required this.user, @required this.userModel});
   @override
   _ProductSmallCardState createState() => _ProductSmallCardState();
 }
@@ -29,7 +30,7 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
           context,
           screen: OrderForm(
             userModel: widget.userModel,
-            user: widget.user, product: widget.promosProduct),
+            user: widget.user, productModel: widget.productModel),
           withNavBar: true, // OPTIONAL VALUE. True by default.
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
@@ -56,7 +57,7 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
                 height: 120,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/images/past.jpg"),
+                    image: NetworkImage(widget.productModel.imageURL),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.only(
@@ -72,7 +73,7 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
                   children: [
                     Align(
                         alignment: Alignment.topLeft,
-                        child: Text(widget.promosProduct.name,
+                        child: Text(widget.productModel.name,
                             style: TextStyle(fontSize: 12))),
                     RatingIcons(size: 12.0),
                     SizedBox(height: 7),
@@ -80,7 +81,7 @@ class _ProductSmallCardState extends State<ProductSmallCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "176,00 MAD",
+                          widget.productModel.price.toString() + " MAD",
                           style: TextStyle(
                               color: GlobalTheme.kSecondaryText,
                               fontSize: 10,

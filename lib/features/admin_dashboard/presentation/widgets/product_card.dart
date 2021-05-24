@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProductCard extends StatefulWidget {
+  ProductModel productModel;
+
+  ProductCard({@required this.productModel});
   @override
   _ProductCardState createState() => _ProductCardState();
 }
@@ -22,7 +26,7 @@ class _ProductCardState extends State<ProductCard> {
       },
       child: Container(
         color: Colors.white10,
-        // margin: EdgeInsets.symmetric(vertical: 15),
+        margin: EdgeInsets.only(bottom: 15),
         // padding: EdgeInsets.symmetric(horizontal: 30),
         height: 71,
         child: Row(
@@ -31,7 +35,7 @@ class _ProductCardState extends State<ProductCard> {
                 width: 71,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/images/plat4.jpg"),
+                    image: NetworkImage(widget.productModel.imageURL),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -40,17 +44,17 @@ class _ProductCardState extends State<ProductCard> {
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Expanded(
                 flex: 2,
-                child: Text("product.name",
+                child: Text(widget.productModel.name,
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
               ),
-              Text("product.description",
+              Text(widget.productModel.description,
                   style: TextStyle(
                       fontSize: 12, color: GlobalTheme.kSecondaryText)),
               SizedBox(
                 height: 5,
               ),
-              Text("product.price",
+              Text(widget.productModel.price.toString(),
                   style: TextStyle(
                       fontSize: 14,
                       color: GlobalTheme.kSecondaryText,

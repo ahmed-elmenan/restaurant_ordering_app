@@ -28,10 +28,8 @@ class ProductModel {
   ProductModel.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.data()[PRODUCT_ID];
     name = snapshot.data()[PRODUCT_NAME];
-    imageURL = snapshot.data()[PRODUCT_DESCRIPTION];
+    imageURL = snapshot.data()[PRODUCT_IMAGE_URL];
     description = snapshot.data()[PRODUCT_DESCRIPTION];
-    // rating = snapshot.data()[RATING];
-    // rates = snapshot.data()[RATES];
     price = snapshot.data()[PRODUCT_PRICE];
   }
 }

@@ -12,7 +12,7 @@ class ProductRepository {
   FirebaseStorage storage = FirebaseStorage.instance;
   ProductServices _productServices = ProductServices();
   ProductModel _productModel;
-
+  List<ProductModel> productList;
   // ProductRepository() {
   // }
 
@@ -27,6 +27,14 @@ class ProductRepository {
       });
     } catch (e) {
       print("+++++++++++>" + e);
+    }
+  }
+
+  Future<List<ProductModel>> getAllProduct() async {
+    try {
+      this.productList = await _productServices.fetchProducts();
+    } catch (e) {
+      print("get product repo error" + e.toString());
     }
   }
 

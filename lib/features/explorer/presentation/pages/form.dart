@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/constants.dart';
 import 'package:flutter_application_1/core/models/order.dart';
+import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/utils/calculate_total.dart';
@@ -24,10 +25,11 @@ import 'package:uuid/uuid.dart';
 class OrderForm extends StatefulWidget {
   UserModel userModel;
   ProductStatic product;
+  ProductModel productModel;
   User user;
 
   OrderForm(
-      {@required this.user, @required this.product, @required this.userModel});
+      {@required this.user,  this.product,  this.productModel, @required this.userModel});
 
   @override
   _OrderFormState createState() => _OrderFormState();
