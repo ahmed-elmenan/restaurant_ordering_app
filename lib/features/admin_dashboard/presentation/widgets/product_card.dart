@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProductCard extends StatefulWidget {
   ProductModel productModel;

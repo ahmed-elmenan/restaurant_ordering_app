@@ -3,8 +3,10 @@ import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/blocs/fetch_users_bloc/fetch_users_bloc.dart';
+import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/add_user_page.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/widgets/user_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class UsersManipulationPage extends StatefulWidget {
   @override
@@ -66,7 +68,18 @@ class _UsersManipulationPageState extends State<UsersManipulationPage> {
                 return content;
               })
             ])),
-      ),
+      floatingActionButton: new FloatingActionButton(
+              elevation: 0.0,
+              child: new Icon(Icons.add),
+              backgroundColor: GlobalTheme.kAdminBottmBarColor,
+              onPressed: () {
+                pushNewScreen(
+                  context,
+                  screen: AddUserPage(),
+                  withNavBar: true, // OPTIONAL VALUE. True by default.
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                );
+              })),
     );
   }
 }
