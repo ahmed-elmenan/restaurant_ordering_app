@@ -24,6 +24,7 @@ class UserModel {
   String get mobileNumber => _mobileNumber;
   List get likedFood => _likedFood;
 
+
   UserModel.fromSnapshot(DocumentSnapshot snapshot) {
     _companyName = snapshot.data()[COMPANY_NAME];
     _partenariatUserName = snapshot.data()[PARTENARIAT_USERNAME];

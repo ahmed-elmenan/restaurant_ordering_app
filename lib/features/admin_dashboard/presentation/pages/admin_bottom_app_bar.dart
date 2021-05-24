@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/admin_dashboard.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/products_manipulation_page.dart';
+import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/users_manipulation_page.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -26,7 +27,7 @@ class _AdminBottomNavBarState extends State<AdminBottomNavBar> {
       return [
         AdminDashBoardOrders(user: widget.user),
         ProductManipulatioPAge(),
-        Container(color: Colors.lightGreenAccent),
+        UsersManipulationPage()
       ];
     }
 

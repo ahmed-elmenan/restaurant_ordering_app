@@ -6,16 +6,13 @@ import 'package:flutter_application_1/core/models/order.dart';
 import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
-import 'package:flutter_application_1/core/utils/calculate_total.dart';
 import 'package:flutter_application_1/core/widgets/dark_layout.dart';
 import 'package:flutter_application_1/core/widgets/failure.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
 import 'package:flutter_application_1/core/widgets/order_count.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 import 'package:flutter_application_1/features/explorer/presentation/bloc/add_order_bloc.dart';
-import 'package:flutter_application_1/features/explorer/presentation/pages/explorer_page.dart';
 import 'package:flutter_application_1/features/explorer/presentation/widgets/ProductOptions.dart';
-import 'package:flutter_application_1/features/explorer/presentation/widgets/orders_add_placeholder.dart';
 import 'package:flutter_application_1/features/orders/presentation/pages/order_detail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,7 +26,10 @@ class OrderForm extends StatefulWidget {
   User user;
 
   OrderForm(
-      {@required this.user,  this.product,  this.productModel, @required this.userModel});
+      {@required this.user,
+      this.product,
+      this.productModel,
+      @required this.userModel});
 
   @override
   _OrderFormState createState() => _OrderFormState();
@@ -42,7 +42,7 @@ class _OrderFormState extends State<OrderForm>
       Icon(Icons.favorite_border, color: Colors.white, size: 30);
   OrderModel order = OrderModel();
   AddOrderBloc addOrderBloc = AddOrderBloc();
-  double res = 75.00;
+  double res;
   int amount = 1;
 
   onSelectedPressed(int value) {
@@ -70,12 +70,14 @@ class _OrderFormState extends State<OrderForm>
   @override
   void initState() {
     var uuid = Uuid();
-    order.orderCode = uuid.v4().split('-')[0];
 
+    res = widget.productModel.price;
+
+    order.orderCode = uuid.v4().split('-')[0];
     order.userId = widget.user.uid;
-    order.name = widget.product.name;
+    order.name = widget.productModel.name;
     order.client = widget.userModel.partenariatUserName;
-    order.total = 75.00;
+    order.total = widget.productModel.price;
     order.delivered = false;
     order.status = 'En attente';
     super.initState();

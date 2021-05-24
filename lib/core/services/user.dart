@@ -60,4 +60,20 @@ class UserServices {
     print('>>>>>>>>>' + user.companyName);
     return this.user;
   }
+
+  Future<List<UserModel>> fetchUsers() async {
+    List<UserModel> usersList = [];
+    try {
+      await _fireStore.collection(collection).get().then((doc) {
+        if (usersList != null) usersList.clear();
+        doc.docs.forEach((DocumentSnapshot doc) {
+          if (UserModel.fromSnapshot(doc) != null)
+          usersList.add(UserModel.fromSnapshot(doc));
+        });
+      });
+    } catch (e) {
+      print('fetch users service error =>' + e.toString());
+    }
+    return usersList;
+  }
 }

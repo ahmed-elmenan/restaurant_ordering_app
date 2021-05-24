@@ -4,7 +4,6 @@ import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/rating_icons.dart';
-import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
 import 'package:flutter_application_1/features/explorer/presentation/pages/form.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 

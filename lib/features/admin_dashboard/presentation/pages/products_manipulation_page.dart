@@ -15,7 +15,7 @@ class ProductManipulatioPAge extends StatefulWidget {
 }
 
 class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
-  List<ProductModel> productList = [];
+  // List<ProductModel> productList = [];
 
   // var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
