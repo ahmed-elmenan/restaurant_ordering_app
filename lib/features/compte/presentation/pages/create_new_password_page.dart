@@ -182,7 +182,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
                             errorMessage = Container(
                               margin: EdgeInsets.symmetric(vertical: 8),
                               child: Center(
-                                child: Text('Champs est vide',
+                                child: Text('Quelque champ est vide',
                                     style: TextStyle(color: Colors.red)),
                               ),
                             );

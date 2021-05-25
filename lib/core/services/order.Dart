@@ -51,6 +51,7 @@ class OrderServices {
 
   Future<List<OrderModel>> getOrderByStatusAndDate(
       Map<String, dynamic> data) async {
+    print(data['status']);
     DateTime _now = DateTime.now();
     DateTime _start = DateTime(_now.year, _now.month, _now.day, 0, 0);
     DateTime _end = DateTime(_now.year, _now.month, _now.day, 23, 59, 59);

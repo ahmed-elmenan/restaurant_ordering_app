@@ -26,18 +26,24 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
         List<OrderModel> ordersList;
         if (event.event_data['status'] != false &&
             event.event_data['date'] != false &&
+            event.event_data['date'] != 'Toute' &&
             event.event_data['status'] != 'Toute') {
+          print("1111111111111");
           ordersList =
               await orderRepository.getTodayOrdersbyStatus(event.event_data);
         } else if (event.event_data['status'] != false &&
             event.event_data['status'] != 'Toute') {
+          print("222222222222222");
           ordersList = await orderRepository
               .getOrderbyStatus(event.event_data['status']);
         } else if (event.event_data['date'] != false &&
             event.event_data['date'] != 'Toute') {
+          print("3333333333333");
           ordersList = await orderRepository.getTodayOrders();
-        } else
+        } else {
+          print("4444444444");
           ordersList = await orderRepository.getAllOrder();
+        }
         print("HOOOW");
         yield _Success(ordersList);
       } catch (e) {

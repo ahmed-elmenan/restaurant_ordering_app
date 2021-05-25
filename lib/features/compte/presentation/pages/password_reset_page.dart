@@ -243,13 +243,12 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                                   emailOrPhoneController.text.trim()));
                         } else {
                           setState(() {
-                            print("pam");
                             errorMessage = Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: Center(
                                   child: Text(
-                                "champs vide",
+                                "Quelque champ est vide",
                                 style: TextStyle(color: Colors.red),
                               )),
                             );

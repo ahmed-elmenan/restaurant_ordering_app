@@ -13,9 +13,25 @@ class UsersRepository {
   Future<List<UserModel>> getAllUsers() async {
     try {
       return await _userServices.fetchUsers();
-    } catch(e) {
-      print("repo get all users error =>"+  e.toString());
+    } catch (e) {
+      print("repo get all users error =>" + e.toString());
       return null;
+    }
+  }
+
+  Future addNewUser(UserModel userModel) async {
+    try {
+      User user = await _userServices.userSignUp(userModel.email, userModel.password);
+      await _userServices.createUser({
+        "id": user.uid,
+        "partenariatUserName": userModel.partenariatUserName,
+        "email": userModel.email,
+        "mobileNumber": userModel.mobileNumber,
+        "companyName": userModel.companyName,
+        "status": userModel.status
+      });
+    } catch (e) {
+      print("add user repo error = " + e.toString());
     }
   }
 }

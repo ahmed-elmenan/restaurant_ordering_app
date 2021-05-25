@@ -27,7 +27,10 @@ class _AddProductFormsState extends State<AddProductForms> {
   TextEditingController productImageController = TextEditingController();
 
   ProductModel productModel;
+
   File pickedImage;
+
+  Widget errorMessage = Container();
 
   @override
   void initState() {
@@ -90,9 +93,7 @@ class _AddProductFormsState extends State<AddProductForms> {
                   );
                 }, imageUploadSuccess: (image) {
                   pickedImage = image;
-                  content = Container(
-                    child: Image.file(File(image.path)),
-                  );
+                  content = Container();
                   print("upload success");
                   print(image.path);
                 }, imageUploadFailed: () {
@@ -171,6 +172,7 @@ class _AddProductFormsState extends State<AddProductForms> {
             SizedBox(
               height: 20,
             ),
+            errorMessage,
             Form(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 7, horizontal: 17),
@@ -280,17 +282,27 @@ class _AddProductFormsState extends State<AddProductForms> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
-                  var uuid = Uuid();
-                  productModel.id = uuid.v4();
-
-                  productModel.name = productNameController.text.trim();
-                  productModel.price =
-                      double.parse(productPriceController.text.trim());
-                  productModel.description =
-                      productDescriptionController.text.trim();
-
-                  addProductBloc.add(AddProductEvent.addProductButtonPressed(
-                      productModel, pickedImage));
+                  if (productNameController.text.trim().isEmpty ||
+                      productDescriptionController.text.trim().isEmpty ||
+                      productPriceController.text.trim().isEmpty ||
+                      productImageController.text.trim().isEmpty) {
+                    setState(() {
+                      errorMessage = Container(
+                        child: Text(
+                          "Quelque champ est vide",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      );
+                    });
+                  } else {
+                    productModelInit();
+                    setState(() {
+                      errorMessage = Container();
+                    });
+                    addProductBloc.add(AddProductEvent.addProductButtonPressed(
+                        productModel, pickedImage));
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   primary: GlobalTheme.kAdminBottmBarColor,
@@ -305,5 +317,13 @@ class _AddProductFormsState extends State<AddProductForms> {
         ),
       ),
     ));
+  }
+
+  productModelInit() {
+    var uuid = Uuid();
+    productModel.id = uuid.v4();
+    productModel.name = productNameController.text.trim();
+    productModel.price = double.parse(productPriceController.text.trim());
+    productModel.description = productDescriptionController.text.trim();
   }
 }

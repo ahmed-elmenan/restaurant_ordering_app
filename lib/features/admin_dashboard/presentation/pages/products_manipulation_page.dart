@@ -60,7 +60,13 @@ class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
                         physics: ClampingScrollPhysics(),
                         itemCount: productList.length,
                         itemBuilder: (context, index) {
-                          return ProductCard(productModel: productList[index]);
+                          return Dismissible(
+                              key: new Key(productList[index].toString()),
+                              onDismissed: (d) {
+                                productList.removeAt(index);
+                              },
+                              child: ProductCard(
+                                  productModel: productList[index]));
                         });
                     print("get products success");
                   }, getProductsFailed: () {

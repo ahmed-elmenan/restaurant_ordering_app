@@ -9,48 +9,50 @@ class UserModel {
   static const LIKED_FOOD = "likedFood";
   static const STATUS = "status";
 
-  String _companyName;
-  String _partenariatUserName;
-  String _email;
-  String _mobileNumber;
-  List _likedFood;
-  String _id;
+  String companyName;
+  String partenariatUserName;
+  String email;
+  String mobileNumber;
+  List likedFood;
+  String id;
   String status;
+  String password;
 
-  String get id => _id;
-  String get companyName => _companyName;
-  String get partenariatUserName => _partenariatUserName;
-  String get email => _email;
-  String get mobileNumber => _mobileNumber;
-  List get likedFood => _likedFood;
+  UserModel();
 
+  // String get id => _id;
+  // String get companyName => _companyName;
+  // String get partenariatUserName => _partenariatUserName;
+  // String get email => _email;
+  // String get mobileNumber => _mobileNumber;
+  // List get likedFood => _likedFood;
 
   UserModel.fromSnapshot(DocumentSnapshot snapshot) {
-    _companyName = snapshot.data()[COMPANY_NAME];
-    _partenariatUserName = snapshot.data()[PARTENARIAT_USERNAME];
-    _email = snapshot.data()[EMAIL];
-    _mobileNumber = snapshot.data()[MOBILE_NUMBER];
-    _id = snapshot.data()[ID];
+    companyName = snapshot.data()[COMPANY_NAME];
+    partenariatUserName = snapshot.data()[PARTENARIAT_USERNAME];
+    email = snapshot.data()[EMAIL];
+    mobileNumber = snapshot.data()[MOBILE_NUMBER];
+    id = snapshot.data()[ID];
     status = snapshot.data()[STATUS];
-    _likedFood = snapshot.data()[LIKED_FOOD] ?? [];
+    likedFood = snapshot.data()[LIKED_FOOD] ?? [];
   }
 
   Map<String, dynamic> toJson() => {
-        'companyName': _companyName,
-        'partenariatUserName': _partenariatUserName,
-        'email': _email,
-        'mobileNumber': _mobileNumber,
-        'id': _id,
+        'companyName': companyName,
+        'partenariatUserName': partenariatUserName,
+        'email': email,
+        'mobileNumber': mobileNumber,
+        'id': id,
         'status': status,
-        'likedFood': _likedFood,
+        'likedFood': likedFood,
       };
 
   UserModel.fromJson(Map<String, dynamic> json)
-      : _companyName = json['companyName'],
-        _partenariatUserName = json['partenariatUserName'],
-        _email = json['email'],
-        _mobileNumber = json['mobileNumber'],
-        _id = json['id'],
+      : companyName = json['companyName'],
+        partenariatUserName = json['partenariatUserName'],
+        email = json['email'],
+        mobileNumber = json['mobileNumber'],
+        id = json['id'],
         status = json['status'],
-        _likedFood = json['likedFood'];
+        likedFood = json['likedFood'];
 }

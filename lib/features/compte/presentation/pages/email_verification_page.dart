@@ -136,7 +136,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: Center(
                                   child: Text(
-                                "Le champs est vide",
+                                "Quelque champ est vide",
                                 style: TextStyle(color: Colors.red),
                               )),
                             );
