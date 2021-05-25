@@ -20,13 +20,21 @@ class ProductRepository {
     try {
       await _productServices.createproduct({
         "productName": productModel.name,
-        "productId": productModel.id,
+        "id": productModel.id,
         "productDescription": productModel.description,
         "productImageURL": productModel.imageURL,
         "productPrice": productModel.price
       });
     } catch (e) {
       print("+++++++++++>" + e);
+    }
+  }
+
+  Future deleteProduct(String id) async {
+    try {
+      await _productServices.deleteProductbyId(id);
+    } catch (e) {
+      print("delete product repo error =>" + e.toString());
     }
   }
 

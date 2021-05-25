@@ -11,6 +11,7 @@ class ProductServices {
 
   Future createproduct(Map<String, dynamic> values) async {
     try {
+      print("iddddd" + values["id"]);
       await _fireStore.collection(collection).doc(values["id"]).set(values);
     } catch (e) {
       print(e);
@@ -33,6 +34,15 @@ class ProductServices {
       return this.productsList;
     } catch (e) {
       print("get order service error :" + e.toString());
+    }
+  }
+
+  Future deleteProductbyId(String productId) async {
+    print("productId = " + productId);
+    try {
+      await _fireStore.collection(collection).doc(productId).delete();
+    } catch (e) {
+      print("delete product service error =>" + e.toString());
     }
   }
 }
