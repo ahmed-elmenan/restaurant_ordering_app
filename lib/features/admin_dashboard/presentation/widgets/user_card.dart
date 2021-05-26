@@ -31,6 +31,18 @@ class UserCard extends StatelessWidget {
             SizedBox(
               height: 6,
             ),
+            Text(this.userModel.companyName,
+                style:
+                    TextStyle(color: GlobalTheme.kSecondaryText, fontSize: 13)),
+            SizedBox(
+              height: 6,
+            ),
+            Text(this.userModel.mobileNumber,
+                style:
+                    TextStyle(color: GlobalTheme.kSecondaryText, fontSize: 13)),
+            SizedBox(
+              height: 6,
+            ),
             Text(this.userModel.email,
                 style:
                     TextStyle(color: GlobalTheme.kSecondaryText, fontSize: 13))

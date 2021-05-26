@@ -53,7 +53,7 @@ class _ProductCardState extends State<ProductCard> {
               SizedBox(
                 height: 5,
               ),
-              Text(widget.productModel.price.toString(),
+              Text(widget.productModel.price.toString() + " MAD",
                   style: TextStyle(
                       fontSize: 14,
                       color: GlobalTheme.kSecondaryText,

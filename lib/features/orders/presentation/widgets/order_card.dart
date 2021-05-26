@@ -31,7 +31,7 @@ class OrderCard extends StatelessWidget {
                 width: 71,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/images/plat4.jpg"),
+                    image: NetworkImage(this.order.image),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(12),

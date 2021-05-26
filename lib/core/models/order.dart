@@ -13,6 +13,7 @@ class OrderModel {
   static const ORDER_CODE = "orderCode";
   static const TOTAL_PRICE = "totalPrice";
   static const CLIENT = "client";
+  static const IMAGE = "image";
 
   String id;
   String _productId;
@@ -27,6 +28,7 @@ class OrderModel {
   double totalPrice;
   String client;
   double total;
+  String image;
 
   // String get id => id;
   String get productId => _productId;
@@ -53,6 +55,7 @@ class OrderModel {
     orderForm = snapshot.data()[ORDER_FORM];
     totalPrice = snapshot.data()[TOTAL_PRICE];
     client = snapshot.data()[CLIENT];
+    image = snapshot.data()[IMAGE];
     _createdAt =
         DateTime.parse(snapshot.data()[CREATED_AT].toDate().toString());
   }

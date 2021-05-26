@@ -53,7 +53,8 @@ class OrderRepository {
     }
   }
 
-  Future<List<OrderModel>> getTodayOrdersbyStatus(Map<String, dynamic> data) async {
+  Future<List<OrderModel>> getTodayOrdersbyStatus(
+      Map<String, dynamic> data) async {
     try {
       await _orderServices.getOrderByStatusAndDate(data);
       return _orderServices.ordersList;
@@ -84,6 +85,7 @@ class OrderRepository {
         "amount": order.amount,
         "createdAt": order.createdAt,
         "client": order.client,
+        "image": order.image,
         "delivered": false
       });
     } catch (e) {
@@ -105,6 +107,7 @@ class OrderRepository {
         "amount": order.amount,
         "createdAt": DateTime.now(),
         "client": order.client,
+        "image": order.image,
         "delivered": false
       });
       return true;

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 
 class RamadanPlatsPage extends StatelessWidget {
   UserModel userModel;
-  List<ProductStatic> headerProductList;
+  List<ProductModel> headerProductList;
   User user;
 
   RamadanPlatsPage(

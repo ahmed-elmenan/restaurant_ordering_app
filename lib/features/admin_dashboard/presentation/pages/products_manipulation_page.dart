@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/theme/global_theme.dart';
 import 'package:flutter_application_1/core/widgets/loading.dart';
-import 'package:flutter_application_1/features/admin_dashboard/presentation/blocs/add_product_bloc/add_product_bloc.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/blocs/delete_product_bloc/delete_product_bloc.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/blocs/get_products_bloc/get_products_bloc.dart';
 import 'package:flutter_application_1/features/admin_dashboard/presentation/pages/add_product_page.dart';
@@ -19,7 +17,7 @@ class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
   // List<ProductModel> productList = [];
 
   // var _scaffoldKey = new GlobalKey<ScaffoldState>();
-  String id;
+  Map<int, String> id = {};
   GetProductsBloc getProductsBloc;
   DeleteProductBloc deleteProductsBloc;
 
@@ -33,7 +31,6 @@ class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
 
   @override
   Widget build(BuildContext context) {
-    print("=========================================>kmokh");
     return MultiBlocProvider(
       providers: [
         BlocProvider<GetProductsBloc>(create: (context) => getProductsBloc),
@@ -108,12 +105,11 @@ class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
                         physics: ClampingScrollPhysics(),
                         itemCount: productList.length,
                         itemBuilder: (context, index) {
-                          id = productList[index].id;
+                          this.id[index] = productList[index].id;
                           return Dismissible(
                               key: new Key(productList[index].id),
                               onDismissed: (d) {
-                                print("hbebbbbb" + index.toString());
-                                addProductDeleteEvent(productList[index].id);
+                                addProductDeleteEvent(index);
                                 productList.removeAt(index);
                               },
                               child: ProductCard(
@@ -142,8 +138,9 @@ class _ProductManipulatioPAgeState extends State<ProductManipulatioPAge> {
     );
   }
 
-  void addProductDeleteEvent(String id) {
-    print("event id => " + id);
-    deleteProductsBloc.add(DeleteProductEvent.deleteProductSwiped(id));
+  void addProductDeleteEvent(int index) {
+    print(index);
+    print("event id => " + this.id.toString());
+    deleteProductsBloc.add(DeleteProductEvent.deleteProductSwiped(id[index]));
   }
 }

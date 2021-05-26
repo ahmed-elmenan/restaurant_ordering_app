@@ -230,6 +230,7 @@ class _AddProductFormsState extends State<AddProductForms> {
                 ),
                 child: TextField(
                   controller: productPriceController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     hintText: "Prix de produit",
                     hintStyle: TextStyle(

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/models/product.dart';
 import 'package:flutter_application_1/core/models/user.dart';
 import 'package:flutter_application_1/core/widgets/rating_icons.dart';
 import 'package:flutter_application_1/features/explorer/data/models/product_static.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_application_1/features/explorer/presentation/pages/form.
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProductBigCard extends StatefulWidget {
-  ProductStatic product;
+  ProductModel product;
   UserModel userModel;
   User user;
 
@@ -25,7 +26,7 @@ class _ProductBigCardState extends State<ProductBigCard> {
       onTap: () {
         pushNewScreen(
           context,
-          screen: OrderForm(user: widget.user, product: widget.product, userModel: widget.userModel,),
+          screen: OrderForm(user: widget.user, productModel: widget.product, userModel: widget.userModel,),
           withNavBar: true, // OPTIONAL VALUE. True by default.
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
@@ -36,7 +37,7 @@ class _ProductBigCardState extends State<ProductBigCard> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(widget.product.imageLink),
+                image: NetworkImage(widget.product.imageURL),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(14),
@@ -56,20 +57,20 @@ class _ProductBigCardState extends State<ProductBigCard> {
                 Spacer(
                   flex: 3,
                 ),
-                Text("Lorem Ipsum",
+                Text(widget.product.name,
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 18)),
                 SizedBox(height: 4),
-                Text("Lorem Ipsum dolor sit amet",
+                Text(widget.product.description,
                     style: TextStyle(color: Colors.white, fontSize: 12)),
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RatingIcons(size: 18.0),
-                    Text("176,00 MAD",
+                    Text( widget.product.price.toString() + " MAD",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -84,5 +85,3 @@ class _ProductBigCardState extends State<ProductBigCard> {
     );
   }
 }
-
-//

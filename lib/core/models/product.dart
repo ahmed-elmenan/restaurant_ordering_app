@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductModel {
-  static const PRODUCT_ID = "productId";
+  static const PRODUCT_ID = "id";
   static const PRODUCT_NAME = "productName";
   static const PRODUCT_DESCRIPTION = "productDescription";
   static const PRODUCT_PRICE = "productPrice";

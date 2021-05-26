@@ -248,6 +248,7 @@ class _AddUserPageState extends State<AddUserPage> {
                   ),
                   child: TextField(
                     controller: useMobileNumberController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: "Numéro de téléphone d'utilisateur",
                       hintStyle: TextStyle(

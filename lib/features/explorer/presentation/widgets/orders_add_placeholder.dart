@@ -115,26 +115,26 @@ class _OrderAddPlaceHolderChildState extends State<OrderAddPlaceHolderChild> {
               SizedBox(
                 width: 5,
               ),
-              Container(
-                width: 52,
-                height: 40,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(35),
+              GestureDetector(
+                onTap: () {
+                  var uuid = Uuid();
+                  widget.order.id = uuid.v4();
+                  widget.order.totalPrice =
+                      calculate_total(widget.order, widget.order.total);
+                  addOrderBloc.add(
+                      AddOrderEvent.addOrderButtonPressed(this.widget.order));
+                },
+                child: Container(
+                  width: 52,
+                  height: 40,
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(35),
+                    ),
+                    border: Border.all(color: Colors.white, width: 2),
                   ),
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    var uuid = Uuid();
-                    widget.order.id = uuid.v4();
-                    widget.order.totalPrice =
-                        calculate_total(widget.order, widget.order.total);
-                    addOrderBloc.add(
-                        AddOrderEvent.addOrderButtonPressed(this.widget.order));
-                  },
                   child: SvgPicture.asset(
                     "assets/images/paniers.svg",
                     color: GlobalTheme.kExtraColor,

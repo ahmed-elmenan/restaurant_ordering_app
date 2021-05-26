@@ -80,6 +80,8 @@ class _OrderFormState extends State<OrderForm>
     order.total = widget.productModel.price;
     order.delivered = false;
     order.status = 'En attente';
+    order.image = widget.productModel.imageURL;
+    print(order.image);
     super.initState();
   }
 
@@ -96,7 +98,7 @@ class _OrderFormState extends State<OrderForm>
               height: size.height / 3 + 50,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/past.jpg"),
+                  image: NetworkImage(widget.productModel.imageURL),
                   fit: BoxFit.cover,
                 ),
               ),
